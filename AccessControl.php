@@ -1,452 +1,345 @@
 <?php
 
 /* MediaWiki extension that enables group access restriction on a page-by-page
- * basis contributed by Martin Mueller (http://blog.pagansoft.de) based on
- * accesscontrol.php by Josh Greenberg
+ * basis contributed by Martin Mueller (http://blog.pagansoft.de) based into 
+ * version 1.3 on accesscontrol.php by Josh Greenberg.
+ * Version 2.0 for MediaWiki >= 1.18 rewrited completly by Aleš Kapica.
  * @package MediaWiki
  * @subpackage Extensions
  * @author Aleš Kapica
- * @copyright 2008 Aleš Kapica
+ * @copyright 2008-2012 Aleš Kapica
  * @licence GNU General Public Licence
  */
-
 
 if( !defined( 'MEDIAWIKI' ) ) {
 	echo ( "This file is an extension to the MediaWiki software and cannot be used standalone.\n" );
 	die();
 }
 
+// sysop users can read all restricted pages
+$wgAdminCanReadAll = true;
 
-$wgAccessControlMessages = true;			// if set to true, show a line on of each secured page, which says, which groups are allowed to see this page.
-$wgUseMediaWikiGroups = true;				// use the groups from MediaWiki with Usergroup pages
-$wgAccessControlDebug = true;				// Debug log on if set to true
-$wgAccessControlDebugFile = "/var/www/debug.txt";	// Path to the debug log
-
-$wgAdminCanReadAll = true;				// sysop users can read all restricted pages
-$wgAllowUserList = true;				// Users can managed access list from userspace
-$wgAllowInfo = '';
-
-$wgExtensionFunctions[] = 'wfAccessControlExtension';
 $wgExtensionCredits['specialpage']['AccessControl'] = array(
-	'name'			=> 'AccessControlExtension',
-	'author'		=> array( 'Aleš Kapica' ),
-	'url'			=> 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'		=> '1.1',
-	'description'		=> 'Group based access control on page based on original script by Martin Gondermann [ http://www.mediawiki.org/wiki/Extension:Group_Based_Access_Control | Extension:Group_Based_Access_Control ]',
-	'descriptionmsg'	=> 'accesscontrol-desc',
+	'name'                  => 'AccessControlExtension',
+	'author'                => array( 'Aleš Kapica' ),
+	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
+	'version'               => '2.1',
+	'description'           => 'Access control based on users lists. Administrator rights need not be for it.',
+	'descriptionmsg'        => 'accesscontrol-desc',
 );
 
+$wgHooks['ParserFirstCallInit'][] = 'wfAccessControlExtension' ;
 
-$dir = dirname(__FILE__) . '/';
+$dir = dirname( __FILE__ ) . '/';
 $wgExtensionMessagesFiles['AccessControl'] = $dir . 'AccessControl.i18n.php';
 
 
-// Hook the conTolEditAccess function in the edit action
-$wgHooks['AlternateEdit'][] = 'controlEditAccess';
-
-
-//Hook the userCan function for bypassing the cache (bad bad hackaround)
+//Hook the userCan function for bypassing the cache
 $wgHooks['userCan'][] = 'hookUserCan';
 
-
-// Hook the controlUserGroupPageAccess in the Article to allow access to the "Usergroup:..." pages only to the sysop
-$wgHooks['ArticleAfterFetchContent'][] = 'controlUserGroupPageAccess';
-
-function wfAccessControlExtension() {
-	/* This is the hook function. It adds the tag to the wiki parser
-	   and tells it what callback function to use. */
-	global $wgExtensionMessagesFiles,  $wgMessageCache, $wgParser;
-	$wgParser->setHook( "accesscontrol", "doControlUserAccess" );
-	$wgParser->disableCache();
-
-	// loading extension messages
-	require_once($wgExtensionMessagesFiles['AccessControl']);
-	$wgMessageCache->addMessagesByLang($messages);
+function wfAccessControlExtension( Parser $parser ) {
+	/* This the hook function adds the tag <accesscontrol> to the wiki parser */
+	$parser->setHook( "accesscontrol", "doControlUserAccess" );
+	return true;
 }
 
-
-function doControlUserAccess( $input, $argv, $parser ) {
+function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $frame ) {
 	/* Funcion called by wfAccessControlExtension */
-	global $wgAccessControlMessages;
-	if($wgAccessControlMessages) return displayGroups();
+	return displayGroups();
 }
 
-
-function accessControl($groups){
-	/* This function controled user access on page. If user is "sysop"
-	   return true allways. */
-	global $wgGroupPermissions, $wgUseMediaWikiGroups, $wgUser, $wgAdminCanReadAll;
-
-	$groupsFromPage= Array();
-	$access = '';
-
-	foreach (array_keys($groups) as $skupina) {
-		$userspace = explode(":",$skupina);
-		if (count($userspace) > 1) {
-			// group from userspace
-			$usersList = getUsersFromPages($skupina);
-			if ($usersList) {
-				$groupsFromPage[] = '[['.$skupina.']]';
-				if ( array_key_exists( $wgUser->getName(), $usersList )) {
-					if ($access != 'edit') {
-						if (($usersList[$wgUser->getName()] == 'edit') && ($groups[$skupina] == 'edit')) {
-							$access = 'edit';
-						} elseif (($usersList[$wgUser->getName()] == 'read') || 
-							  (($usersList[$wgUser->getName()] == 'edit') &&  ($groups[$skupina] == 'read'))) {
-							$access = 'read';
-						} else {
-							break;
-						}
-					}
-				}
-			}
+function accessControl( $obsahtagu ){
+	$accessgroup = Array( Array(), Array() );
+	$listaccesslist = explode( ",", $obsahtagu );
+	foreach ( $listaccesslist as $accesslist ) {
+		if ( strpos( $accesslist, "(ro)" ) !== false ) {
+			$accesslist = trim( str_replace( "(ro)", "", $accesslist ) );
+			$group = makeGroupArray( $accesslist );
+			$accessgroup[1] = array_merge( $accessgroup[1], $group[0] );
+			$accessgroup[1] = array_merge( $accessgroup[1], $group[1] );
 		} else {
-			// groups from MediaWiki
-			$groupsFromPage[] = " (".$skupina.")";
-			if ($access !='edit') {
-				if (in_array($skupina, array_values($wgUser->getGroups())) === true) {
-					if ($groups[$skupina] == 'edit') {
-						$access = 'edit';
-					} elseif ($groups[$skupina] == 'read') {
-				 		$access = 'read';
-					} else {
-						// Not member in any group
-					}
-				}
-			}
+			$accesslist = trim( $accesslist );
+			$group = makeGroupArray ($accesslist );
+			$accessgroup[0] = array_merge( $accessgroup[0], $group[0] );
+			$accessgroup[1] = array_merge( $accessgroup[1], $group[1] );
 		}
 	}
-
-	if ($wgAdminCanReadAll) {
-		// allowing access for sysop members
-		if (in_array("sysop",$wgUser->mGroups)) $access = 'edit';
-		}
-
-	$accessGroups['access']=$access;
-	$accessGroups['info']=$groupsFromPage;
-
-	return $accessGroups;
+	return $accessgroup;
 }
 
-
-function makeGroupArray($input) {
-	/* Function returns array with element info (information about groups
-	   with access right) and element access with information about acces
-	   for current user. */
-
-	$groupEntry = explode(",", $input);
-	// ..if is only one group
-	if (!$groupEntry && strlen(trim($input)) > 0) {
-		$groupEntry[] = trim($input);
-	}
-
-	$groups = array();
-	foreach ($groupEntry as $userGroup) {
-		if (strpos($userGroup,"(ro)") === false) {
-			$groups[$userGroup] = "edit";
-		} else {
-			$userGroup = trim(str_replace("(ro)","",$userGroup));
-			$groups[$userGroup] = "read";
+function makeGroupArray( $accesslist ) {
+	/* Function returns array with two lists.
+		First is list full access users.
+		Second is list readonly users. */
+	$userswrite = Array();
+	$usersreadonly = Array();
+	$users = getUsersFromPages( $accesslist );
+	foreach ( array_keys( $users ) as $user ) {
+		switch ( $users[$user] ) {
+			case 'read':
+				$usersreadonly[] = $user;
+				break;
+			case 'edit':
+				$userswrite[] = $user;
+				break;
 		}
 	}
-
-	return $groups;
+	return array( $userswrite , $usersreadonly );
 }
-
 
 function displayGroups() {
-	/* Make the textual hyperlink group list - is not used */
-	global $wgOut, $wgAllowInfo;
+	/* Function replace the tag <accesscontrol> and his content, behind info about a protection this the page */
 	$style = "<p id=\"accesscontrol\" style=\"text-align:center;color:#BA0000;font-size:8pt\">";
-	$text = wfMsg('accesscontrol-info');
+	$text = wfMsg( 'accesscontrol-info' );
 	$style_end = "</p>";
-	$wgAllowInfo = $style.$text.$style_end;
+	$wgAllowInfo = $style . $text . $style_end;
 	return $wgAllowInfo;
 }
 
+function getContentPage( $title ) {
+	/* Function get content the page identified by title object from database */
+	$Title = new Title();
+	$gt = $Title->makeTitle( 0, $title );
+	// create Article and get the content
+	$contentPage = new Article( $gt, 0 );
+	return $contentPage->fetchContent( 0 );
+	}
 
-function getUsersFromPages($skupina) {
+function getTemplatePage( $template ) {
+	/* Function get content the template page identified by title object from database */
+	$Title = new Title();
+	$gt = $Title->makeTitle( 10, $template );
+	//echo '<!--';
+	//print_r($gt);
+	//echo '-->';
+	// create Article and get the content
+	$contentPage = new Article( $gt, 0 );
+	return $contentPage->fetchContent( 0 );
+	}
+
+function getUsersFromPages( $skupina ) {
 	/* Extracts the allowed users from the userspace access list */
 	$allowedAccess = Array();
-
-	$gt = $Title::newFromText($group);
+	$allow = Array();
+	$Title = new Title();
+	$gt = $Title->makeTitle( 0, $skupina );
 	// create Article and get the content
 	$groupPage = new Article( $gt, 0 );
-	$allowedUsers=$groupPage->fetchContent(0);
+	$allowedUsers = $groupPage->fetchContent( 0 );
 	$groupPage = NULL;
-	$usersAccess = explode("\n", $allowedUsers);
-	foreach ($usersAccess as $userEntry) {
-		$userItem = trim($userEntry);
-		if (substr($userItem,0,1) == "*") {
-			if (strpos($userItem,"(ro)") === false) {
-				$user = trim(str_replace("*","",$userItem));
+	$usersAccess = explode( "\n", $allowedUsers );
+	foreach  ($usersAccess as $userEntry ) {
+		$userItem = trim( $userEntry );
+		if ( substr( $userItem, 0, 1 ) == "*" ) {
+			if ( strpos( $userItem, "(ro)" ) === false ) {
+				$user = trim( str_replace( "*", "", $userItem ) );
 				$allow[$user] = 'edit';
 			} else {
-				$user = trim(str_replace("*","",$userItem));
-				$user = trim(str_replace("(ro)","",$user));
+				$user = trim( str_replace( "*", "", $userItem ) );
+				$user = trim( str_replace( "(ro)", "", $user ) );
 				$allow[$user] = 'read';
 			}
 		}
 	}
-	if (is_array($allow)) {
+	if ( is_array( $allow ) ) {
 		$allowedAccess = $allow;
-		unset($allow);
+		unset( $allow );
 	}
 	return $allowedAccess;
 }
 
-
-function doRedirect($info) {
+function doRedirect( $info ) {
 	/* make redirection for non authorized users */
 	global $wgScript, $wgSitename, $wgOut;
 
-	if (!$info) $info="No_access";
-	if ($info == "Only_sysop") {
-		$target = wfMsg('accesscontrol-info-user');
-	} elseif ($info == "No_anonymous") {
-		$target = wfMsg('accesscontrol-info-anonymous');
-	} elseif ($info == "Deny_anonymous") {
-		$target = wfMsg('accesscontrol-edit-anonymous');
-	} elseif ($info == "Deny_edit_list") {
-		$target = wfMsg('accesscontrol-edit-users');
+	if ( ! $info ) {
+	    $info = "No_access";
+	    }
+	if ( $info == "Only_sysop" ) {
+		$target = wfMsg( 'accesscontrol-info-user' );
+	} elseif ( $info == "No_anonymous" ) {
+		$target = wfMsg( 'accesscontrol-info-anonymous' );
+	} elseif ( $info == "Deny_anonymous") {
+		$target = wfMsg( 'accesscontrol-edit-anonymous' );
+	} elseif ( $info == "Deny_edit_list" ) {
+		$target = wfMsg( 'accesscontrol-edit-users' );
 	} else {
-		$target = wfMsg('accesscontrol-info-deny');
+		$target = wfMsg( 'accesscontrol-info-deny' );
 	}
-	if (isset($_SESSION['redirect'])) {
+	if ( isset( $_SESSION['redirect'] ) ) {
 		// removing info about redirect from session after move..
-		unset($_SESSION['redirect']);
+		unset( $_SESSION['redirect'] );
 	}
-	header("Location: ".$wgScript."/".$wgSitename.":".$target);
+	header( "Location: " . $wgScript . "/" . $wgSitename . ":" . $target );
 }
 
-function hookUserCan( &$title, &$wgUser, $action, &$result ) {
-	/* Control read access */
-	global $wgOut;
-
-	$article = new Article( $title, 0 );
-	$content = $article->getContent();
-	$allowedGroups = getContentTag($content);
-	if ($action == 'read') {
-		if (is_array($allowedGroups)) {
-			if ($allowedGroups['access'] != '') {
-				if($wgUser->mId == 0) {
-					doRedirect('No_anonymous 1');
-					return false;
-				} else {
-				return true;
-				}
-			} elseif (count($allowedGroups['info']) < 1 ) {
-				return true;
-			} else {
-				if ($wgUser->mId == 0) {
-					doRedirect('No_anonymous');
-				} else {
-					doRedirect('No_access');
-				}
-				return false;
-			}
+function fromTemplates( $string ) {
+	global $wgUser, $wgAdminCanReadAll;
+	// Vytažení šablon
+	if ( strpos( $string, '{{' ) ) {
+	    if ( substr( $string, strpos ( $string, '{{' ), 3 ) === '{{{' ) {
+		    $start = strpos( $string, '{{{' );
+		    $end = strlen( $string );
+		    $skok = $start + 3;
+		    fromTemplates( substr( $string, $skok, $end - $skok ) );
 		} else {
-			if($wgUser->mId == 0) {
-				return false;
+		    $start = strpos( $string, '{{' );
+		    $end = strpos( $string, '}}' );
+		    $skok = $start + 2;
+		    $templatepage = substr( $string, $skok, $end - $skok );
+		    if ( strpos( $templatepage, '|' ) > 0) { 
+			    $templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
 			} else {
-				return true;
+			    $templatename = $templatepage ;
 			}
-		}
-	} elseif ($action=='edit') {
-		if ($allowedGroups['access'] == 'edit') {
-				return true;
-			} elseif ( count($allowedGroups['info']) < 1 ) {
-				if($wgUser->mId == 0) {
-					return false;
-				} else {
-					return true;
-				}
+		    if ( substr( $templatename, 0, 1 ) === ':') {
+			    // vložena stránka
+			    $rights = allRightTags( getContentPage( substr( $templatename, 1 ) ) );
 			} else {
-				// Denied access on page protected with AccessControl over redirect
-				if (($wgUser->mId == 0) && (isset($_SESSION['redirect']))) {
-					doRedirect('No_anonymous');
-				} elseif($allowedGroups['access'] == '') {
-					doRedirect('No_access');
-				} else {
-					return false;
+			    // vložena šablona
+			    $rights = allRightTags( getTemplatePage( $templatename ) );
+			}
+		    if ( is_array( $rights ) ) {
+			if ( $wgUser->mId === 0 ) {
+			    /* Redirection unknown users */
+			    $wgActions['view'] = false;
+			    doRedirect('accesscontrol-info-anonymous');
+			    } else {
+				if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
+					if ( isset( $wgAdminCanReadAll ) ) {
+						if ( $wgAdminCanReadAll ) {
+							return true;
+							}
+						}
+					}
+				$users = accessControl( $rights['groups'] );
+				if ( ! in_array( $wgUser->mName, $users[0], true ) ) {
+					$wgActions['edit']           = false;
+					$wgActions['history']        = false;
+					$wgActions['submit']         = false;
+					$wgActions['info']           = false;
+					$wgActions['raw']            = false;
+					$wgActions['delete']         = false;
+					$wgActions['revert']         = false;
+					$wgActions['revisiondelete'] = false;
+					$wgActions['rollback']       = false;
+					$wgActions['markpatrolled']  = false;
+					if ( ! in_array( $wgUser->mName, $users[1], true ) ) {
+						$wgActions['view']   = false;
+						return doRedirect( 'accesscontrol-info-anonymous' );
+						}
+					}
 				}
 			}
-	} elseif ($action=='move') {
-		if($wgUser->mId == 0) {
-			return false;
-		} else {
-			return true;
+		    fromTemplates( substr( $string, $end + 2 ) );
 		}
-	} else {
-	return true;
-	}
-}
+	    }
+    }
 
-function allRightTags($string) {
-	/* Function for extraction content tag accesscontrol */
-	$contenttag=Array();
-	$starttag = "<accesscontrol>";
-	$endtag = "</accesscontrol>";
+
+function allRightTags( $string ) {
+	/* Function for extraction content tag accesscontrol from raw source the page */
+	$contenttag  = Array();
+	$starttag    = "<accesscontrol>";
+	$endtag      = "</accesscontrol>";
 	$redirecttag = "redirect";
 
-	if ((mb_substr(trim($string), 0, 1) == "#") && (stripos(mb_substr(trim($string), 1, 9), $redirecttag) == "0")) {
-		$_SESSION['redirect'] = "";
+	if ( ( mb_substr( trim( $string ), 0, 1 ) == "#" )
+		&& ( stripos( mb_substr( trim( $string ), 1, 9 ), $redirecttag ) == "0" )
+		) {
+		/* Treatment redirects - content variable $string must be replaced over content the target page */
+		$sourceredirecttag = mb_substr( $string, 0, strpos( $string, ']]' ) );
+		$redirecttarget = trim( substr( $sourceredirecttag, strpos( $sourceredirecttag, '[[' ) + 2 ) );
+		if ( strpos( $redirecttarget, '|' ) ) {
+			$redirecttarget = trim( substr( $redirecttarget, 0, strpos( $redirecttarget, '|' ) ) );
+		}
+		$Title = new Title();
+		$gt = $Title->makeTitle( 0, $redirecttarget );
+		return allRightTags( getContentPage( $gt ) );
 	}
 
+	// Kontrola accesscontrol ve vložených šablonách a stránkách
+	fromTemplates($string);
+
 	$start = strpos( $string, $starttag );
-	if ($start !== false) {
-		$start += strlen($starttag);
+	if ( $start !== false ) {
+		$start += strlen( $starttag );
 		$end = strpos( $string, $endtag );
-		if ($end !== false) {
-			$groupsString = substr($string, $start, $end-$start );
-			if (strlen($groupsString) == 0) {
-				$contenttag['end'] = strlen($starttag)+strlen($endtag); 
+		if ( $end !== false ) {
+			$groupsString = substr( $string, $start, $end-$start );
+			if ( strlen( $groupsString ) == 0 ) {
+				$contenttag['end'] = strlen( $starttag ) + strlen( $endtag ); 
 			} else {
-				$contenttag['groups']=$groupsString;
-				$contenttag['end'] = $end+strlen($endtag);
+				$contenttag['groups'] = $groupsString;
+				$contenttag['end'] = $end + strlen( $endtag );
 			}
 
-			if(isset($_SESSION['redirect'])) {
+			if( isset( $_SESSION['redirect'] ) ) {
 				$_SESSION['redirect'] = $contenttag;
 			} else {
 				return $contenttag;
 			}
 		}
 	} else {
-		if(isset($_SESSION['redirect'])) {
+		if( isset( $_SESSION['redirect'] ) ) {
 			return $_SESSION['redirect'];
 		} else {
 			return false;
-			}
+		}
 	}
 }
 
-function getContentTag($content) {
-	/* Function get content from all accesscontrol elements in page. */
-	$start = 0;
-	$groupsString = '';
-	while ( strlen($content) > 0 ) {
-		$obsah = allRightTags($content);
-		if(count($obsah)>1) {
-			$start = $obsah['end'];
-			} else {
-			$start = 31;
-			}
-		if (isset($obsah['groups']) && strlen($groupsString) > 0) $groupsString .= ',';
-		$groupsString .= $obsah['groups'];
-		$content=substr($content, $start);
-		// If is setting redirect in session..
-		if (isset($_SESSION['redirect'])) {
-		    continue;
-		    }
-	}
-	if(strlen($groupsString) == 0) {
-	    return true;
-	    }
-	$groups = makeGroupArray($groupsString);
-	$message= accessControl($groups);
-	if ($message) {
-		return $message;
-	} else {
-		return true;
-	}
-}
-function extractGroupsFromContent($content) {
-	$start = 0;
-	$groupsString = '';
-	while ( strlen($content) > 0 ) {
-		$obsah = allRightTags($content);
-		if(count($obsah)>1) {
-			$start = $obsah['end'];
-			} else {
-			$start = 31;
-			}
-		if (isset($obsah['groups']) && strlen($groupsString) > 0) $groupsString .= ',';
-		$groupsString .= $obsah['groups'];
-		$content=substr($content, $start);
-		// If is setting redirect in session..
-		if (isset($_SESSION['redirect'])) {
-		    next;
-		    }
-	}
-	return $groupsString;
-}
+function hookUserCan( &$title, &$wgUser, $action, &$result ) {
+	/* Main function control access for all users */
+	global $wgActions, $wgAdminCanReadAll;
+	if ( $wgUser->mId === 0 ) {
+		/* Deny actions for all anonymous */
+		$wgActions['edit']           = false;
+		$wgActions['history']        = false;
+		$wgActions['submit']         = false;
+		$wgActions['info']           = false;
+		$wgActions['raw']            = false;
+		$wgActions['delete']         = false;
+		$wgActions['revert']         = false;
+		$wgActions['revisiondelete'] = false;
+		$wgActions['rollback']       = false;
+		$wgActions['markpatrolled']  = false;
+		}
 
-function controlEditAccess(&$editpage) {
-	/* Hook function for the edit action; */
-	global $wgAllowUserList, $wgUser;
-
-	$title = $editpage->mTitle;
-	$editPage = new Article( $title, 0 );
-	$content = $editPage->getContent();
-	$groups = makeGroupArray(extractGroupsFromContent($content));
-	$allowedGroups = accessControl($groups);
-
-	if (is_array($allowedGroups)) {
-		if ($allowedGroups['access'] == 'edit') {
-				// allow editations page
-				if($wgUser->mId == 0) {
-					return false;
-				} else {
-					return true;
-				}
-			} elseif (count($allowedGroups['info']) < 1 ) {
-				// editation for page with empty or anything accesscontrol tag
-				if($wgUser->mId == 0) {
-					return false;
-				} else {
-					if ($wgAllowUserList === true ) {
+	$rights = allRightTags( getContentPage( $title->mDbkeyform ) );
+	if ( is_array( $rights ) ) {
+		if ( $wgUser->mId === 0 ) {
+			/* Redirection unknown users */
+			$wgActions['view'] = false;
+			doRedirect( 'accesscontrol-info-anonymous' );
+		} else {
+			if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
+				if ( isset( $wgAdminCanReadAll ) ) {
+					if ( $wgAdminCanReadAll ) {
 						return true;
-					} else {
-						doRedirect('Only_sysop');
-						return false;
 					}
 				}
-			} elseif ($allowedGroups['access'] == 'read') {
-				// info for readonly access
-				echo "123 - zakazuji editaci..<br>";
-				return false;
-			} else {
-				// redirection anonymous user
-				// tuhle pasáž je nutné ošetřit!!!!
-				if($wgUser->mId == 0) {
-					doRedirect('No_anonymous 3');
-					return false;
-				} else {
-					return true;
-				}
-			}
-		} else {
-		// for uncle Adventure...
-				if($wgUser->mId == 0) {
-					return false;
-				} else {
-					return true;
-				}
-	}
-}
-
-
-function controlUserGroupPageAccess( $out ) {
-	/* Function for controlling access on page with user list */
-	global $wgUser, $wgTitle, $wgAllowUserList;
-
-	$pageTitle = $wgTitle->getText();
-	$userspace = explode(":",$pageTitle);
-	if (count($userspace) > 1) {
-		if($wgAllowUserList) {
-			if($wgUser->mId == 0) {
-				doRedirect('Deny_anonymous');
-				return false;
-			} else {
+			}				
+			$users = accessControl( $rights['groups'] );
+			if ( in_array( $wgUser->mName, $users[0], true ) ) {
 				return true;
-			}
-		} else {
-			if (in_array('sysop', array_values($wgUser->getGroups())) === false) {
-				doRedirect('Deny_edit_list');
-				return false;
 			} else {
-				return true;
+				$wgActions['edit']           = false;
+				$wgActions['history']        = false;
+				$wgActions['submit']         = false;
+				$wgActions['info']           = false;
+				$wgActions['raw']            = false;
+				$wgActions['delete']         = false;
+				$wgActions['revert']         = false;
+				$wgActions['revisiondelete'] = false;
+				$wgActions['rollback']       = false;
+				$wgActions['markpatrolled']  = false;
+				if ( in_array( $wgUser->mName, $users[1], true ) ) {
+					return true;
+				} else {
+					$wgActions['view']   = false;
+					return doRedirect( 'accesscontrol-info-anonymous' );
+				}
 			}
 		}
 	} else {
