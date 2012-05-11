@@ -65,7 +65,7 @@ function wfAccessControlExtension() {
 }
 
 
-function doControlUserAccess( $input, $argv, &$parser ) {
+function doControlUserAccess( $input, $argv, $parser ) {
 	/* Funcion called by wfAccessControlExtension */
 	global $wgAccessControlMessages;
 	if($wgAccessControlMessages) return displayGroups();
