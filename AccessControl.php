@@ -91,7 +91,8 @@ function accessControl($groups){
 					if ($access != 'edit') {
 						if (($usersList[$wgUser->getName()] == 'edit') && ($groups[$skupina] == 'edit')) {
 							$access = 'edit';
-						} elseif ($usersList[$wgUser->getName()] == 'read') {
+						} elseif (($usersList[$wgUser->getName()] == 'read') || 
+							  (($usersList[$wgUser->getName()] == 'edit') &&  ($groups[$skupina] == 'read'))) {
 							$access = 'read';
 						} else {
 							break;
@@ -168,15 +169,12 @@ function getUsersFromPages($skupina) {
 	/* Extracts the allowed users from the userspace access list */
 	$allowedAccess = Array();
 
-	$Title = new Title();
-	// create title in namespace 0 (default) from groupList
-	$gt = $Title->makeTitle(0, $skupina);
+	$gt = $Title::newFromText($group);
 	// create Article and get the content
 	$groupPage = new Article( $gt, 0 );
 	$allowedUsers=$groupPage->fetchContent(0);
-	$Title = null;
 	$groupPage = NULL;
-	$usersAccess = explode("\x0A", $allowedUsers);
+	$usersAccess = explode("\n", $allowedUsers);
 	foreach ($usersAccess as $userEntry) {
 		$userItem = trim($userEntry);
 		if (substr($userItem,0,1) == "*") {
@@ -339,7 +337,7 @@ function getContentTag($content) {
 		$content=substr($content, $start);
 		// If is setting redirect in session..
 		if (isset($_SESSION['redirect'])) {
-		    next;
+		    continue;
 		    }
 	}
 	if(strlen($groupsString) == 0) {
@@ -353,7 +351,26 @@ function getContentTag($content) {
 		return true;
 	}
 }
-
+function extractGroupsFromContent($content) {
+	$start = 0;
+	$groupsString = '';
+	while ( strlen($content) > 0 ) {
+		$obsah = allRightTags($content);
+		if(count($obsah)>1) {
+			$start = $obsah['end'];
+			} else {
+			$start = 31;
+			}
+		if (isset($obsah['groups']) && strlen($groupsString) > 0) $groupsString .= ',';
+		$groupsString .= $obsah['groups'];
+		$content=substr($content, $start);
+		// If is setting redirect in session..
+		if (isset($_SESSION['redirect'])) {
+		    next;
+		    }
+	}
+	return $groupsString;
+}
 
 function controlEditAccess(&$editpage) {
 	/* Hook function for the edit action; */
@@ -362,7 +379,7 @@ function controlEditAccess(&$editpage) {
 	$title = $editpage->mTitle;
 	$editPage = new Article( $title, 0 );
 	$content = $editPage->getContent();
-	$groups = makeGroupArray($content);
+	$groups = makeGroupArray(extractGroupsFromContent($content));
 	$allowedGroups = accessControl($groups);
 
 	if (is_array($allowedGroups)) {
