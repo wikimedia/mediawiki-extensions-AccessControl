@@ -8,16 +8,17 @@
 $messages = array();
 
 $messages['en'] = array(
-	'accesscontrol-desc' => 'This is extension that enables group access restriction on a page by user',
-	'accesscontrol-group' => 'This page is only accessible for group $1 !!!',
-	'accesscontrol-groups' => 'This page is only accessible for the groups $1 !!!',
-	'accesscontrol-info' => 'This is protected page!',
+	'accesscontrol-desc' => 'Enables group access restriction on a page by user basis',
+	'accesscontrol-group' => 'This page is only accessible for group $1.',
+	'accesscontrol-groups' => 'This page is only accessible for the groups $1.', // FIXME: Add PLURAL and/or merge with the above message
+	'accesscontrol-info' => 'This is a protected page!',
 	'accesscontrol-info-user' => 'Only_sysop',
 	'accesscontrol-info-anonymous' => 'No_anonymous',
 	'accesscontrol-info-deny' => 'No_Access',
 	'accesscontrol-edit-anonymous' => 'Deny_anonymous',
 	'accesscontrol-edit-users' => 'Deny_edit_list',
 );
+
 /** Czech (Česky)
  * @author Aleš Kapica
  */
@@ -32,3 +33,4 @@ $messages['cs'] = array(
 	'accesscontrol-edit-anonymous' => 'Jen pro registrované',
 	'accesscontrol-edit-users' => 'Stránka jen pro správce',
 );
+
