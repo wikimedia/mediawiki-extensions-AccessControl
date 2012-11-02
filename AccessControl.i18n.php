@@ -163,6 +163,21 @@ $messages['pl'] = array(
 	'accesscontrol-info' => 'To jest strona chroniona!',
 );
 
+/** Russian (Русский)
+ * @author plisket4
+ */
+$messages['ru'] = array(
+    'accesscontrol-desc' => 'Включает механизм ограничения доступа к страницам на основании группы, к которой пренадлежит пользователь',
+    'accesscontrol-group' => 'Данная страница доступна только членам группы $1.',
+    'accesscontrol-groups' => 'Данная страница доступна только членам групп $1.', // FIXME: Add PLURAL and/or merge with the above message
+    'accesscontrol-info' => 'Это защищенная страница!',
+    'accesscontrol-info-user' => 'Доступ только у членов группы sysop',
+    'accesscontrol-info-anonymous' => 'Доступ анонимным пользователям запрещен',
+    'accesscontrol-info-deny' => 'Доступ запрещен!',
+    'accesscontrol-edit-anonymous' => 'Запрещено_редактирование_незарегистрированным_пользователям',
+    'accesscontrol-edit-users' => 'Запрещено_редактирование_списка',
+);
+
 /** Telugu (తెలుగు)
  * @author Veeven
  */
