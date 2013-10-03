@@ -1,3 +1,6 @@
+version 2.2
+* Fix for MediaWiki >= 1.21 by unknown AccessControl user
+
 version 2.1
 * Fixed security problem with insert protected page, or template
 

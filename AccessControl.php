@@ -7,7 +7,7 @@
  * @package MediaWiki
  * @subpackage Extensions
  * @author Aleš Kapica
- * @copyright 2008-2012 Aleš Kapica
+ * @copyright 2008-2013 Aleš Kapica
  * @licence GNU General Public Licence
  */
 
@@ -96,14 +96,21 @@ function displayGroups() {
 	return $wgAllowInfo;
 }
 
-function getContentPage( $title ) {
+function getContentPage( $namespace, $title ) {
 	/* Function get content the page identified by title object from database */
 	$Title = new Title();
-	$gt = $Title->makeTitle( 0, $title );
-	// create Article and get the content
-	$contentPage = new Article( $gt, 0 );
-	return $contentPage->fetchContent( 0 );
+	$gt = $Title->makeTitle( $namespace, $title );
+	if ( method_exists( 'WikiPage', 'getContent' ) ) {
+		$contentPage = new WikiPage( $gt );
+		if ( $contentPage->getContent() != NULL ) {
+			return $contentPage->getContent()->getNativeData();
+		}
+	} else {
+		// create Article and get the content
+		$contentPage = new Article( $gt, 0 );
+		return $contentPage->fetchContent( 0 );
 	}
+}
 
 function getTemplatePage( $template ) {
 	/* Function get content the template page identified by title object from database */
@@ -112,10 +119,15 @@ function getTemplatePage( $template ) {
 	//echo '<!--';
 	//print_r($gt);
 	//echo '-->';
-	// create Article and get the content
-	$contentPage = new Article( $gt, 0 );
-	return $contentPage->fetchContent( 0 );
+	if ( method_exists( 'WikiPage', 'getContent' ) ) {
+		$contentPage = new WikiPage( $gt );
+		//return $contentPage->getContent()->getNativeData();
+	} else {
+		// create Article and get the content
+		$contentPage = new Article( $gt, 0 );
+		return $contentPage->fetchContent( 0 );
 	}
+}
 
 function getUsersFromPages( $skupina ) {
 	/* Extracts the allowed users from the userspace access list */
@@ -123,9 +135,14 @@ function getUsersFromPages( $skupina ) {
 	$allow = Array();
 	$Title = new Title();
 	$gt = $Title->makeTitle( 0, $skupina );
-	// create Article and get the content
-	$groupPage = new Article( $gt, 0 );
-	$allowedUsers = $groupPage->fetchContent( 0 );
+	if ( method_exists( 'WikiPage', 'getContent' ) ) {
+		$groupPage = new WikiPage( $gt );
+		$allowedUsers = $groupPage->getContent()->getNativeData();
+	} else {
+		// create Article and get the content
+		$groupPage = new Article( $gt, 0 );
+		$allowedUsers = $groupPage->fetchContent( 0 );
+	}
 	$groupPage = NULL;
 	$usersAccess = explode( "\n", $allowedUsers );
 	foreach  ($usersAccess as $userEntry ) {
@@ -194,7 +211,7 @@ function fromTemplates( $string ) {
 			}
 		    if ( substr( $templatename, 0, 1 ) === ':') {
 			    // vložena stránka
-			    $rights = allRightTags( getContentPage( substr( $templatename, 1 ) ) );
+			    $rights = allRightTags( getContentPage( 0, substr( $templatename, 1 ) ) );
 			} else {
 			    // vložena šablona
 			    $rights = allRightTags( getTemplatePage( $templatename ) );
@@ -255,7 +272,7 @@ function allRightTags( $string ) {
 		}
 		$Title = new Title();
 		$gt = $Title->makeTitle( 0, $redirecttarget );
-		return allRightTags( getContentPage( $gt ) );
+		return allRightTags( getContentPage( $gt->getNamespace(), $gt ) );
 	}
 
 	// Kontrola accesscontrol ve vložených šablonách a stránkách
@@ -306,14 +323,14 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 		$wgActions['markpatrolled']  = false;
 		}
 
-	$rights = allRightTags( getContentPage( $title->mDbkeyform ) );
+	$rights = allRightTags( getContentPage( $title->getNamespace(), $title->mDbkeyform ) );
 	if ( is_array( $rights ) ) {
 		if ( $wgUser->mId === 0 ) {
 			/* Redirection unknown users */
 			$wgActions['view'] = false;
 			doRedirect( 'accesscontrol-info-anonymous' );
 		} else {
-			if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
+			if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
 				if ( isset( $wgAdminCanReadAll ) ) {
 					if ( $wgAdminCanReadAll ) {
 						return true;
