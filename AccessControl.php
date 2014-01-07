@@ -23,7 +23,7 @@ $wgExtensionCredits['specialpage']['AccessControl'] = array(
 	'name'                  => 'AccessControlExtension',
 	'author'                => array( 'Aleš Kapica' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'               => '2.1',
+	'version'               => '2.2',
 	'description'           => 'Access control based on users lists. Administrator rights need not be for it.',
 	'descriptionmsg'        => 'accesscontrol-desc',
 );
