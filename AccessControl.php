@@ -23,7 +23,7 @@ $wgExtensionCredits['specialpage']['AccessControl'] = array(
 	'name'                  => 'AccessControlExtension',
 	'author'                => array( 'Aleš Kapica' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'               => '2.2',
+	'version'               => '2.3',
 	'description'           => 'Access control based on users lists. Administrator rights need not be for it.',
 	'descriptionmsg'        => 'accesscontrol-desc',
 );
@@ -36,6 +36,19 @@ $wgExtensionMessagesFiles['AccessControl'] = $dir . 'AccessControl.i18n.php';
 
 //Hook the userCan function for bypassing the cache
 $wgHooks['userCan'][] = 'hookUserCan';
+
+//Hook the UnknownAction function for information user about restrictions
+$wgHooks['UnknownAction'][] = 'onUnknownAction' ;
+
+function onUnknownAction ( $action, Page $article ) {
+	global $wgOut;
+	switch ( $action ) {
+		default:
+			$wgOut->setPageTitle( $article->getTitle() . "->" . $action );
+			$wgOut->addWikiText( wfMsg( 'accesscontrol-actions-deny' ));
+	}
+	return false;
+}
 
 function wfAccessControlExtension( Parser $parser ) {
 	/* This the hook function adds the tag <accesscontrol> to the wiki parser */
@@ -106,6 +119,7 @@ function getContentPage( $namespace, $title ) {
 			return $contentPage->getContent()->getNativeData();
 		}
 	} else {
+		//echo print_r($gt);
 		// create Article and get the content
 		$contentPage = new Article( $gt, 0 );
 		return $contentPage->fetchContent( 0 );
@@ -116,9 +130,6 @@ function getTemplatePage( $template ) {
 	/* Function get content the template page identified by title object from database */
 	$Title = new Title();
 	$gt = $Title->makeTitle( 10, $template );
-	//echo '<!--';
-	//print_r($gt);
-	//echo '-->';
 	if ( method_exists( 'WikiPage', 'getContent' ) ) {
 		$contentPage = new WikiPage( $gt );
 		//return $contentPage->getContent()->getNativeData();
@@ -172,28 +183,17 @@ function doRedirect( $info ) {
 	if ( ! $info ) {
 	    $info = "No_access";
 	    }
-	if ( $info == "Only_sysop" ) {
-		$target = wfMsg( 'accesscontrol-info-user' );
-	} elseif ( $info == "No_anonymous" ) {
-		$target = wfMsg( 'accesscontrol-info-anonymous' );
-	} elseif ( $info == "Deny_anonymous") {
-		$target = wfMsg( 'accesscontrol-edit-anonymous' );
-	} elseif ( $info == "Deny_edit_list" ) {
-		$target = wfMsg( 'accesscontrol-edit-users' );
-	} else {
-		$target = wfMsg( 'accesscontrol-info-deny' );
-	}
 	if ( isset( $_SESSION['redirect'] ) ) {
 		// removing info about redirect from session after move..
 		unset( $_SESSION['redirect'] );
 	}
-	header( "Location: " . $wgScript . "/" . $wgSitename . ":" . $target );
+	header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMsg( $info ) );
 }
 
 function fromTemplates( $string ) {
 	global $wgUser, $wgAdminCanReadAll;
-	// Vytažení šablon
-	if ( strpos( $string, '{{' ) ) {
+	// Template extraction
+	if ( strpos( $string, '{{' ) >= 0 ) {
 	    if ( substr( $string, strpos ( $string, '{{' ), 3 ) === '{{{' ) {
 		    $start = strpos( $string, '{{{' );
 		    $end = strlen( $string );
@@ -204,23 +204,28 @@ function fromTemplates( $string ) {
 		    $end = strpos( $string, '}}' );
 		    $skok = $start + 2;
 		    $templatepage = substr( $string, $skok, $end - $skok );
-		    if ( strpos( $templatepage, '|' ) > 0) { 
-			    $templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
-			} else {
-			    $templatename = $templatepage ;
-			}
-		    if ( substr( $templatename, 0, 1 ) === ':') {
-			    // vložena stránka
-			    $rights = allRightTags( getContentPage( 0, substr( $templatename, 1 ) ) );
-			} else {
-			    // vložena šablona
-			    $rights = allRightTags( getTemplatePage( $templatename ) );
-			}
+		    if ( substr( $templatepage, 0, 1 ) == '{' ) {
+			// The check of included code
+				$rights = fromTemplates( $templatepage );
+		    } elseif ( substr( $templatepage, 0, 1 ) == ':' ) {
+			// The check of included page
+			$rights = allRightTags( getContentPage( 0, substr( $templatepage, 1 ) ) );
+		    } elseif (ctype_alnum(substr( $templatepage, 0, 1 ) )) {
+			// The check of included template
+				if ( strpos( $templatepage, '|' ) > 0) { 
+				    $templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
+				    $rights = allRightTags( getContentPage( 10, $templatename ) );
+				} else {
+				    $rights = allRightTags( getContentPage( 10, $templatepage ) );
+				}
+		    } else {
+			// echo "The end of work with code of article";
+		    }
 		    if ( is_array( $rights ) ) {
 			if ( $wgUser->mId === 0 ) {
 			    /* Redirection unknown users */
 			    $wgActions['view'] = false;
-			    doRedirect('accesscontrol-info-anonymous');
+			    doRedirect('accesscontrol-move-anonymous');
 			    } else {
 				if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
 					if ( isset( $wgAdminCanReadAll ) ) {
@@ -243,12 +248,11 @@ function fromTemplates( $string ) {
 					$wgActions['markpatrolled']  = false;
 					if ( ! in_array( $wgUser->mName, $users[1], true ) ) {
 						$wgActions['view']   = false;
-						return doRedirect( 'accesscontrol-info-anonymous' );
+						return doRedirect( 'accesscontrol-move-users' );
 						}
 					}
 				}
 			}
-		    fromTemplates( substr( $string, $end + 2 ) );
 		}
 	    }
     }
@@ -275,9 +279,8 @@ function allRightTags( $string ) {
 		return allRightTags( getContentPage( $gt->getNamespace(), $gt ) );
 	}
 
-	// Kontrola accesscontrol ve vložených šablonách a stránkách
+	// The control of included pages and templates on appearing of accesscontrol tag
 	fromTemplates($string);
-
 	$start = strpos( $string, $starttag );
 	if ( $start !== false ) {
 		$start += strlen( $starttag );
@@ -328,7 +331,7 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 		if ( $wgUser->mId === 0 ) {
 			/* Redirection unknown users */
 			$wgActions['view'] = false;
-			doRedirect( 'accesscontrol-info-anonymous' );
+			doRedirect( 'accesscontrol-redirect-anonymous' );
 		} else {
 			if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
 				if ( isset( $wgAdminCanReadAll ) ) {
@@ -355,7 +358,7 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 					return true;
 				} else {
 					$wgActions['view']   = false;
-					return doRedirect( 'accesscontrol-info-anonymous' );
+					return doRedirect( 'accesscontrol-redirect-user' );
 				}
 			}
 		}
