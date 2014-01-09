@@ -358,7 +358,7 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 					return true;
 				} else {
 					$wgActions['view']   = false;
-					return doRedirect( 'accesscontrol-redirect-user' );
+					return doRedirect( 'accesscontrol-redirect-users' );
 				}
 			}
 		}
