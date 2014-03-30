@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Beta16"
+        ]
+    },
+    "accesscontrol-desc": "Questa è un'estensione che permette l'accesso a pagine con restrizioni in base al gruppo utente",
+    "accesscontrol-info": "Questa è una pagina protetta!"
+}

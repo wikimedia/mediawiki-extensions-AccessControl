@@ -1,7 +1,7 @@
 <?php
 
 /* MediaWiki extension that enables group access restriction on a page-by-page
- * basis contributed by Martin Mueller (http://blog.pagansoft.de) based into 
+ * basis contributed by Martin Mueller (http://blog.pagansoft.de) based into
  * version 1.3 on accesscontrol.php by Josh Greenberg.
  * Version 2.0 for MediaWiki >= 1.18 rewrited completly by Aleš Kapica.
  * @package MediaWiki
@@ -23,7 +23,7 @@ $wgExtensionCredits['specialpage']['AccessControl'] = array(
 	'name'                  => 'AccessControlExtension',
 	'author'                => array( 'Aleš Kapica' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'               => '2.3',
+	'version'               => '2.4.0',
 	'description'           => 'Access control based on users lists. Administrator rights need not be for it.',
 	'descriptionmsg'        => 'accesscontrol-desc',
 );
@@ -31,6 +31,7 @@ $wgExtensionCredits['specialpage']['AccessControl'] = array(
 $wgHooks['ParserFirstCallInit'][] = 'wfAccessControlExtension' ;
 
 $dir = dirname( __FILE__ ) . '/';
+$wgMessagesDirs['AccessControl'] = __DIR__ . '/i18n';
 $wgExtensionMessagesFiles['AccessControl'] = $dir . 'AccessControl.i18n.php';
 
 
@@ -212,7 +213,7 @@ function fromTemplates( $string ) {
 			$rights = allRightTags( getContentPage( 0, substr( $templatepage, 1 ) ) );
 		    } elseif (ctype_alnum(substr( $templatepage, 0, 1 ) )) {
 			// The check of included template
-				if ( strpos( $templatepage, '|' ) > 0) { 
+				if ( strpos( $templatepage, '|' ) > 0) {
 				    $templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
 				    $rights = allRightTags( getContentPage( 10, $templatename ) );
 				} else {
@@ -288,7 +289,7 @@ function allRightTags( $string ) {
 		if ( $end !== false ) {
 			$groupsString = substr( $string, $start, $end-$start );
 			if ( strlen( $groupsString ) == 0 ) {
-				$contenttag['end'] = strlen( $starttag ) + strlen( $endtag ); 
+				$contenttag['end'] = strlen( $starttag ) + strlen( $endtag );
 			} else {
 				$contenttag['groups'] = $groupsString;
 				$contenttag['end'] = $end + strlen( $endtag );
@@ -339,7 +340,7 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 						return true;
 					}
 				}
-			}				
+			}
 			$users = accessControl( $rights['groups'] );
 			if ( in_array( $wgUser->mName, $users[0], true ) ) {
 				return true;

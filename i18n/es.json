@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Armando-Martin"
+        ]
+    },
+    "accesscontrol-desc": "Habilita la restricción de acceso de grupo a una página por la base de usuarios",
+    "accesscontrol-info": "¡Se trata de una página protegida!"
+}

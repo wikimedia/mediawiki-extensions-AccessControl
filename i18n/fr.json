@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "DavidL"
+        ]
+    },
+    "accesscontrol-desc": "Permet la restriction d'accès de groupe sur une page selon l'utilisateur",
+    "accesscontrol-info": "Il s'agit d'une page protégée !"
+}

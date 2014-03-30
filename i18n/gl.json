@@ -1,0 +1,9 @@
+{
+    "@metadata": {
+        "authors": [
+            "Toliño"
+        ]
+    },
+    "accesscontrol-desc": "Activa a restrición de acceso por grupo a unha páxina segundo o usuario",
+    "accesscontrol-info": "Esta páxina está protexida!"
+}
