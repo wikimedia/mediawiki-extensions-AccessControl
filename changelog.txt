@@ -1,3 +1,10 @@
+version 2.4.1
+* minor fix in german translationfile
+* cosmetic fixes to avoid code style errors
+
+version 2.4.0
+* Migrate to JSON i18n
+
 verison 2.3
 * Fixed function doRedirect() and fromTemplates()
 * Removed unused messages from localization file

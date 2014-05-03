@@ -23,7 +23,7 @@ $wgExtensionCredits['specialpage']['AccessControl'] = array(
 	'name'                  => 'AccessControlExtension',
 	'author'                => array( 'Aleš Kapica' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'               => '2.4.0',
+	'version'               => '2.4.1',
 	'description'           => 'Access control based on users lists. Administrator rights need not be for it.',
 	'descriptionmsg'        => 'accesscontrol-desc',
 );
@@ -62,9 +62,9 @@ function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $fram
 	return displayGroups();
 }
 
-function accessControl( $obsahtagu ){
+function accessControl( $tagContent ){
 	$accessgroup = Array( Array(), Array() );
-	$listaccesslist = explode( ",", $obsahtagu );
+	$listaccesslist = explode( ",", $tagContent );
 	foreach ( $listaccesslist as $accesslist ) {
 		if ( strpos( $accesslist, "(ro)" ) !== false ) {
 			$accesslist = trim( str_replace( "(ro)", "", $accesslist ) );
@@ -73,7 +73,7 @@ function accessControl( $obsahtagu ){
 			$accessgroup[1] = array_merge( $accessgroup[1], $group[1] );
 		} else {
 			$accesslist = trim( $accesslist );
-			$group = makeGroupArray ($accesslist );
+			$group = makeGroupArray ( $accesslist );
 			$accessgroup[0] = array_merge( $accessgroup[0], $group[0] );
 			$accessgroup[1] = array_merge( $accessgroup[1], $group[1] );
 		}
@@ -98,7 +98,7 @@ function makeGroupArray( $accesslist ) {
 				break;
 		}
 	}
-	return array( $userswrite , $usersreadonly );
+	return array( $userswrite, $usersreadonly );
 }
 
 function displayGroups() {
@@ -133,7 +133,7 @@ function getTemplatePage( $template ) {
 	$gt = $Title->makeTitle( 10, $template );
 	if ( method_exists( 'WikiPage', 'getContent' ) ) {
 		$contentPage = new WikiPage( $gt );
-		//return $contentPage->getContent()->getNativeData();
+		return $contentPage->getContent()->getNativeData();
 	} else {
 		// create Article and get the content
 		$contentPage = new Article( $gt, 0 );
@@ -141,12 +141,13 @@ function getTemplatePage( $template ) {
 	}
 }
 
-function getUsersFromPages( $skupina ) {
+function getUsersFromPages( $group ) {
 	/* Extracts the allowed users from the userspace access list */
 	$allowedAccess = Array();
 	$allow = Array();
 	$Title = new Title();
-	$gt = $Title->makeTitle( 0, $skupina );
+// Remark: position to add code to use namespace from mediawiki
+	$gt = $Title->makeTitle( 0, $group );
 	if ( method_exists( 'WikiPage', 'getContent' ) ) {
 		$groupPage = new WikiPage( $gt );
 		$allowedUsers = $groupPage->getContent()->getNativeData();
@@ -206,13 +207,13 @@ function fromTemplates( $string ) {
 		    $skok = $start + 2;
 		    $templatepage = substr( $string, $skok, $end - $skok );
 		    if ( substr( $templatepage, 0, 1 ) == '{' ) {
-			// The check of included code
+				// The check of included code
 				$rights = fromTemplates( $templatepage );
 		    } elseif ( substr( $templatepage, 0, 1 ) == ':' ) {
-			// The check of included page
-			$rights = allRightTags( getContentPage( 0, substr( $templatepage, 1 ) ) );
-		    } elseif (ctype_alnum(substr( $templatepage, 0, 1 ) )) {
-			// The check of included template
+				// The check of included page
+				$rights = allRightTags( getContentPage( 0, substr( $templatepage, 1 ) ) );
+		    } elseif ( ctype_alnum( substr( $templatepage, 0, 1 ) )) {
+				// The check of included template
 				if ( strpos( $templatepage, '|' ) > 0) {
 				    $templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
 				    $rights = allRightTags( getContentPage( 10, $templatename ) );
@@ -220,43 +221,43 @@ function fromTemplates( $string ) {
 				    $rights = allRightTags( getContentPage( 10, $templatepage ) );
 				}
 		    } else {
-			// echo "The end of work with code of article";
+				// echo "The end of work with code of article";
 		    }
 		    if ( is_array( $rights ) ) {
-			if ( $wgUser->mId === 0 ) {
-			    /* Redirection unknown users */
-			    $wgActions['view'] = false;
-			    doRedirect('accesscontrol-move-anonymous');
-			    } else {
-				if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
-					if ( isset( $wgAdminCanReadAll ) ) {
-						if ( $wgAdminCanReadAll ) {
-							return true;
+				if ( $wgUser->mId === 0 ) {
+				    /* Redirection unknown users */
+				    $wgActions['view'] = false;
+				    doRedirect('accesscontrol-move-anonymous');
+				} else {
+					if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
+						if ( isset( $wgAdminCanReadAll ) ) {
+							if ( $wgAdminCanReadAll ) {
+								return true;
 							}
 						}
 					}
-				$users = accessControl( $rights['groups'] );
-				if ( ! in_array( $wgUser->mName, $users[0], true ) ) {
-					$wgActions['edit']           = false;
-					$wgActions['history']        = false;
-					$wgActions['submit']         = false;
-					$wgActions['info']           = false;
-					$wgActions['raw']            = false;
-					$wgActions['delete']         = false;
-					$wgActions['revert']         = false;
-					$wgActions['revisiondelete'] = false;
-					$wgActions['rollback']       = false;
-					$wgActions['markpatrolled']  = false;
-					if ( ! in_array( $wgUser->mName, $users[1], true ) ) {
-						$wgActions['view']   = false;
-						return doRedirect( 'accesscontrol-move-users' );
+					$users = accessControl( $rights['groups'] );
+					if ( ! in_array( $wgUser->mName, $users[0], true ) ) {
+						$wgActions['edit']           = false;
+						$wgActions['history']        = false;
+						$wgActions['submit']         = false;
+						$wgActions['info']           = false;
+						$wgActions['raw']            = false;
+						$wgActions['delete']         = false;
+						$wgActions['revert']         = false;
+						$wgActions['revisiondelete'] = false;
+						$wgActions['rollback']       = false;
+						$wgActions['markpatrolled']  = false;
+						if ( ! in_array( $wgUser->mName, $users[1], true ) ) {
+							$wgActions['view']   = false;
+							return doRedirect( 'accesscontrol-move-users' );
 						}
 					}
 				}
 			}
 		}
-	    }
-    }
+	}
+}
 
 
 function allRightTags( $string ) {
@@ -281,7 +282,7 @@ function allRightTags( $string ) {
 	}
 
 	// The control of included pages and templates on appearing of accesscontrol tag
-	fromTemplates($string);
+	fromTemplates( $string );
 	$start = strpos( $string, $starttag );
 	if ( $start !== false ) {
 		$start += strlen( $starttag );
@@ -325,7 +326,7 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 		$wgActions['revisiondelete'] = false;
 		$wgActions['rollback']       = false;
 		$wgActions['markpatrolled']  = false;
-		}
+	}
 
 	$rights = allRightTags( getContentPage( $title->getNamespace(), $title->mDbkeyform ) );
 	if ( is_array( $rights ) ) {
