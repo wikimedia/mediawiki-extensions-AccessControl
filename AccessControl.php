@@ -206,6 +206,7 @@ function fromTemplates( $string ) {
 		    $end = strpos( $string, '}}' );
 		    $skok = $start + 2;
 		    $templatepage = substr( $string, $skok, $end - $skok );
+		    $rights = '';
 		    if ( substr( $templatepage, 0, 1 ) == '{' ) {
 				// The check of included code
 				$rights = fromTemplates( $templatepage );
