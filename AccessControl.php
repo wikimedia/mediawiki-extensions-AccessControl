@@ -46,7 +46,7 @@ function onUnknownAction ( $action, Page $article ) {
 	switch ( $action ) {
 		default:
 			$wgOut->setPageTitle( $article->getTitle() . "->" . $action );
-			$wgOut->addWikiText( wfMsg( 'accesscontrol-actions-deny' ));
+			$wgOut->addWikiText( wfMessage( 'accesscontrol-actions-deny' )->text());
 	}
 	return false;
 }
@@ -104,7 +104,7 @@ function makeGroupArray( $accesslist ) {
 function displayGroups() {
 	/* Function replace the tag <accesscontrol> and his content, behind info about a protection this the page */
 	$style = "<p id=\"accesscontrol\" style=\"text-align:center;color:#BA0000;font-size:8pt\">";
-	$text = wfMsg( 'accesscontrol-info' );
+	$text = wfMessage( 'accesscontrol-info' )->text();
 	$style_end = "</p>";
 	$wgAllowInfo = $style . $text . $style_end;
 	return $wgAllowInfo;
@@ -189,7 +189,7 @@ function doRedirect( $info ) {
 		// removing info about redirect from session after move..
 		unset( $_SESSION['redirect'] );
 	}
-	header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMsg( $info ) );
+	header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() );
 }
 
 function fromTemplates( $string ) {
