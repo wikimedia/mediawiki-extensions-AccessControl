@@ -7,7 +7,7 @@
  * @package MediaWiki
  * @subpackage Extensions
  * @author Aleš Kapica
- * @copyright 2008-2013 Aleš Kapica
+ * @copyright 2008-2014 Aleš Kapica
  * @licence GNU General Public Licence
  */
 
@@ -18,13 +18,14 @@ if( !defined( 'MEDIAWIKI' ) ) {
 
 // sysop users can read all restricted pages
 $wgAdminCanReadAll = true;
+$wgAccessControlRedirect = true;
 
-$wgExtensionCredits['specialpage']['AccessControl'] = array(
+$wgExtensionCredits['parserhook'][] = array(
+	'path'                  => __FILE__,
 	'name'                  => 'AccessControlExtension',
-	'author'                => array( 'Aleš Kapica' ),
+	'author'                => array( '[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'               => '2.4.1',
-	'description'           => 'Access control based on users lists. Administrator rights need not be for it.',
+	'version'               => '2.5',
 	'descriptionmsg'        => 'accesscontrol-desc',
 );
 
@@ -180,8 +181,7 @@ function getUsersFromPages( $group ) {
 
 function doRedirect( $info ) {
 	/* make redirection for non authorized users */
-	global $wgScript, $wgSitename, $wgOut;
-
+	global $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect;
 	if ( ! $info ) {
 	    $info = "No_access";
 	    }
@@ -189,68 +189,74 @@ function doRedirect( $info ) {
 		// removing info about redirect from session after move..
 		unset( $_SESSION['redirect'] );
 	}
-	header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() );
+	$wgOut -> clearHTML() ;
+	$wgOut -> prependHTML( wfMessage( 'accesscontrol-info-box' ) -> text() );
+	if ( $wgAccessControlRedirect ) {
+		header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() );
+	}
 }
 
 function fromTemplates( $string ) {
 	global $wgUser, $wgAdminCanReadAll;
 	// Template extraction
 	if ( strpos( $string, '{{' ) >= 0 ) {
-	    if ( substr( $string, strpos ( $string, '{{' ), 3 ) === '{{{' ) {
-		    $start = strpos( $string, '{{{' );
-		    $end = strlen( $string );
-		    $skok = $start + 3;
-		    fromTemplates( substr( $string, $skok, $end - $skok ) );
+		if ( substr( $string, strpos ( $string, '{{' ), 3 ) === '{{{' ) {
+			$start = strpos( $string, '{{{' );
+			$end = strlen( $string );
+			$skok = $start + 3;
+			fromTemplates( substr( $string, $skok, $end - $skok ) );
 		} else {
-		    $start = strpos( $string, '{{' );
-		    $end = strpos( $string, '}}' );
-		    $skok = $start + 2;
-		    $templatepage = substr( $string, $skok, $end - $skok );
-		    if ( substr( $templatepage, 0, 1 ) == '{' ) {
+			$start = strpos( $string, '{{' );
+			$end = strpos( $string, '}}' );
+			$skok = $start + 2;
+			$templatepage = substr( $string, $skok, $end - $skok );
+			if ( substr( $templatepage, 0, 1 ) == '{' ) {
 				// The check of included code
 				$rights = fromTemplates( $templatepage );
-		    } elseif ( substr( $templatepage, 0, 1 ) == ':' ) {
+			} elseif ( substr( $templatepage, 0, 1 ) == ':' ) {
 				// The check of included page
 				$rights = allRightTags( getContentPage( 0, substr( $templatepage, 1 ) ) );
-		    } elseif ( ctype_alnum( substr( $templatepage, 0, 1 ) )) {
+			} elseif ( ctype_alnum( substr( $templatepage, 0, 1 ) )) {
 				// The check of included template
 				if ( strpos( $templatepage, '|' ) > 0) {
-				    $templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
-				    $rights = allRightTags( getContentPage( 10, $templatename ) );
+					$templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
+					$rights = allRightTags( getContentPage( 10, $templatename ) );
 				} else {
-				    $rights = allRightTags( getContentPage( 10, $templatepage ) );
+					$rights = allRightTags( getContentPage( 10, $templatepage ) );
 				}
-		    } else {
+			} else {
 				// echo "The end of work with code of article";
-		    }
-		    if ( is_array( $rights ) ) {
-				if ( $wgUser->mId === 0 ) {
-				    /* Redirection unknown users */
-				    $wgActions['view'] = false;
-				    doRedirect('accesscontrol-move-anonymous');
-				} else {
-					if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
-						if ( isset( $wgAdminCanReadAll ) ) {
-							if ( $wgAdminCanReadAll ) {
-								return true;
+			}
+			if ( isset( $rights ) ) {
+				if ( is_array( $rights ) ) {
+					if ( $wgUser->mId === 0 ) {
+						/* Redirection unknown users */
+						$wgActions['view'] = false;
+						doRedirect('accesscontrol-move-anonymous');
+					} else {
+						if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
+							if ( isset( $wgAdminCanReadAll ) ) {
+								if ( $wgAdminCanReadAll ) {
+									return true;
+								}
 							}
 						}
-					}
-					$users = accessControl( $rights['groups'] );
-					if ( ! in_array( $wgUser->mName, $users[0], true ) ) {
-						$wgActions['edit']           = false;
-						$wgActions['history']        = false;
-						$wgActions['submit']         = false;
-						$wgActions['info']           = false;
-						$wgActions['raw']            = false;
-						$wgActions['delete']         = false;
-						$wgActions['revert']         = false;
-						$wgActions['revisiondelete'] = false;
-						$wgActions['rollback']       = false;
-						$wgActions['markpatrolled']  = false;
-						if ( ! in_array( $wgUser->mName, $users[1], true ) ) {
-							$wgActions['view']   = false;
-							return doRedirect( 'accesscontrol-move-users' );
+						$users = accessControl( $rights['groups'] );
+						if ( ! in_array( $wgUser->mName, $users[0], true ) ) {
+							$wgActions['edit']           = false;
+							$wgActions['history']        = false;
+							$wgActions['submit']         = false;
+							$wgActions['info']           = false;
+							$wgActions['raw']            = false;
+							$wgActions['delete']         = false;
+							$wgActions['revert']         = false;
+							$wgActions['revisiondelete'] = false;
+							$wgActions['rollback']       = false;
+							$wgActions['markpatrolled']  = false;
+							if ( ! in_array( $wgUser->mName, $users[1], true ) ) {
+								$wgActions['view']   = false;
+								return doRedirect( 'accesscontrol-move-users' );
+							}
 						}
 					}
 				}

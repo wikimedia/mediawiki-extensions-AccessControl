@@ -1,3 +1,9 @@
+version 2.5
+* Actualization of description header
+* Fix for uninitialize an variable $rights in function fromTemplates() and repair of indents in code
+* New the variable $wgAccessControlRedirect to allow set display of search results (default is false)
+* New language string accesscontrol-info-box in i18n localization file
+
 version 2.4.1
 * minor fix in german translationfile
 * cosmetic fixes to avoid code style errors
