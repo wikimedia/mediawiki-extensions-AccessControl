@@ -22,7 +22,7 @@ $wgAccessControlRedirect = true;
 
 $wgExtensionCredits['parserhook'][] = array(
 	'path'                  => __FILE__,
-	'name'                  => 'AccessControlExtension',
+	'name'                  => 'AccessControl',
 	'author'                => array( '[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
 	'version'               => '2.5',
