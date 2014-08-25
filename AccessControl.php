@@ -26,7 +26,7 @@ $wgExtensionCredits['parserhook'][] = array(
 	'author'                => array( '[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
 	'version'               => '2.5',
-	'descriptionmsg'        => 'accesscontrol-desc',
+	'descriptionmsg'        => 'accesscontrol-desc'
 );
 
 $wgHooks['ParserFirstCallInit'][] = 'wfAccessControlExtension' ;
