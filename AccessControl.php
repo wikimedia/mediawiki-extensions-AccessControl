@@ -374,5 +374,3 @@ function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 		return true;
 	}
 }
-
-?>
