@@ -33,7 +33,6 @@ $wgHooks['ParserFirstCallInit'][] = 'wfAccessControlExtension' ;
 
 $dir = dirname( __FILE__ ) . '/';
 $wgMessagesDirs['AccessControl'] = __DIR__ . '/i18n';
-$wgExtensionMessagesFiles['AccessControl'] = $dir . 'AccessControl.i18n.php';
 
 
 //Hook the userCan function for bypassing the cache
