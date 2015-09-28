@@ -1,6 +1,6 @@
 version 2.5
 * Actualization of description header
-* Fix for uninitialize an variable $rights in function fromTemplates() and repair of indents in code
+* Fix for uninitialize an variable $rights in function wfFromTemplates() and repair of indents in code
 * New the variable $wgAccessControlRedirect to allow set display of search results (default is false)
 * New language string accesscontrol-info-box in i18n localization file
 
@@ -12,9 +12,9 @@ version 2.4.0
 * Migrate to JSON i18n
 
 verison 2.3
-* Fixed function doRedirect() and fromTemplates()
+* Fixed function wfDoRedirect() and wfFromTemplates()
 * Removed unused messages from localization file
-* New function onUnknownAction()
+* New function wfOnUnknownAction()
 
 version 2.2
 * Fix for MediaWiki >= 1.21 by unknown AccessControl user
@@ -32,11 +32,11 @@ version 2.0
     $wgAccessControlMessages
 
 version 1.3
-* Gabor Simon fixed problem in function getUsersFromPages()
+* Gabor Simon fixed problem in function wfGetUsersFromPages()
 * Applying patch from Stephan Herrmann
 
 version 1.2
-* Fixed errors in parameter fuction doControlUserAccess()
+* Fixed errors in parameter fuction wfDoControlUserAccess()
 * Repairing while lopp in function getContentTag()
 
 version 1.1
