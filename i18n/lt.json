@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Zygimantus"
+		]
+	},
+	"accesscontrol-info": "Tai yra apsaugotas puslapis.",
+	"accesscontrol-info-box": "Ši MediaWiki naudoja [https://www.mediawiki.org/wiki/Extension:AccessControl Prieigos valdymo (AccessControl)] plėtinį, kuris leidžia apriboti prieigą prie svetainės per vartotojo nustatytą sąrašą. Jeigu matote šią žinutę, tai neturite prieigos prie šio puslapio."
+}

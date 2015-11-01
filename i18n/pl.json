@@ -1,9 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "BeginaFelicysym"
-        ]
-    },
-    "accesscontrol-desc": "Włącza ograniczenia dostępu do stron dla grupy stronie wedle użytkowników",
-    "accesscontrol-info": "To jest strona chroniona!"
+	"@metadata": {
+		"authors": [
+			"BeginaFelicysym",
+			"Chrumps"
+		]
+	},
+	"accesscontrol-desc": "Włącza ograniczenia dostępu do stron dla grupy stronie wedle użytkowników",
+	"accesscontrol-info": "To jest strona zabezpieczona."
 }

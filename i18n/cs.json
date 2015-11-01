@@ -1,10 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Aleš Kapica"
-        ]
-    },
-    "accesscontrol-desc": "Toto je rozšíření, které přidává uživatelskou možnost omezení přístupu ke stránce",
-    "accesscontrol-info": "Toto je stránka s omezeným přístupem!",
-    "accesscontrol-info-box": "Tato mediawiki používá rozšíření <a href='https://www.mediawiki.org/wiki/Extension:AccessControl'>AccessControl</a> které umožňuje omezovat přístup ke stránkám prostřednictvím uživatelsky definovaných seznamů. Pokud vidíte tuto zprávu, tak vám k nim bude s největší pravděpodobností přístup odepřen."
+	"@metadata": {
+		"authors": [
+			"Aleš Kapica"
+		]
+	},
+	"accesscontrol-desc": "Toto je rozšíření, které přidává uživatelskou možnost omezení přístupu ke stránce",
+	"accesscontrol-info": "Toto je stránka s omezeným přístupem!",
+	"accesscontrol-info-box": "Tato mediawiki používá rozšíření <a href='https://www.mediawiki.org/wiki/Extension:AccessControl'>AccessControl</a> které umožňuje omezovat přístup ke stránkám prostřednictvím uživatelsky definovaných seznamů. Pokud vidíte tuto zprávu, tak vám k nim bude s největší pravděpodobností přístup odepřen."
 }
