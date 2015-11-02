@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"plisket4"
+			"plisket4",
+			"Okras"
 		]
 	},
 	"accesscontrol-desc": "Включает механизм ограничения доступа к страницам на основании группы, к которой пренадлежит пользователь",
-	"accesscontrol-info": "Это защищенная страница!"
+	"accesscontrol-info": "Это защищенная страница!",
+	"accesscontrol-info-box": "Эта MediaWiki использует расширение [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl], которое позволяет ограничивать доступ к сайту с помощью определённого пользователем списка. Если вы видите это сообщение, у вас нет доступа к данной странице."
 }

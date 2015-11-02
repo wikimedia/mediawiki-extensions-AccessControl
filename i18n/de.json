@@ -8,5 +8,5 @@
 	},
 	"accesscontrol-desc": "Ermöglicht auf Benutzergruppen bezogene Seitenzugriffsbeschränkungen",
 	"accesscontrol-info": "Dies ist eine geschützte Seite.",
-	"accesscontrol-info-box": "Diese MediaWiki-Installation verwendet die Erweiterung [https://www.mediawiki.org/wiki/Extension:AccessControl „AccessControl“], die beschränkten Zugriff auf die Website durch eine benutzerdefinierte Liste ermöglicht. Falls du diese Nachricht siehst, hast du keinen Zugriff auf diese Seite."
+	"accesscontrol-info-box": "Diese MediaWiki-Installation verwendet die Erweiterung [https://www.mediawiki.org/wiki/Extension:AccessControl „AccessControl“], die einen beschränkten Zugriff auf die Website durch eine benutzerdefinierte Liste ermöglicht. Falls du diese Nachricht siehst, hast du keinen Zugriff auf diese Seite."
 }

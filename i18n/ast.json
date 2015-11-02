@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Xuacu"
+		]
+	},
+	"accesscontrol-desc": "Activa la torga d'accesu de grupu a una páxina según l'usuariu",
+	"accesscontrol-info": "Esta ye una páxina protexida.",
+	"accesscontrol-info-box": "Esta MediaWiki usa la estensión [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl] que permite torgar l'accesu al sitiu con una llista definida pol usuariu. Si ves esti mensaxe, nun tienes accesu e esta páxina."
+}
