@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"plisket4",
-			"Okras"
+			"Okras",
+			"Монгуш Салим"
 		]
 	},
 	"accesscontrol-desc": "Включает механизм ограничения доступа к страницам на основании группы, к которой пренадлежит пользователь",
-	"accesscontrol-info": "Это защищенная страница!",
+	"accesscontrol-info": "Бо арынны камгалап каан!",
 	"accesscontrol-info-box": "Эта MediaWiki использует расширение [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl], которое позволяет ограничивать доступ к сайту с помощью определённого пользователем списка. Если вы видите это сообщение, у вас нет доступа к данной странице."
 }
