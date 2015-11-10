@@ -1,9 +1,11 @@
 {
-    "@metadata": {
-        "authors": [
-            "DavidL"
-        ]
-    },
-    "accesscontrol-desc": "Permet la restriction d'accès de groupe sur une page selon l'utilisateur",
-    "accesscontrol-info": "Il s'agit d'une page protégée !"
+	"@metadata": {
+		"authors": [
+			"DavidL",
+			"Gomoko"
+		]
+	},
+	"accesscontrol-desc": "Permet la restriction d'accès de groupe sur une page selon l'utilisateur",
+	"accesscontrol-info": "Il s’agit d’une page protégée.",
+	"accesscontrol-info-box": "Ce MédiaWiki utilise l’extension [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl] qui permet de restreindre l’accès au site via une liste d’utilisateurs définis. Si vous voyez ce message, vous n’avez pas accès à cette page."
 }
