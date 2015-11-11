@@ -5,5 +5,6 @@
 		]
 	},
 	"accesscontrol-desc": "문서에 대한 사용자 단위의 그룹 접근 제한을 활성화",
-	"accesscontrol-info": "보호된 문서입니다."
+	"accesscontrol-info": "보호된 문서입니다.",
+	"accesscontrol-info-box": "이 미디어위키는 [https://www.mediawiki.org/wiki/Extension:AccessControl 접근통제] 확장기능을 사용하여 사용자가 지정한 리스트에 따라 접근을 제한할 수 있도록 허용합니다. 이 메시지를 보고 계시다면, 당신은 이 문서에 접근할 권한이 없는 것입니다."
 }
