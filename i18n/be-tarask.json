@@ -1,9 +1,10 @@
 {
-    "@metadata": {
-        "authors": [
-            "Wizardist"
-        ]
-    },
-    "accesscontrol-desc": "Дазваляе групавое абмежаваньне доступу да старонкі для асобных карыстальнікаў",
-    "accesscontrol-info": "Гэта абароненая старонка!"
+	"@metadata": {
+		"authors": [
+			"Wizardist",
+			"Renessaince"
+		]
+	},
+	"accesscontrol-desc": "Дазваляе групавое абмежаваньне доступу да старонкі для асобных карыстальнікаў",
+	"accesscontrol-info": "Гэта абароненая старонка."
 }
