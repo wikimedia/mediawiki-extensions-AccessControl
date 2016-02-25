@@ -19,13 +19,14 @@ if( !defined( 'MEDIAWIKI' ) ) {
 // sysop users can read all restricted pages
 $wgAdminCanReadAll = true;
 $wgAccessControlRedirect = true;
+$wgAccessToHistory = false;
 
 $wgExtensionCredits['parserhook'][] = array(
 	'path'                  => __FILE__,
 	'name'                  => 'AccessControl',
 	'author'                => array( '[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]' ),
 	'url'                   => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version'               => '2.5',
+	'version'               => '2.5.1',
 	'descriptionmsg'        => 'accesscontrol-desc'
 );
 
@@ -318,9 +319,15 @@ function allRightTags( $string ) {
 
 function hookUserCan( &$title, &$wgUser, $action, &$result ) {
 	/* Main function control access for all users */
-	global $wgActions, $wgAdminCanReadAll;
+	global $wgActions, $wgAdminCanReadAll, $wgRequest, $wgAccessToHistory;
 	if ( $wgUser->mId === 0 ) {
 		/* Deny actions for all anonymous */
+		if ( $wgAccessToHistory == false ) {
+			if ($wgRequest->getText( 'type' ) == 'revision' || $wgRequest->getText( 'action' ) == 'history' ) {
+				$wgActions['view'] = false;
+				return doRedirect( 'accesscontrol-redirect-anonymous' );
+			}
+		}
 		$wgActions['edit']           = false;
 		$wgActions['history']        = false;
 		$wgActions['submit']         = false;

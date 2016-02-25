@@ -1,3 +1,6 @@
+version 2.5.1
+* New variable $wgAccessToHistory to allow anonymous access to view diff and history of revisions (by default is deny)
+
 version 2.5
 * Actualization of description header
 * Fix for uninitialize an variable $rights in function fromTemplates() and repair of indents in code
