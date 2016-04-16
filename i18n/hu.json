@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wolf Rex"
+		]
+	},
+	"accesscontrol-desc": "Lehetőséget ad arra, bizonyos lapokat csak adott felhasználók érhessenek el.",
+	"accesscontrol-info": "Ez egy védett lap.",
+	"accesscontrol-info-box": "Ezen a MediaWikin telepítve van az [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl] kiegészítés, mely lehetőséget ad arra, bizonyos lapokat csak adott felhasználók érhessenek el. Ha ezt az üzenetet látod, nincs hozzáférésed a laphoz."
+}
