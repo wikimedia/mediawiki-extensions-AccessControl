@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"01miki10"
+		]
+	},
+	"accesscontrol-info": "Tämä on suojattu sivu.",
+	"accesscontrol-info-box": "Tämä MediaWiki käyttää [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl]-laajennusta, joka mahdollistaa pääsyn rajoittamisen sivustolle käyttäjän määrittelemän luettelon avulla. Jos näet tämän viestin, sinulla ei ole pääsyä tälle sivulle."
+}
