@@ -14,7 +14,7 @@ class AccessControlHooks {
 
 	public function accessControlExtension( Parser $parser ) {
 		/* This the hook function adds the tag <accesscontrol> to the wiki parser */
-		$parser->setHook( "accesscontrol", array( &$this, "doControlUserAccess" ) );
+		$parser->setHook( "accesscontrol", [ &$this, "doControlUserAccess" ] );
 
 		return true;
 	}
@@ -25,7 +25,7 @@ class AccessControlHooks {
 	}
 
 	public function accessControl( $tagContent ) {
-		$accessgroup = array( array(), array() );
+		$accessgroup = [ [], [] ];
 		$listaccesslist = explode( ',', $tagContent );
 		foreach ( $listaccesslist as $accesslist ) {
 			if ( strpos( $accesslist, "(ro)" ) !== false ) {
@@ -48,8 +48,8 @@ class AccessControlHooks {
 		/* Function returns array with two lists.
 			First is list full access users.
 			Second is list readonly users. */
-		$userswrite = array();
-		$usersreadonly = array();
+		$userswrite = [];
+		$usersreadonly = [];
 		$users = self::getUsersFromPages( $accesslist );
 		foreach ( array_keys( $users ) as $user ) {
 			switch ( $users[$user] ) {
@@ -62,7 +62,7 @@ class AccessControlHooks {
 			}
 		}
 
-		return array( $userswrite, $usersreadonly );
+		return [ $userswrite, $usersreadonly ];
 	}
 
 	public function displayGroups() {
@@ -112,8 +112,8 @@ class AccessControlHooks {
 
 	public function getUsersFromPages( $group ) {
 		/* Extracts the allowed users from the userspace access list */
-		$allowedAccess = array();
-		$allow = array();
+		$allowedAccess = [];
+		$allow = [];
 		$Title = new Title();
 		// Remark: position to add code to use namespace from mediawiki
 		$gt = $Title->makeTitle( 0, $group );
@@ -236,7 +236,7 @@ class AccessControlHooks {
 
 	public function allRightTags( $string ) {
 		/* Function for extraction content tag accesscontrol from raw source the page */
-		$contenttag = array();
+		$contenttag = [];
 		$starttag = "<accesscontrol>";
 		$endtag = "</accesscontrol>";
 		$redirecttag = "redirect";

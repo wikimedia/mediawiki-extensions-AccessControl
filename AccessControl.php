@@ -20,14 +20,14 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 $wgAdminCanReadAll = true;
 $wgAccessControlRedirect = true;
 
-$wgExtensionCredits['parserhook'][] = array(
+$wgExtensionCredits['parserhook'][] = [
 	'path' => __FILE__,
 	'name' => 'AccessControl',
-	'author' => array( '[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]' ),
+	'author' => [ '[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]' ],
 	'url' => 'http://www.mediawiki.org/wiki/Extension:AccessControl',
 	'version' => '2.6',
 	'descriptionmsg' => 'accesscontrol-desc'
-);
+];
 
 $wgAutoloadClasses['AccessControlHooks'] = __DIR__ . '/AccessControl.hooks.php';
 
