@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"accesscontrol-desc": "Permitte restringer le accesso a paginas per gruppos de usatores",
+	"accesscontrol-info": "Iste es un pagina protegite.",
+	"accesscontrol-info-box": "Iste MediaWiki usa le extension [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl] pro limitar le accesso al sito a certe usatores. Si tu vide iste message, tu non ha accesso a iste pagina."
+}
