@@ -1,3 +1,7 @@
+version 2.6
+* Added support for PHP codesniffer checks, internal restructuring of code by Siebrand Mazeland
+* Fixes to the above change by Thomas Mulhall
+
 version 2.5
 * Actualization of description header
 * Fix for uninitialize an variable $rights in function wfFromTemplates() and repair of indents in code
