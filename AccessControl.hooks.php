@@ -14,17 +14,17 @@ class AccessControlHooks {
 
 	public function accessControlExtension( Parser $parser ) {
 		/* This the hook function adds the tag <accesscontrol> to the wiki parser */
-		$parser->setHook( "accesscontrol", array( &$this, "doControlUserAccess" ) );
+		$parser->setHook( 'accesscontrol', array( 'AccessControlHooks', 'doControlUserAccess' ) );
 
 		return true;
 	}
 
-	public function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $frame ) {
+	public static function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $frame ) {
 		/* Funcion called by accessControlExtension */
 		return self::displayGroups();
 	}
 
-	public function accessControl( $tagContent ) {
+	public static function accessControl( $tagContent ) {
 		$accessgroup = array( array(), array() );
 		$listaccesslist = explode( ',', $tagContent );
 		foreach ( $listaccesslist as $accesslist ) {
@@ -44,7 +44,7 @@ class AccessControlHooks {
 		return $accessgroup;
 	}
 
-	public function makeGrouparray( $accesslist ) {
+	public static function makeGrouparray( $accesslist ) {
 		/* Function returns array with two lists.
 			First is list full access users.
 			Second is list readonly users. */
@@ -65,7 +65,7 @@ class AccessControlHooks {
 		return array( $userswrite, $usersreadonly );
 	}
 
-	public function displayGroups() {
+	public static function displayGroups() {
 		/** Function replace the tag <accesscontrol> and his content,
 		 * behind info about a protection this the page
 		 */
@@ -77,7 +77,7 @@ class AccessControlHooks {
 		return $wgAllowInfo;
 	}
 
-	public function getContentPage( $namespace, $title ) {
+	public static function getContentPage( $namespace, $title ) {
 		/* Function get content the page identified by title object from database */
 		$Title = new Title();
 		$gt = $Title->makeTitle( $namespace, $title );
@@ -110,7 +110,7 @@ class AccessControlHooks {
 		}
 	}
 
-	public function getUsersFromPages( $group ) {
+	public static function getUsersFromPages( $group ) {
 		/* Extracts the allowed users from the userspace access list */
 		$allowedAccess = array();
 		$allow = array();
@@ -148,7 +148,7 @@ class AccessControlHooks {
 		return $allowedAccess;
 	}
 
-	public function doRedirect( $info ) {
+	public static function doRedirect( $info ) {
 		/* make redirection for non authorized users */
 		global $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect;
 		if ( !$info ) {
@@ -165,7 +165,7 @@ class AccessControlHooks {
 		}
 	}
 
-	public function fromTemplates( $string ) {
+	public static function fromTemplates( $string ) {
 		global $wgUser, $wgAdminCanReadAll;
 		// Template extraction
 		if ( strpos( $string, '{{' ) >= 0 ) {
@@ -234,7 +234,7 @@ class AccessControlHooks {
 		}
 	}
 
-	public function allRightTags( $string ) {
+	public static function allRightTags( $string ) {
 		/* Function for extraction content tag accesscontrol from raw source the page */
 		$contenttag = array();
 		$starttag = "<accesscontrol>";
@@ -287,7 +287,7 @@ class AccessControlHooks {
 		}
 	}
 
-	public function onUserCan( &$title, &$wgUser, $action, &$result ) {
+	public static function onUserCan( &$title, &$wgUser, $action, &$result ) {
 		/* Main function control access for all users */
 		global $wgActions, $wgAdminCanReadAll;
 		if ( $wgUser->mId === 0 ) {
