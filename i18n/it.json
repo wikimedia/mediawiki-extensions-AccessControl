@@ -6,5 +6,5 @@
 	},
 	"accesscontrol-desc": "Questa è un'estensione che permette l'accesso a pagine con restrizioni in base al gruppo utente",
 	"accesscontrol-info": "Questa è una pagina protetta.",
-	"accesscontrol-info-box": "Questo MediaWiki usa l'estensione [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl] che consente di limitare l'accesso al sito tramite un elenco definito dall'utente. Se viene visualizzato questo messaggio, non hai accesso a questa pagina."
+	"accesscontrol-info-box": "Sono state impostate limitazioni all'accesso per questa pagina. Se viene visualizzato questo messaggio, non hai accesso a questa pagina."
 }
