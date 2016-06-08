@@ -6,5 +6,5 @@
 	},
 	"accesscontrol-desc": "在页面上启用依用户基础的群组访问限制",
 	"accesscontrol-info": "这是一个受保护的页面。",
-	"accesscontrol-info-box": "此MediaWiki使用[https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl]扩展，它允许通过用户定义的列表限制网站访问权限。如果您看见这条消息，您没有对此页面的访问权限。"
+	"accesscontrol-info-box": "此页面的访问限制已确定。如果您看见此消息，表明您没有对此页面的访问权。"
 }
