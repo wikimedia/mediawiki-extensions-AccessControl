@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Aleš Kapica",
-			"Cvanca"
+			"Cvanca",
+			"Mormegil"
 		]
 	},
 	"accesscontrol-desc": "Toto je rozšíření, které přidává uživatelskou možnost omezení přístupu ke stránce",
 	"accesscontrol-info": "Toto je zabezpečená stránka.",
-	"accesscontrol-info-box": "Tato mediawiki používá rozšíření <a href='https://www.mediawiki.org/wiki/Extension:AccessControl'>AccessControl</a> které umožňuje omezovat přístup ke stránkám prostřednictvím uživatelsky definovaných seznamů. Pokud vidíte tuto zprávu, tak vám k nim bude s největší pravděpodobností přístup odepřen."
+	"accesscontrol-info-box": "Na této stránce bylo zavedeno omezení přístupu. Pokud vidíte tuto zprávu, nemáte na tuto stránku přístup."
 }
