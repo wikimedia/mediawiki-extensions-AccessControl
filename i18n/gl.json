@@ -8,5 +8,5 @@
 	},
 	"accesscontrol-desc": "Activa a restrición de acceso por grupo a unha páxina segundo o usuario",
 	"accesscontrol-info": "Isto é unha páxina protexida.",
-	"accesscontrol-info-box": "Este MediaWiki utiliza a extensión [https://www.mediawiki.org/wiki/Extension:AccessControl AccessControl] que permite restrinxir o acceso ó sitio a través dunha lista definida por usuarios. Se ve esta mensaxe, non ten acceso a esta páxina."
+	"accesscontrol-info-box": "Establecéronse restriccións de acceso para esta páxina. Se ve esta mensaxe, non ten acceso a esta páxina."
 }
