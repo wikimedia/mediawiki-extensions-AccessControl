@@ -81,33 +81,22 @@ class AccessControlHooks {
 		/* Function get content the page identified by title object from database */
 		$Title = new Title();
 		$gt = $Title->makeTitle( $namespace, $title );
-		if ( method_exists( 'WikiPage', 'getContent' ) ) {
-			$contentPage = new WikiPage( $gt );
-			if ( $contentPage->getContent() != null ) {
-				return $contentPage->getContent()->getNativeData();
-			}
-		} else {
-			// create Article and get the content
-			$contentPage = new Article( $gt, 0 );
-
-			return $contentPage->fetchContent( 0 );
-		}
+		// Article::fetchContent() is deprecated.
+		// Replaced by WikiPage::getContent()
+		$page = WikiPage::factory( $gt );
+		$content = ContentHandler::getContentText( $page -> getContent() );
+		return $content;
 	}
 
 	public function getTemplatePage( $template ) {
 		/* Function get content the template page identified by title object from database */
 		$Title = new Title();
 		$gt = $Title->makeTitle( 10, $template );
-		if ( method_exists( 'WikiPage', 'getContent' ) ) {
-			$contentPage = new WikiPage( $gt );
-
-			return $contentPage->getContent()->getNativeData();
-		} else {
-			// create Article and get the content
-			$contentPage = new Article( $gt, 0 );
-
-			return $contentPage->fetchContent( 0 );
-		}
+		// Article::fetchContent() is deprecated.
+		// Replaced by WikiPage::getContent()
+		$page = WikiPage::factory( $gt );
+		$content = ContentHandler::getContentText( $page -> getContent() );
+		return $content;
 	}
 
 	public static function getUsersFromPages( $group ) {
@@ -117,14 +106,10 @@ class AccessControlHooks {
 		$Title = new Title();
 		// Remark: position to add code to use namespace from mediawiki
 		$gt = $Title->makeTitle( 0, $group );
-		if ( method_exists( 'WikiPage', 'getContent' ) ) {
-			$groupPage = new WikiPage( $gt );
-			$allowedUsers = $groupPage->getContent()->getNativeData();
-		} else {
-			// create Article and get the content
-			$groupPage = new Article( $gt, 0 );
-			$allowedUsers = $groupPage->fetchContent( 0 );
-		}
+		// Article::fetchContent() is deprecated.
+		// Replaced by WikiPage::getContent()
+		$groupPage = WikiPage::factory( $gt );
+		$allowedUsers = ContentHandler::getContentText( $groupPage -> getContent() );
 		$groupPage = null;
 		$usersAccess = explode( "\n", $allowedUsers );
 		foreach ( $usersAccess as $userEntry ) {
