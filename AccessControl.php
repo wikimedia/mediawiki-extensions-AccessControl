@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MediaWiki extension that enables group access restriction on a page-by-page
  * basis
@@ -15,42 +14,14 @@
  * @copyright 2008-2014 Aleš Kapica
  * @license GNU General Public Licence 2.0 or later
  */
-
-// Ensure that the script cannot be executed outside of MediaWiki
-if ( !defined( 'MEDIAWIKI' ) ) {
-	echo "This file is an extension to the MediaWiki software and cannot be used standalone.\n";
-	die();
+if ( function_exists( 'wfLoadExtension' ) ) {
+	wfLoadExtension( 'AccessControl' );
+	$wgMessageDirs['AccessControl'] = __DIR__ . '/i18n';
+	wfWarn(
+		'Deprecated PHP entry point used for AccessControl extension. ' .
+		'Please use wfLoadExtension instead, ' .
+		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
+	);
+} else {
+	die( 'This version of the AccessControl extension requires MediaWiki 1.29+' );
 }
-
-// Register extension with MediaWiki
-$wgExtensionCredits['parserhook'][] = [
-	'path' => __FILE__,
-	'name' => 'AccessControl',
-	'author' => [
-		'[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]'
-	],
-	'url' => 'https://www.mediawiki.org/wiki/Extension:AccessControl',
-	'version' => '2.6',
-	'descriptionmsg' => 'accesscontrol-desc',
-	'license-name' => 'GPL-2.0+'
-];
-
-// Set extension specific parameters
-// sysop users can read all restricted pages
-$wgAdminCanReadAll = true;
-// do not redirect from page in search results to restricted pages
-$wgAccessControlRedirect = true;
-
-// Load extension's class
-$wgAutoloadClasses['AccessControlHooks'] = __DIR__ . '/AccessControl.hooks.php';
-
-// Register extension's messages
-$wgMessagesDirs['AccessControl'] = __DIR__ . '/i18n';
-
-// Register hooks
-// Hook the ParserFirstCallInit for
-$wgHooks['ParserFirstCallInit'][] = 'AccessControlHooks::accessControlExtension';
-// Hook the userCan function for bypassing the cache
-$wgHooks['userCan'][] = 'AccessControlHooks::onUserCan';
-// Hook the UnknownAction function for information user about restrictions
-$wgHooks['UnknownAction'][] = 'AccessControlHooks::onUnknownAction';
