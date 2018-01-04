@@ -7,7 +7,7 @@
 	"type": "parserhook",
 	"url": "https://www.mediawiki.org/wiki/Extension:AccessControl",
 	"descriptionmsg": "accesscontrol-desc",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"AutoloadClasses": {
 		"AccessControlHooks": "AccessControl.hooks.php"
 	},
