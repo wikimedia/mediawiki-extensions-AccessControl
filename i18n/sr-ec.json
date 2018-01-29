@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Milicevic01"
+			"Milicevic01",
+			"Acamicamacaraca"
 		]
 	},
-	"accesscontrol-info": "Ово је заштићена страница."
+	"accesscontrol-desc": "Омогућава ограничење приступа групи на страници према корисничкој основи",
+	"accesscontrol-info": "Ово је заштићена страница.",
+	"accesscontrol-info-box": "Ограничење приступа је успстављено за ову страницу. Ако видите ову поруку, немате приступ овој страници."
 }
