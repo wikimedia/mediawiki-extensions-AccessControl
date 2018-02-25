@@ -2,8 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Shirayuki",
-			"Sujiniku"
+			"Sujiniku",
+			"Yusuke1109"
 		]
 	},
-	"accesscontrol-info": "これは保護されたページです。"
+	"accesscontrol-desc": "ユーザー単位でページのグループアクセス制限を有効にします。",
+	"accesscontrol-info": "これは保護されたページです。",
+	"accesscontrol-info-box": "このページのアクセス制限が設定されました。このメッセージが表示された場合、このページにアクセスすることはできません。"
 }
