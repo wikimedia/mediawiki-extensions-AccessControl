@@ -12,7 +12,7 @@
  * @subpackage Extensions
  * @author Aleš Kapica
  * @copyright 2008-2014 Aleš Kapica
- * @license GNU General Public Licence 2.0 or later
+ * @license GPL-2.0-or-later
  */
 if ( function_exists( 'wfLoadExtension' ) ) {
 	wfLoadExtension( 'AccessControl' );
