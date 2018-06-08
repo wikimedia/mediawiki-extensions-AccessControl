@@ -79,8 +79,11 @@ class AccessControlHooks {
 
 	public static function getContentPage( $namespace, $title ) {
 		/* Function get content the page identified by title object from database */
-		$Title = new Title();
-		$gt = $Title->makeTitle( $namespace, $title );
+		$gt = Title::makeTitle( $namespace, $title );
+		if ( $gt->isSpecialPage() ) {
+			// Can't create WikiPage for special page
+			return '';
+		}
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
 		$page = WikiPage::factory( $gt );
