@@ -20,7 +20,7 @@ class AccessControlHooks {
 	}
 
 	public static function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $frame ) {
-		/* Funcion called by accessControlExtension */
+		/* Function called by accessControlExtension */
 		return self::displayGroups();
 	}
 
