@@ -87,7 +87,7 @@ class AccessControlHooks {
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
 		$page = WikiPage::factory( $gt );
-		$content = ContentHandler::getContentText( $page -> getContent() );
+		$content = ContentHandler::getContentText( $page->getContent() );
 		return $content;
 	}
 
@@ -98,7 +98,7 @@ class AccessControlHooks {
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
 		$page = WikiPage::factory( $gt );
-		$content = ContentHandler::getContentText( $page -> getContent() );
+		$content = ContentHandler::getContentText( $page->getContent() );
 		return $content;
 	}
 
@@ -112,7 +112,7 @@ class AccessControlHooks {
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
 		$groupPage = WikiPage::factory( $gt );
-		$allowedUsers = ContentHandler::getContentText( $groupPage -> getContent() );
+		$allowedUsers = ContentHandler::getContentText( $groupPage->getContent() );
 		$groupPage = null;
 		$usersAccess = explode( "\n", $allowedUsers );
 		foreach ( $usersAccess as $userEntry ) {
