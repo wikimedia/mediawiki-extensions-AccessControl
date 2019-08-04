@@ -6,7 +6,7 @@ class AccessControlHooks {
 		switch ( $action ) {
 			default:
 				$wgOut->setPageTitle( $article->getTitle() . "->" . $action );
-				$wgOut->addWikiText( wfMessage( 'accesscontrol-actions-deny' )->text() );
+				$wgOut->addWikiTextAsInterface( wfMessage( 'accesscontrol-actions-deny' )->text() );
 		}
 
 		return false;
