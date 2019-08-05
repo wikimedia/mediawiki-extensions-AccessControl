@@ -190,7 +190,7 @@ class AccessControlHooks {
 							$wgActions['view'] = false;
 							self::doRedirect( 'accesscontrol-move-anonymous' );
 						} else {
-							if ( in_array( 'sysop', $wgUser->mGroups, true ) ) {
+							if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
 								if ( isset( $wgAdminCanReadAll ) ) {
 									if ( $wgAdminCanReadAll ) {
 										return true;
@@ -198,7 +198,7 @@ class AccessControlHooks {
 								}
 							}
 							$users = self::accessControl( $rights['groups'] );
-							if ( !in_array( $wgUser->mName, $users[0], true ) ) {
+							if ( !in_array( $wgUser->getName(), $users[0], true ) ) {
 								$wgActions['edit'] = false;
 								$wgActions['history'] = false;
 								$wgActions['submit'] = false;
@@ -209,7 +209,7 @@ class AccessControlHooks {
 								$wgActions['revisiondelete'] = false;
 								$wgActions['rollback'] = false;
 								$wgActions['markpatrolled'] = false;
-								if ( !in_array( $wgUser->mName, $users[1], true ) ) {
+								if ( !in_array( $wgUser->getName(), $users[1], true ) ) {
 									$wgActions['view'] = false;
 
 									return self::doRedirect( 'accesscontrol-move-users' );
@@ -311,7 +311,7 @@ class AccessControlHooks {
 					}
 				}
 				$users = self::accessControl( $rights['groups'] );
-				if ( in_array( $wgUser->mName, $users[0], true ) ) {
+				if ( in_array( $wgUser->getName(), $users[0], true ) ) {
 					return true;
 				} else {
 					$wgActions['edit'] = false;
@@ -324,7 +324,7 @@ class AccessControlHooks {
 					$wgActions['revisiondelete'] = false;
 					$wgActions['rollback'] = false;
 					$wgActions['markpatrolled'] = false;
-					if ( in_array( $wgUser->mName, $users[1], true ) ) {
+					if ( in_array( $wgUser->getName(), $users[1], true ) ) {
 						return true;
 					} else {
 						$wgActions['view'] = false;
