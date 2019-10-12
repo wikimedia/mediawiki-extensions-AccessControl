@@ -31,8 +31,7 @@
 	},
 	"Hooks": {
 		"ParserFirstCallInit": "AccessControlHooks::accessControlExtension",
-		"userCan": "AccessControlHooks::onUserCan",
-		"UnknownAction": "AccessControlHooks::onUnknownAction"
+		"userCan": "AccessControlHooks::onUserCan"
 	},
 	"manifest_version": 2
 }

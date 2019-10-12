@@ -1,17 +1,6 @@
 <?php
 
 class AccessControlHooks {
-	public static function onUnknownAction( $action, Page $article ) {
-		global $wgOut;
-		switch ( $action ) {
-			default:
-				$wgOut->setPageTitle( $article->getTitle() . "->" . $action );
-				$wgOut->addWikiTextAsInterface( wfMessage( 'accesscontrol-actions-deny' )->text() );
-		}
-
-		return false;
-	}
-
 	public static function accessControlExtension( Parser $parser ) {
 		/* This the hook function adds the tag <accesscontrol> to the wiki parser */
 		$parser->setHook( 'accesscontrol', [ 'AccessControlHooks', 'doControlUserAccess' ] );

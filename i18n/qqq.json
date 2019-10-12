@@ -10,6 +10,5 @@
 	"accesscontrol-move-users": "{{notranslate}}",
 	"accesscontrol-redirect-anonymous": "{{notranslate}}",
 	"accesscontrol-redirect-users": "{{notranslate}}",
-	"accesscontrol-actions-deny": "{{notranslate}}",
 	"accesscontrol-info-box": "This message describes that your current mediawiki uses the AccessControl extension to allow restrict access to the site."
 }
