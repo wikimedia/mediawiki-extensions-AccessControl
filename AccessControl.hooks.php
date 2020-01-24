@@ -142,15 +142,15 @@ class AccessControlHooks {
 		}
 	}
 
-	public static function fromTemplates( $string ) {
-		global $wgUser, $wgAdminCanReadAll;
+	private static function fromTemplates( $string, User $user ) {
+		global $wgAdminCanReadAll;
 		// Template extraction
 		if ( strpos( $string, '{{' ) >= 0 ) {
 			if ( substr( $string, strpos( $string, '{{' ), 3 ) === '{{{' ) {
 				$start = strpos( $string, '{{{' );
 				$end = strlen( $string );
 				$skok = $start + 3;
-				self::fromTemplates( substr( $string, $skok, $end - $skok ) );
+				self::fromTemplates( substr( $string, $skok, $end - $skok ), $user );
 			} else {
 				$start = strpos( $string, '{{' );
 				$end = strpos( $string, '}}' );
@@ -158,28 +158,28 @@ class AccessControlHooks {
 				$templatepage = substr( $string, $skok, $end - $skok );
 				if ( substr( $templatepage, 0, 1 ) == '{' ) {
 					// The check of included code
-					$rights = self::fromTemplates( $templatepage );
+					$rights = self::fromTemplates( $templatepage, $user );
 				} elseif ( substr( $templatepage, 0, 1 ) == ':' ) {
 					// The check of included page
-					$rights = self::allRightTags( self::getContentPage( 0, substr( $templatepage, 1 ) ) );
+					$rights = self::allRightTags( self::getContentPage( 0, substr( $templatepage, 1 ) ), $user );
 				} elseif ( ctype_alnum( substr( $templatepage, 0, 1 ) ) ) {
 					// The check of included template
 					if ( strpos( $templatepage, '|' ) > 0 ) {
 						$templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
-						$rights = self::allRightTags( self::getContentPage( 10, $templatename ) );
+						$rights = self::allRightTags( self::getContentPage( 10, $templatename ), $user );
 					} else {
-						$rights = self::allRightTags( self::getContentPage( 10, $templatepage ) );
+						$rights = self::allRightTags( self::getContentPage( 10, $templatepage ), $user );
 					}
 				}
 
 				if ( isset( $rights ) ) {
 					if ( is_array( $rights ) ) {
-						if ( $wgUser->mId === 0 ) {
+						if ( $user->mId === 0 ) {
 							/* Redirection unknown users */
 							$wgActions['view'] = false;
 							self::doRedirect( 'accesscontrol-move-anonymous' );
 						} else {
-							if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
+							if ( in_array( 'sysop', $user->getGroups(), true ) ) {
 								if ( isset( $wgAdminCanReadAll ) ) {
 									if ( $wgAdminCanReadAll ) {
 										return true;
@@ -187,7 +187,7 @@ class AccessControlHooks {
 								}
 							}
 							$users = self::accessControl( $rights['groups'] );
-							if ( !in_array( $wgUser->getName(), $users[0], true ) ) {
+							if ( !in_array( $user->getName(), $users[0], true ) ) {
 								$wgActions['edit'] = false;
 								$wgActions['history'] = false;
 								$wgActions['submit'] = false;
@@ -198,7 +198,7 @@ class AccessControlHooks {
 								$wgActions['revisiondelete'] = false;
 								$wgActions['rollback'] = false;
 								$wgActions['markpatrolled'] = false;
-								if ( !in_array( $wgUser->getName(), $users[1], true ) ) {
+								if ( !in_array( $user->getName(), $users[1], true ) ) {
 									$wgActions['view'] = false;
 
 									return self::doRedirect( 'accesscontrol-move-users' );
@@ -211,7 +211,7 @@ class AccessControlHooks {
 		}
 	}
 
-	public static function allRightTags( $string ) {
+	private static function allRightTags( $string, User $user ) {
 		/* Function for extraction content tag accesscontrol from raw source the page */
 		$contenttag = [];
 		$starttag = "<accesscontrol>";
@@ -231,11 +231,11 @@ class AccessControlHooks {
 			$Title = new Title();
 			$gt = $Title->makeTitle( 0, $redirecttarget );
 
-			return self::allRightTags( self::getContentPage( $gt->getNamespace(), $gt ) );
+			return self::allRightTags( self::getContentPage( $gt->getNamespace(), $gt ), $user );
 		}
 
 		// The control of included pages and templates on appearing of accesscontrol tag
-		self::fromTemplates( $string );
+		self::fromTemplates( $string, $user );
 		$start = strpos( $string, $starttag );
 		if ( $start !== false ) {
 			$start += strlen( $starttag );
@@ -264,10 +264,10 @@ class AccessControlHooks {
 		}
 	}
 
-	public static function onUserCan( &$title, &$wgUser, $action, &$result ) {
+	public static function onUserCan( &$title, &$user, $action, &$result ) {
 		/* Main function control access for all users */
 		global $wgActions, $wgAdminCanReadAll;
-		if ( $wgUser->mId === 0 ) {
+		if ( $user->mId === 0 ) {
 			/* Deny actions for all anonymous */
 			$wgActions['edit'] = false;
 			$wgActions['history'] = false;
@@ -284,15 +284,15 @@ class AccessControlHooks {
 		$rights = self::allRightTags( self::getContentPage(
 			$title->getNamespace(),
 			$title->mDbkeyform
-		) );
+		), $user );
 
 		if ( is_array( $rights ) ) {
-			if ( $wgUser->mId === 0 ) {
+			if ( $user->mId === 0 ) {
 				/* Redirection unknown users */
 				$wgActions['view'] = false;
 				self::doRedirect( 'accesscontrol-redirect-anonymous' );
 			} else {
-				if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
+				if ( in_array( 'sysop', $user->getGroups(), true ) ) {
 					if ( isset( $wgAdminCanReadAll ) ) {
 						if ( $wgAdminCanReadAll ) {
 							return true;
@@ -300,7 +300,7 @@ class AccessControlHooks {
 					}
 				}
 				$users = self::accessControl( $rights['groups'] );
-				if ( in_array( $wgUser->getName(), $users[0], true ) ) {
+				if ( in_array( $user->getName(), $users[0], true ) ) {
 					return true;
 				} else {
 					$wgActions['edit'] = false;
@@ -313,7 +313,7 @@ class AccessControlHooks {
 					$wgActions['revisiondelete'] = false;
 					$wgActions['rollback'] = false;
 					$wgActions['markpatrolled'] = false;
-					if ( in_array( $wgUser->getName(), $users[1], true ) ) {
+					if ( in_array( $user->getName(), $users[1], true ) ) {
 						return true;
 					} else {
 						$wgActions['view'] = false;
