@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Wolf Rex",
-			"Dj"
+			"Dj",
+			"Wolf Rex"
 		]
 	},
 	"accesscontrol-desc": "Lehetőséget ad arra, bizonyos lapokat csak adott felhasználók érhessenek el.",

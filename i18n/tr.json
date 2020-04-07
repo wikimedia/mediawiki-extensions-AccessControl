@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"HakanIST",
-			"BaRaN6161 TURK"
+			"BaRaN6161 TURK",
+			"HakanIST"
 		]
 	},
 	"accesscontrol-desc": "Sayfa bazında kullanıcı erişimine göre grup erişim kısıtlamasını mümkün kılar",

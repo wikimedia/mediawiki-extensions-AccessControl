@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Milicevic01",
 			"Acamicamacaraca",
-			"BadDog"
+			"BadDog",
+			"Milicevic01"
 		]
 	},
 	"accesscontrol-desc": "Омогућава ограничење приступа групи на страници према корисничкој основи",

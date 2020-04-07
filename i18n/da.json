@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sarrus",
-			"Joedalton"
+			"Joedalton",
+			"Sarrus"
 		]
 	},
 	"accesscontrol-desc": "Aktiverer gruppeadgangsbegrænsning på en side per bruger",
