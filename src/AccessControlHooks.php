@@ -142,6 +142,11 @@ class AccessControlHooks {
 		}
 	}
 
+	/**
+	 * @param string $string
+	 * @param User $user
+	 * @return null
+	 */
 	private static function fromTemplates( $string, User $user ) {
 		global $wgAdminCanReadAll;
 		// Template extraction
@@ -211,6 +216,11 @@ class AccessControlHooks {
 		}
 	}
 
+	/**
+	 * @param string $string
+	 * @param User $user
+	 * @return array|false
+	 */
 	private static function allRightTags( $string, User $user ) {
 		/* Function for extraction content tag accesscontrol from raw source the page */
 		$contenttag = [];
