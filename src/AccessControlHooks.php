@@ -3,9 +3,7 @@
 class AccessControlHooks {
 	public static function accessControlExtension( Parser $parser ) {
 		/* This the hook function adds the tag <accesscontrol> to the wiki parser */
-		$parser->setHook( 'accesscontrol', [ 'AccessControlHooks', 'doControlUserAccess' ] );
-
-		return true;
+		$parser->setHook( 'accesscontrol', [ __CLASS__, 'doControlUserAccess' ] );
 	}
 
 	public static function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $frame ) {
@@ -82,8 +80,7 @@ class AccessControlHooks {
 
 	public function getTemplatePage( $template ) {
 		/* Function get content the template page identified by title object from database */
-		$Title = new Title();
-		$gt = $Title->makeTitle( 10, $template );
+		$gt = Title::makeTitle( NS_TEMPLATE, $template );
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
 		$page = WikiPage::factory( $gt );
@@ -93,11 +90,8 @@ class AccessControlHooks {
 
 	public static function getUsersFromPages( $group ) {
 		/* Extracts the allowed users from the userspace access list */
-		$allowedAccess = [];
 		$allow = [];
-		$Title = new Title();
-		// Remark: position to add code to use namespace from mediawiki
-		$gt = $Title->makeTitle( 0, $group );
+		$gt = Title::makeTitle( NS_MAIN, $group );
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
 		$groupPage = WikiPage::factory( $gt );
@@ -117,24 +111,17 @@ class AccessControlHooks {
 				}
 			}
 		}
-		if ( is_array( $allow ) ) {
-			$allowedAccess = $allow;
-			unset( $allow );
-		}
-
-		return $allowedAccess;
+		return $allow;
 	}
 
-	public static function doRedirect( $info ) {
+	/**
+	 * @param string $info
+	 */
+	private static function doRedirect( $info ) {
 		/* make redirection for non authorized users */
 		global $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect;
-		if ( !$info ) {
-			$info = "No_access";
-		}
-		if ( isset( $_SESSION['redirect'] ) ) {
-			// removing info about redirect from session after move..
-			unset( $_SESSION['redirect'] );
-		}
+		// removing info about redirect from session after move..
+		unset( $_SESSION['redirect'] );
 		$wgOut->clearHTML();
 		$wgOut->prependHTML( wfMessage( 'accesscontrol-info-box' )->text() );
 		if ( $wgAccessControlRedirect ) {
@@ -166,14 +153,14 @@ class AccessControlHooks {
 					$rights = self::fromTemplates( $templatepage, $user );
 				} elseif ( substr( $templatepage, 0, 1 ) == ':' ) {
 					// The check of included page
-					$rights = self::allRightTags( self::getContentPage( 0, substr( $templatepage, 1 ) ), $user );
+					$rights = self::allRightTags( self::getContentPage( NS_MAIN, substr( $templatepage, 1 ) ), $user );
 				} elseif ( ctype_alnum( substr( $templatepage, 0, 1 ) ) ) {
 					// The check of included template
 					if ( strpos( $templatepage, '|' ) > 0 ) {
 						$templatename = substr( $templatepage, 0, strpos( $templatepage, '|' ) );
-						$rights = self::allRightTags( self::getContentPage( 10, $templatename ), $user );
+						$rights = self::allRightTags( self::getContentPage( NS_TEMPLATE, $templatename ), $user );
 					} else {
-						$rights = self::allRightTags( self::getContentPage( 10, $templatepage ), $user );
+						$rights = self::allRightTags( self::getContentPage( NS_TEMPLATE, $templatepage ), $user );
 					}
 				}
 
@@ -184,12 +171,10 @@ class AccessControlHooks {
 							$wgActions['view'] = false;
 							self::doRedirect( 'accesscontrol-move-anonymous' );
 						} else {
-							if ( in_array( 'sysop', $user->getGroups(), true ) ) {
-								if ( isset( $wgAdminCanReadAll ) ) {
-									if ( $wgAdminCanReadAll ) {
-										return true;
-									}
-								}
+							if ( in_array( 'sysop', $user->getGroups(), true ) &&
+								$wgAdminCanReadAll
+							) {
+								return true;
 							}
 							$users = self::accessControl( $rights['groups'] );
 							if ( !in_array( $user->getName(), $users[0], true ) ) {
@@ -238,8 +223,7 @@ class AccessControlHooks {
 			if ( strpos( $redirecttarget, '|' ) ) {
 				$redirecttarget = trim( substr( $redirecttarget, 0, strpos( $redirecttarget, '|' ) ) );
 			}
-			$Title = new Title();
-			$gt = $Title->makeTitle( 0, $redirecttarget );
+			$gt = Title::makeTitle( NS_MAIN, $redirecttarget );
 
 			return self::allRightTags( self::getContentPage( $gt->getNamespace(), $gt ), $user );
 		}
@@ -266,15 +250,11 @@ class AccessControlHooks {
 				}
 			}
 		} else {
-			if ( isset( $_SESSION['redirect'] ) ) {
-				return $_SESSION['redirect'];
-			} else {
-				return false;
-			}
+			return $_SESSION['redirect'] ?? false;
 		}
 	}
 
-	public static function onUserCan( &$title, &$user, $action, &$result ) {
+	public static function onUserCan( $title, $user, $action, &$result ) {
 		/* Main function control access for all users */
 		global $wgActions, $wgAdminCanReadAll;
 		if ( $user->mId === 0 ) {
@@ -302,12 +282,8 @@ class AccessControlHooks {
 				$wgActions['view'] = false;
 				self::doRedirect( 'accesscontrol-redirect-anonymous' );
 			} else {
-				if ( in_array( 'sysop', $user->getGroups(), true ) ) {
-					if ( isset( $wgAdminCanReadAll ) ) {
-						if ( $wgAdminCanReadAll ) {
-							return true;
-						}
-					}
+				if ( in_array( 'sysop', $user->getGroups(), true ) && $wgAdminCanReadAll ) {
+					return true;
 				}
 				$users = self::accessControl( $rights['groups'] );
 				if ( in_array( $user->getName(), $users[0], true ) ) {
