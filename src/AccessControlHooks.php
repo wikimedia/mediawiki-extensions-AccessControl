@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @license GPL-2.0-or-later
+ */
 class AccessControlHooks {
 	public static function accessControlExtension( Parser $parser ) {
 		/* This the hook function adds the tag <accesscontrol> to the wiki parser */
