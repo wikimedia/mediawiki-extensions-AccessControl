@@ -1,16 +1,33 @@
 <?php
 
 class AccessControlHooks {
+
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
+	 *
+	 * @param Parser $parser
+	 */
 	public static function accessControlExtension( Parser $parser ) {
 		/* This the hook function adds the tag <accesscontrol> to the wiki parser */
 		$parser->setHook( 'accesscontrol', [ __CLASS__, 'doControlUserAccess' ] );
 	}
 
+	/**
+	 * @param string $input
+	 * @param string[] $args
+	 * @param Parser $parser
+	 * @param PPFrame $frame
+	 * @return string
+	 */
 	public static function doControlUserAccess( $input, array $args, Parser $parser, PPFrame $frame ) {
 		/* Function called by accessControlExtension */
 		return self::displayGroups();
 	}
 
+	/**
+	 * @param string $tagContent
+	 * @return string[][]
+	 */
 	public static function accessControl( $tagContent ) {
 		$accessgroup = [ [], [] ];
 		$listaccesslist = explode( ',', $tagContent );
@@ -31,6 +48,10 @@ class AccessControlHooks {
 		return $accessgroup;
 	}
 
+	/**
+	 * @param string[] $accesslist
+	 * @return string[][]
+	 */
 	public static function makeGrouparray( $accesslist ) {
 		/* Function returns array with two lists.
 			First is list full access users.
@@ -52,6 +73,9 @@ class AccessControlHooks {
 		return [ $userswrite, $usersreadonly ];
 	}
 
+	/**
+	 * @return string
+	 */
 	public static function displayGroups() {
 		/** Function replace the tag <accesscontrol> and his content,
 		 * behind info about a protection this the page
@@ -64,6 +88,11 @@ class AccessControlHooks {
 		return $wgAllowInfo;
 	}
 
+	/**
+	 * @param int $namespace
+	 * @param string $title
+	 * @return string|null
+	 */
 	public static function getContentPage( $namespace, $title ) {
 		/* Function get content the page identified by title object from database */
 		$gt = Title::makeTitle( $namespace, $title );
@@ -78,6 +107,10 @@ class AccessControlHooks {
 		return $content;
 	}
 
+	/**
+	 * @param string $template
+	 * @return string|null
+	 */
 	public function getTemplatePage( $template ) {
 		/* Function get content the template page identified by title object from database */
 		$gt = Title::makeTitle( NS_TEMPLATE, $template );
@@ -88,6 +121,10 @@ class AccessControlHooks {
 		return $content;
 	}
 
+	/**
+	 * @param string $group
+	 * @return string[]
+	 */
 	public static function getUsersFromPages( $group ) {
 		/* Extracts the allowed users from the userspace access list */
 		$allow = [];
@@ -116,6 +153,7 @@ class AccessControlHooks {
 
 	/**
 	 * @param string $info
+	 * @return void
 	 */
 	private static function doRedirect( $info ) {
 		/* make redirection for non authorized users */
@@ -132,7 +170,7 @@ class AccessControlHooks {
 	/**
 	 * @param string $string
 	 * @param User $user
-	 * @return null
+	 * @return true|void
 	 */
 	private static function fromTemplates( $string, User $user ) {
 		global $wgAdminCanReadAll;
@@ -204,7 +242,7 @@ class AccessControlHooks {
 	/**
 	 * @param string $string
 	 * @param User $user
-	 * @return array|false
+	 * @return array|false|void
 	 */
 	private static function allRightTags( $string, User $user ) {
 		/* Function for extraction content tag accesscontrol from raw source the page */
@@ -254,6 +292,15 @@ class AccessControlHooks {
 		}
 	}
 
+	/**
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/userCan
+	 *
+	 * @param Title $title
+	 * @param User $user
+	 * @param string $action
+	 * @param string &$result
+	 * @return true|void
+	 */
 	public static function onUserCan( $title, $user, $action, &$result ) {
 		/* Main function control access for all users */
 		global $wgActions, $wgAdminCanReadAll;
