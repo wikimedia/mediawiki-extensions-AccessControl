@@ -166,7 +166,7 @@ class AccessControlHooks {
 
 				if ( isset( $rights ) ) {
 					if ( is_array( $rights ) ) {
-						if ( $user->mId === 0 ) {
+						if ( $user->isAnon() ) {
 							/* Redirection unknown users */
 							$wgActions['view'] = false;
 							self::doRedirect( 'accesscontrol-move-anonymous' );
@@ -257,7 +257,7 @@ class AccessControlHooks {
 	public static function onUserCan( $title, $user, $action, &$result ) {
 		/* Main function control access for all users */
 		global $wgActions, $wgAdminCanReadAll;
-		if ( $user->mId === 0 ) {
+		if ( $user->isAnon() ) {
 			/* Deny actions for all anonymous */
 			$wgActions['edit'] = false;
 			$wgActions['history'] = false;
@@ -277,7 +277,7 @@ class AccessControlHooks {
 		), $user );
 
 		if ( is_array( $rights ) ) {
-			if ( $user->mId === 0 ) {
+			if ( $user->isAnon() ) {
 				/* Redirection unknown users */
 				$wgActions['view'] = false;
 				self::doRedirect( 'accesscontrol-redirect-anonymous' );
