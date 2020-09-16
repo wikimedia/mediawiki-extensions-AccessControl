@@ -3,4 +3,5 @@
 .*.swp
 node_modules/
 /composer.lock
+/.eslintcache
 /vendor/
