@@ -1,6 +1,6 @@
 {
 	"name": "AccessControl",
-	"version": "2.6",
+	"version": "3.0.2",
 	"author": [
 		"[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]"
 	],
@@ -27,12 +27,22 @@
 		"AccessControlRedirect": {
 			"value": true,
 			"description": "Do not redirect from page in search results to restricted pages"
+		},
+		"AccessControlNamespaces": {
+			"value": [ 0, 2 ],
+			"description": "Anonymous user can't by default view differences between revisions"
+		},
+		"AccessToHistory": {
+			"value": false,
+			"description": "Anonymous user can't by default view history of page"
 		}
 	},
 	"Hooks": {
+		"ModifyExportQuery": "AccessControlHooks::onModifyExportQuery",
 		"ParserFirstCallInit": "AccessControlHooks::accessControlExtension",
-		"userCan": "AccessControlHooks::onUserCan",
-		"UnknownAction": "AccessControlHooks::onUnknownAction"
+		"ParserBeforeStrip": "AccessControlHooks::onParserBeforeStrip",
+		"userCan": "AccessControlHooks::onuserCan",
+		"ShowSearchHit": "AccessControlHooks::onShowSearchHit"
 	},
 	"manifest_version": 2
 }

@@ -7,6 +7,7 @@
  * Version 0.1 to 0.9 (2010-06-27) by Martin Gondermann
  * Version 1.0 to 2.5 by Aleš Kapica
  * Version 2.6 by Siebrand Mazeland and Thomas Mulhall
+ * Version 3.0 by Aleš Kapica
  *
  * @package MediaWiki
  * @subpackage Extensions

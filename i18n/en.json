@@ -4,6 +4,7 @@
 	},
 	"accesscontrol-desc": "Enables group access restriction on a page by user basis",
 	"accesscontrol-info": "This is a protected page.",
+	"accesscontrol-readonly": "Sorry, but you can only read the content of this page.",
 	"accesscontrol-move-anonymous": "Deny_anonymous_by_include",
 	"accesscontrol-move-users": "Deny_user_by_include",
 	"accesscontrol-redirect-anonymous": "Deny_anonymous",

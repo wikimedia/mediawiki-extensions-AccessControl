@@ -1,3 +1,25 @@
+version 3.0.2
+* New message 'accescontrol-readonly' in i18 directory
+* README file, with info about basic configuration before activation
+* AccessControl.cs.xml – wiki manual page for extension (in czech language)
+
+version 3.0.1
+* Patch for deny edit access over visualeditor, proposed by user HtheChemist and tested by
+  Nicolas Nallet with MediaWiki 1.34.0
+
+version 3.0
+* Completly rewrited for templates support by Aleš Kapica
+* New syntax for accesslists
+* Old syntax is still supported
+* Used hook "ParserBeforeStrip" to secure content of pages included by DPL
+* Used hook "ModifyExportQuery" to protection page before export
+* Used hook "ShowSearchHit" to hide results of pages with hits
+* Removed hook:
+    UnknownAction (obsolete)
+* New variables:
+    $wgAccessControlNamespaces Array of numeric values of the namespaces with the accesslists
+    $wgAccessToHistory Can allow read history or wiki content of unprotected pages for anonymous users
+
 version 2.6
 * Added support for PHP codesniffer checks, internal restructuring of code by Siebrand Mazeland
 * Fixes to the above change by Thomas Mulhall
