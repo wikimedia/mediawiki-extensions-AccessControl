@@ -83,12 +83,9 @@ class AccessControlHooks {
 		/** Function replace the tag <accesscontrol> and his content,
 		 * behind info about a protection this the page
 		 */
-		$style = "<p id=\"accesscontrol\" style=\"text-align:center;color:#BA0000;font-size:8pt\">";
-		$text = wfMessage( 'accesscontrol-info' )->text();
-		$style_end = "</p>";
-		$wgAllowInfo = $style . $text . $style_end;
-
-		return $wgAllowInfo;
+		return '<p id="accesscontrol" style="text-align:center;color:#BA0000;font-size:8pt">' .
+			wfMessage( 'accesscontrol-info' )->text() .
+			"</p>";
 	}
 
 	/**
@@ -176,7 +173,7 @@ class AccessControlHooks {
 	 * @return true|void
 	 */
 	private static function fromTemplates( $string, User $user ) {
-		global $wgAdminCanReadAll;
+		global $wgActions, $wgAdminCanReadAll;
 		// Template extraction
 		if ( strpos( $string, '{{' ) >= 0 ) {
 			if ( substr( $string, strpos( $string, '{{' ), 3 ) === '{{{' ) {
