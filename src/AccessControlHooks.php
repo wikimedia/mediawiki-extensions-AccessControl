@@ -96,8 +96,8 @@ class AccessControlHooks {
 	public static function getContentPage( $namespace, $title ) {
 		/* Function get content the page identified by title object from database */
 		$gt = Title::makeTitle( $namespace, $title );
-		if ( $gt->isSpecialPage() ) {
-			// Can't create WikiPage for special page
+		if ( $gt->isSpecialPage() || !$gt->canExist() ) {
+			// Can't create WikiPage for special page or other impossible page titles
 			return '';
 		}
 		// Article::fetchContent() is deprecated.
