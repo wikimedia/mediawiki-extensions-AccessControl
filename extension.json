@@ -1,6 +1,6 @@
 {
 	"name": "AccessControl",
-	"version": "3.0.2",
+	"version": "4.0",
 	"author": [
 		"[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]"
 	],
@@ -42,7 +42,8 @@
 		"ParserFirstCallInit": "AccessControlHooks::accessControlExtension",
 		"ParserBeforeStrip": "AccessControlHooks::onParserBeforeStrip",
 		"userCan": "AccessControlHooks::onuserCan",
-		"ShowSearchHit": "AccessControlHooks::onShowSearchHit"
+		"ShowSearchHit": "AccessControlHooks::onShowSearchHit",
+		"EditPage::attemptSave": "AccessControlHooks::onEditPageAttemptSave"
 	},
 	"manifest_version": 2
 }

@@ -21,6 +21,44 @@ class AccessControlHooks {
 
 
 	/**
+	 *  Function for safe save.
+	 *   If is in the content of page self include, return false
+	 *   (change don't saved)
+	 *
+	 * @return bool true
+	 */
+	public static function onEditPageAttemptSave( EditPage $editpage ) {
+		global $wgRequest;
+		$articleName = $wgRequest->getText( 'title' );
+		$articleText = $wgRequest->getText( 'wpTextbox1' );
+		$hledat = explode( ':', $articleName, 2);
+		if (count ($hledat) == 1 ) {
+//			Main namespace
+			preg_match(
+				'/\{\{(\s|\r|\n)*:'.$hledat[0].'(\s|\r|\n)*(\||\})/',
+				$articleText,
+				$include,
+				PREG_UNMATCHED_AS_NULL
+				);
+			if($include) {
+			return false;
+			}
+		} else {
+//			Problem is maainly with the templates
+			preg_match(
+				'/\{\{'.$hledat[1].'(\s|\r|\n)*(\||\})/',
+				$articleText,
+				$include,
+				PREG_UNMATCHED_AS_NULL
+				);
+			if($include) {
+				return false;
+			}
+		}
+		return true ;
+	}
+
+	/**
 	 * Function for backward comaptibility. If page is protect by tag <accesscontrol>
 	 *  must return empty string. If return null, is displayed the message ID string
 	 *  instead of the tag content, i.e.: '"`UNIQ--accesscontrol-00000000-QINU`"'

@@ -1,3 +1,6 @@
+version 4.0
+* Used hook "EditPage::attemptSave" to protect before save changes if is the self changes page included.
+
 version 3.0.2
 * New message 'accescontrol-readonly' in i18 directory
 * README file, with info about basic configuration before activation
