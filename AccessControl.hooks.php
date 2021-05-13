@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 class AccessControlHooks {
 
 
@@ -694,7 +695,7 @@ class AccessControlHooks {
 //				self::printDebug( microtime(true) . ' controlExportPage view'); // INFO DEBUG TIMESTAMP
 				return 1;
 			}
-			if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
+			if ( self::testSysop() ) {
 				if ( isset( $wgAdminCanReadAll ) ) {
 					if ( $wgAdminCanReadAll ) {
 						/* admin can be all */
@@ -994,6 +995,23 @@ class AccessControlHooks {
 
 
 	/**
+	 * True if current user has set 'sysop' group.
+	 *
+	 * @return bool
+	 */
+	private static function testSysop() {
+		global $wgUser;
+		if ( method_exists( MediaWikiServices::class, 'getUserGroupManager' ) ) {
+			// MediaWiki 1.35+
+			$userGroupManager = MediaWikiServices::getInstance()->getUserGroupManager();
+			return in_array( 'sysop', $userGroupManager->getUserGroups( $wgUser ) , true ) ? true : false ;
+		} else {
+			return in_array( 'sysop', $wgUser->getGroups() , true ) ? true : false ;
+		}
+	}
+
+
+	/**
 	 *
 	 * @param string $string
 	 *
@@ -1244,7 +1262,7 @@ class AccessControlHooks {
 			/* stránka je bez ochrany */
 			return 1;
 		}
-		if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
+		if ( self::testSysop() ) {
 			if ( isset( $wgAdminCanReadAll ) ) {
 				if ( $wgAdminCanReadAll ) {
 					/* admin může vše */
@@ -1323,7 +1341,7 @@ class AccessControlHooks {
 				$wgActions['view'] = false;
 //				self::doRedirect( 'accesscontrol-anonymous' );
 			} else {
-				if ( in_array( 'sysop', $wgUser->getGroups(), true ) ) {
+				if ( self::testSysop() ) {
 //					self::printDebug( microtime(true) . ' userVerify - ' . $wgUser->mName . ' is sysop' ); // DEBUG TIMESTAMP
 					if ( isset( $wgAdminCanReadAll ) ) {
 						if ( $wgAdminCanReadAll ) {
