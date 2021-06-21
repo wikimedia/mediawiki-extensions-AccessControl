@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @license GPL-2.0-or-later
  */
@@ -209,7 +211,14 @@ class AccessControlHooks {
 							$wgActions['view'] = false;
 							self::doRedirect( 'accesscontrol-move-anonymous' );
 						} else {
-							if ( in_array( 'sysop', $user->getGroups(), true ) &&
+							if ( method_exists( MediaWikiServices::class, 'getUserGroupManager' ) ) {
+								// MW 1.35+
+								$groups = MediaWikiServices::getInstance()->getUserGroupManager()
+									->getUserGroups( $user );
+							} else {
+								$groups = $user->getGroups();
+							}
+							if ( in_array( 'sysop', $groups, true ) &&
 								$wgAdminCanReadAll
 							) {
 								return true;
@@ -329,7 +338,14 @@ class AccessControlHooks {
 				$wgActions['view'] = false;
 				self::doRedirect( 'accesscontrol-redirect-anonymous' );
 			} else {
-				if ( in_array( 'sysop', $user->getGroups(), true ) && $wgAdminCanReadAll ) {
+				if ( method_exists( MediaWikiServices::class, 'getUserGroupManager' ) ) {
+					// MW 1.35+
+					$groups = MediaWikiServices::getInstance()->getUserGroupManager()
+						->getUserGroups( $user );
+				} else {
+					$groups = $user->getGroups();
+				}
+				if ( in_array( 'sysop', $groups, true ) && $wgAdminCanReadAll ) {
 					return true;
 				}
 				$users = self::accessControl( $rights['groups'] );
