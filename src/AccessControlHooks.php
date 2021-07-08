@@ -329,7 +329,7 @@ class AccessControlHooks {
 
 		$rights = self::allRightTags( self::getContentPage(
 			$title->getNamespace(),
-			$title->mDbkeyform
+			$title->getDBkey()
 		), $user );
 
 		if ( is_array( $rights ) ) {
