@@ -15,7 +15,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class AccessControlHooksTest extends \MediaWikiIntegrationTestCase {
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->insertPage( __CLASS__, '<accesscontrol>*A</accesscontrol>' );
 	}
