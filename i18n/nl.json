@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"McDutchie"
 		]
 	},
-	"accesscontrol-info": "Dit is een beveiligde pagina."
+	"accesscontrol-desc": "Maakt het mogelijk de toegang tot afzonderlijke pagina's te beperken op basis van interne groepen of groepslijsten vanuit de gebruikersruimte.",
+	"accesscontrol-info": "Dit is een beveiligde pagina.",
+	"accesscontrol-info-box": "Voor deze pagina zijn toegangsbeperkingen ingesteld. Als u dit bericht ziet, hebt u er geen toegang toe."
 }
