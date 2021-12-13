@@ -3,9 +3,11 @@
 		"authors": [
 			"Hidayatsrf",
 			"Rachmat.Wahidi",
-			"Rachmat04"
+			"Rachmat04",
+			"Daud I.F. Argana"
 		]
 	},
+	"accesscontrol-desc": "Menyalakan pembatasan akses kelompok pada suatu halaman dengan basis pengguna",
 	"accesscontrol-info": "Halaman ini dilindungi.",
 	"accesscontrol-info-box": "Pembatasan akses diaktifkan pada halaman ini. Jika Anda melihat pesan ini, Anda tidak memiliki akses ke halaman ini."
 }
