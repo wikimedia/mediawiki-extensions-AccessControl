@@ -104,7 +104,12 @@ class AccessControlHooks {
 		}
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
-		$page = WikiPage::factory( $gt );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $gt );
+		} else {
+			$page = WikiPage::factory( $gt );
+		}
 		$content = ContentHandler::getContentText( $page->getContent() );
 		return $content;
 	}
@@ -118,7 +123,12 @@ class AccessControlHooks {
 		$gt = Title::makeTitle( NS_TEMPLATE, $template );
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
-		$page = WikiPage::factory( $gt );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $gt );
+		} else {
+			$page = WikiPage::factory( $gt );
+		}
 		$content = ContentHandler::getContentText( $page->getContent() );
 		return $content;
 	}
@@ -133,7 +143,12 @@ class AccessControlHooks {
 		$gt = Title::makeTitle( NS_MAIN, $group );
 		// Article::fetchContent() is deprecated.
 		// Replaced by WikiPage::getContent()
-		$groupPage = WikiPage::factory( $gt );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$groupPage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $gt );
+		} else {
+			$groupPage = WikiPage::factory( $gt );
+		}
 		$allowedUsers = ContentHandler::getContentText( $groupPage->getContent() );
 		$groupPage = null;
 		$usersAccess = explode( "\n", $allowedUsers );
