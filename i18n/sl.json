@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"RStular"
+			"RStular",
+			"Eleassar"
 		]
 	},
 	"accesscontrol-desc": "Omogoči skupinsko omejevanje dostopa do strani na uporabniški ravni",
-	"accesscontrol-info": "Ta stran je zaščitena."
+	"accesscontrol-info": "Ta stran je zaščitena.",
+	"accesscontrol-info-box": "Za to stran so bile določene omejitve dostopa. Če vidite to sporočilo, nimate dostopa do te strani."
 }
