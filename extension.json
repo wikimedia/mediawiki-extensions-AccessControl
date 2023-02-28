@@ -1,6 +1,6 @@
 {
 	"name": "AccessControl",
-	"version": "2.6",
+	"version": "6.0",
 	"author": [
 		"[https://www.mediawiki.org/wiki/m:User:Want Aleš Kapica]"
 	],
@@ -9,7 +9,7 @@
 	"descriptionmsg": "accesscontrol-desc",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {
-		"MediaWiki": ">= 1.32.0"
+		"MediaWiki": ">= 1.34.0"
 	},
 	"AutoloadClasses": {
 		"AccessControlHooks": "src/AccessControlHooks.php"
@@ -19,6 +19,26 @@
 			"i18n"
 		]
 	},
+	"GroupPermissions": {
+		"*": {
+			"createaccount" : false,
+			"createpage" : false,
+			"createtalk" : false,
+			"edit" : false,
+			"lookupuser" : false,
+			"pagetranslation" : false,
+			"writeapi" : false
+		},
+		"user": {
+			"pagelang" : false,
+			"translate" : false,
+			"import" : false,
+			"importupload" : false,
+			"deletebatch" : false,
+			"addpagetoanywatchlist" : false,
+			"seepagewatchers" : true
+		}
+	},
 	"config": {
 		"AdminCanReadAll": {
 			"value": true,
@@ -27,11 +47,23 @@
 		"AccessControlRedirect": {
 			"value": true,
 			"description": "Do not redirect from page in search results to restricted pages"
+		},
+		"AccessControlNamespaces": {
+			"value": [ 0, 2 ],
+			"description": "Anonymous user can't by default view differences between revisions"
+		},
+		"AccessToHistory": {
+			"value": false,
+			"description": "Anonymous user can't by default view history of page"
 		}
 	},
 	"Hooks": {
+		"ModifyExportQuery": "AccessControlHooks::onModifyExportQuery",
 		"ParserFirstCallInit": "AccessControlHooks::accessControlExtension",
-		"userCan": "AccessControlHooks::onUserCan"
+		"ParserBeforeStrip": "AccessControlHooks::onParserBeforeStrip",
+		"getUserPermissionsErrors": "AccessControlHooks::onuserCan",
+		"ShowSearchHit": "AccessControlHooks::onShowSearchHit",
+		"EditPage::attemptSave": "AccessControlHooks::onEditPageAttemptSave"
 	},
 	"manifest_version": 2
 }

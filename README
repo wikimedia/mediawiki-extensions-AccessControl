@@ -1,0 +1,162 @@
+
+== Instalation == 
+For very very quick start:
+
+1, Get source from tarball or git repository, and insert into directory
+   extensions/AccessControl your instance of MediaWiki
+
+2, Before activation extension you must set in your file LocalSettings.php
+   restricted access for the anonymous users (see below)
+
+3, And after you may add into your file LocalSettings.php the following
+   line:
+
+    wfLoadExtension( 'AccessControl' )
+
+This is moment is AccessControl activated and may be use to protect of pages.
+
+== Using ==
+
+Complet manual for using is in file AccessControl.cs.xml, which can be
+imported into your wiki. For now is to disposition only version in czech
+language (exported from TheWoodcraft.Org page) , but I hope than will
+soon be available translate of this content into the english.
+
+If you want participated on it, you can request for access into my wiki.
+
+See
+ https://www.thewoodcraft.org/wiki/AccessControl
+ https://www.mediawiki.org/wiki/Extension:AccessControl
+ https://www.mediawiki.org/wiki/Help:Extension:AccessControl (planned)
+
+== Basic config settings before activation ==
+First you set allow action 'view' for all users:
+
+ $wgGroupPermissions['*']['read']            = true;
+
+An next deny access for unauthorized users for actions:
+
+ $wgGroupPermissions['*']['createaccount']   = false;
+ $wgGroupPermissions['*']['edit']            = false;
+ $wgGroupPermissions['*']['writeapi']        = false;
+ $wgGroupPermissions['*']['createpage'] = false;
+ $wgGroupPermissions['*']['createtalk'] = false;
+ $wgGroupPermissions['*']['edit'] = false;
+ $wgGroupPermissions['*']['createpage'] = false;
+
+ // If you have installed Extension:LookupUser
+ $wgGroupPermissions['*']['lookupuser'] = false;
+
+ // If you have installed Extension:ProofreadPage
+ $wgGroupPermissions['*']['pagetranslation'] = false;
+
+
+CAUTION: Is strictly recommend set deny access for allmost of Special
+         pages for anonymous users! I use for it function
+         disableSomeSpecialPages() in my LocalSettings.php file. See:
+
+…
+ function disableSomeSpecialPages(&$list) {
+     global $wgUser;
+
+     if ( is_array( $wgUser->mRights ) && in_array( 'createpage', $wgUser->mRights ) ) {
+         return true;
+     } else {
+         if ($wgUser->mId > 0 ) {
+             return true;
+         }
+         unset($list['Mypage']);
+         foreach( array(
+             'Activeusers',
+             'Allmessages',
+             'Allpages',
+             'Ancientpages',
+             'ApiSandbox',
+             'Blankpage',
+             'BlockList',
+             'Boilerplates',
+             'Booksources',
+             'BrokenRedirects',
+             'CategoryTree',
+             'ComparePages',
+             'Contributions',
+             'CreateCategory',
+             'CreateClass',
+             'CreateForm',
+             'CreateTemplate',
+             'Deadendpages',
+             'DoubleRedirects',
+             'ExpandTemplates',
+             'Export',
+             'ExportTranslations',
+             'Fewestrevisions',
+             'FileDuplicateSearch',
+             'Forms',
+             'FormEdit',
+             'FormStart',
+             'LanguageStats',
+             'LinkSearch',
+             'ListDuplicatedFiles',
+             'Listfiles',
+             'Listgrouprights',
+             'Listredirects',
+             'Listusers',
+             'Log',
+             'Lonelypages',
+             'Longpages',
+             'ManageMessageGroups',
+             'MediaStatistics',
+             'MessageGroupStats',
+             'MIMEsearch',
+             'Mostcategories',
+             'Mostimages',
+             'Mostinterwikis',
+             'Mostlinked',
+             'Mostlinkedcategories',
+             'Mostlinkedtemplates',
+             'Mostrevisions',
+             'Movepage',
+             'MultiPageEdit',
+             'Newimages',
+             'Newpages',
+             'PagesWithProp',
+             'PagesWithoutScans',
+             'PageTranslation',
+             'Preferences',
+             'Prefixindex',
+             'Protectedpages',
+             'Protectedtitles',
+             'RandomInCategory',
+             'Randompage',
+             'Randomredirect',
+             'Redirect',
+             'ResetTokens',
+             'RunQuery',
+             'SearchTranslations',
+             'Shortpages',
+             'Statistics',
+             'SupportedLanguages',
+             'TrackingCategories',
+             'Translate',
+             'Translations',
+             'TranslationStats',
+             'TranslationStash',
+             'Uncategorizedcategories',
+             'Uncategorizedimages',
+             'Uncategorizedpages',
+             'Uncategorizedtemplates',
+             'Unusedimages',
+             'Unusedtemplates',
+             'Wantedfiles',
+             'Wantedpages',
+             'Wantedtemplates',
+             'Watchlist',
+             'Withoutinterwiki'
+             ) as $i ) {
+             unset( $list[$i] );
+         }
+     }
+     return true;
+ }
+ $wgHooks['SpecialPage_initList'][]='disableSomeSpecialPages';
+…

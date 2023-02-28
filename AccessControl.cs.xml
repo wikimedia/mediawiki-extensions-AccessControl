@@ -1,0 +1,1396 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="cs">
+  <siteinfo>
+    <sitename>thewoodcraft.org</sitename>
+    <dbname>wiki</dbname>
+    <base>https://www.thewoodcraft.org/wiki/index.php/Hlavn%C3%AD_strana</base>
+    <generator>MediaWiki 1.34.0-alpha</generator>
+    <case>case-sensitive</case>
+    <namespaces>
+      <namespace key="-2" case="case-sensitive">Média</namespace>
+      <namespace key="-1" case="first-letter">Speciální</namespace>
+      <namespace key="0" case="case-sensitive" />
+      <namespace key="1" case="case-sensitive">Diskuse</namespace>
+      <namespace key="2" case="first-letter">Uživatel</namespace>
+      <namespace key="3" case="first-letter">Diskuse s uživatelem</namespace>
+      <namespace key="4" case="case-sensitive">Thewoodcraft.org</namespace>
+      <namespace key="5" case="case-sensitive">Diskuse k Thewoodcraft.org</namespace>
+      <namespace key="6" case="case-sensitive">Soubor</namespace>
+      <namespace key="7" case="case-sensitive">Diskuse k souboru</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">Diskuse k MediaWiki</namespace>
+      <namespace key="10" case="case-sensitive">Šablona</namespace>
+      <namespace key="11" case="case-sensitive">Diskuse k šabloně</namespace>
+      <namespace key="12" case="case-sensitive">Nápověda</namespace>
+      <namespace key="13" case="case-sensitive">Diskuse k nápovědě</namespace>
+      <namespace key="14" case="case-sensitive">Kategorie</namespace>
+      <namespace key="15" case="case-sensitive">Diskuse ke kategorii</namespace>
+      <namespace key="30" case="case-sensitive">Organizace</namespace>
+      <namespace key="31" case="case-sensitive">Organizace talk</namespace>
+      <namespace key="40" case="case-sensitive">Synfig</namespace>
+      <namespace key="41" case="case-sensitive">Synfig talk</namespace>
+      <namespace key="106" case="case-sensitive">Form</namespace>
+      <namespace key="107" case="case-sensitive">Form talk</namespace>
+      <namespace key="250" case="case-sensitive">Stránka</namespace>
+      <namespace key="251" case="case-sensitive">Diskuse ke stránce</namespace>
+      <namespace key="252" case="case-sensitive">Index</namespace>
+      <namespace key="253" case="case-sensitive">Diskuse k indexu</namespace>
+      <namespace key="274" case="case-sensitive">Widget</namespace>
+      <namespace key="275" case="case-sensitive">Widget talk</namespace>
+      <namespace key="1198" case="case-sensitive">Translations</namespace>
+      <namespace key="1199" case="case-sensitive">Translations talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>AccessControl</title>
+    <ns>0</ns>
+    <id>11484</id>
+    <revision>
+      <id>26913</id>
+      <parentid>26912</parentid>
+      <timestamp>2019-07-01T14:00:01Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <comment>Tato verze je označená pro překlad</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="97293">&lt;languages/&gt;
+&lt;translate&gt;
+&lt;!--T:1--&gt;
+Software ''MediaWiki'', na kterém běží projekty Wikimedia Foundation, nebyl navržen jako sofistikovaný CMS systém&lt;tvar|ref&gt;&lt;ref name="cms" /&gt;&lt;/&gt;.&lt;/translate&gt;
+&lt;ref follow="cms"&gt;
+&lt;translate&gt;
+&lt;!--T:2--&gt;
+Charakteristickým rysem CMS (zkratka z angl. "'''C'''ontent '''M'''anagement '''S'''ystem") systémů pro správu obsahu jsou mechanismy, které pracují s širokou škálou nastavení uživatelských práv.&lt;/translate&gt;
+&lt;/ref&gt;
+&lt;translate&gt;
+&lt;!--T:15--&gt;
+{{&lt;tvar|1&gt;elink|http://www.mediawiki.org/wiki/Extension:AccessControl&lt;/&gt;|AccessControl}} tento nedostatek řeší. {{&lt;tvar|2&gt;link|accesscontrol-history&lt;/&gt;|Vyvíjí se od září 2009}} a tohle je manuál k připravované verzi 3.0.
+&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:16--&gt; ''AccessControl'' umožňuje aby v rámci jedné instance ''MediaWiki'' mohl existovat veřejně dostupný obsah, i privátní stránky. V tomto manuálu najdete návod, {{&lt;tvar|1&gt;link|public-and-private&lt;/&gt;|jak udržovat veřejný i neveřejný obsah v rámci jedné stránky}}.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:17--&gt; ''AccessControl'' umožňuje, aby sami autoři obsahu rozhodovali o tom, kdo bude mít možnost zasahovat do obsahu stránky na které pracují. A tuhle ochranu stránky mohou kdykoliv jednoduchým způsobem zapnout, nebo naopak vypnout.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:18--&gt; I když je ''AccessControl'' založen na kontrole obsahu stránky, nepřináší z hlediska výkonu zvýšenou zátěž webového serveru. Spíš naopak. {{&lt;tvar|1&gt;link|how-accesscontrol-work&lt;/&gt;|Obsah stránky kontroluje ještě před zpracováním do HTML kódu}} a jeho odesláním na stranu webového prohlížeče klienta. Pokud nemá uživatel na chráněnou stránku přístup, je ihned {{&lt;tvar|2&gt;link|accesscontrol-info&lt;/&gt;|přesměrován}}.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:19--&gt; ''AccessControl'' je naprogramován tak, aby nešlo žádným doposud známým způsobem získat obsah chráněné stránky, takže wiki může obsahovat i důvěrný obsah. Umí ošetřit i {{&lt;tvar|1&gt;link|accesscontrol-export&lt;/&gt;|situace, pro které standardní ''MediaWiki'' žádné jiné bezpečnostní mechanismy nemá}}.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:21--&gt; Chráněné stránky lze v kombinaci s dalšími možnostmi, které nabízí ''MediaWiki'' a její rozšíření, využívat jako {{&lt;tvar|1&gt;link|mediawiki-private-channel&lt;/&gt;|skvělý prostředek k privátní komunikaci}}, kdy si uživatel sám rozhoduje, co bude sledovat a jakým způsobem má být o novinkách informován.&lt;/translate&gt;
+__TOC__
+&lt;translate&gt;
+&lt;!--T:121--&gt;
+'''Kdo všechno používá ''AccessControl?'''&lt;/translate&gt;
+: &lt;translate&gt; &lt;!--T:122--&gt; Pokud vás zajímá, jaké verze rozšíření ''AcccessControl'' se používají a kde, podívejte se na {{&lt;tvar|1&gt;elink|https://wikiapiary.com/wiki/Extension:AccessControl&lt;/&gt;|WikiApiary}}.&lt;/translate&gt;
+: &lt;translate&gt;&lt;!--T:123--&gt; Pokud budete mít pocit, že je tam těch webů málo, uvědomte si že ''AccessControl'' používají především wiki, které nejsou tak otevřené jako projekty Wikimedia Foundation. Většinou ani nemají veřejně dostupné API a obvykle omezují i přístup na speciální stránky, přes které lze získat data o jejich konfiguraci.&lt;/translate&gt;
+: &lt;translate&gt;&lt;!--T:124--&gt; Pokud wiki registrovaná na WikiApiary používá ''AccessControl'' a má na některé stránce, přes kterou robot doluje data, neplatný odkaz&lt;tvar|ref&gt;&lt;ref name="invalid-link" /&gt;&lt;/&gt;, nezjistí se o její konfiguraci také nic, protože robot skončí na {{&lt;tvar|1&gt;link|accesscontrol-info&lt;/&gt;|stránce s oznámením, že anonymní uživatelé mají přístup omezen}}.&lt;/translate&gt;
+&lt;ref follow="invalid-link"&gt;
+&lt;translate&gt;
+&lt;!--T:125--&gt;
+To je případ {{&lt;tvar|1&gt;elink|https://wikiapiary.com/wiki/DCEwiki&lt;/&gt;|DCEWiki}}, která je zaregistrovaná na WikiApiary, ale na stránce, kterou vrací API má několik neplatných odkazů. Proto ji v {{&lt;tvar|2&gt;elink|https://wikiapiary.com/wiki/Extension:AccessControl&lt;/&gt;| přehledu webů co používají rozšíření ''AccessControl''}} nenajdete i přes to, že ho používá.&lt;/translate&gt;
+&lt;/ref&gt;
+{{note|&lt;translate&gt;&lt;!--T:20--&gt;
+O spolehlivosti rozšíření ''AccessControl'' svědčí fakt, že za celou dobu reálného nasazení na wiki {{&lt;tvar|1&gt;elink|https://support.dce.felk.cvut.cz/&lt;/&gt;|DCE FEL ČVUT}} nebyl zaznamenán jediný případ vandalizace stránek či zneužití (nebo úniku) chráněného obsahu.
+&lt;/translate&gt;}}
+{{warn|&lt;translate&gt;&lt;!--T:69--&gt; Prostudujte důkladně tento manuál. Je důležité znát jak ''AccessControl'' funguje,  '''abyste byli připraveni''' řešit situaci, pokud by někdo udělal chybu, nebo se pokusil {{&lt;tvar|1&gt;link|template-atack&lt;/&gt;|zneužít některou šablonu}}.&lt;/translate&gt;}}
+{{info|&lt;translate&gt;&lt;!--T:22--&gt;
+'''Budete-li spokojeni s tím, jak funguje rozšíření ''AccessControl'' na vaší wiki, můžete na oplátku {{&lt;tvar|1&gt;elink|https://www.thewoodcraft.org/wiki/index.php/Donate&lt;/&gt;|podpořit TheWoodcraft.Org}}'''. Je to wiki, na které se verze 3.0 vyvíjela a kterou financuje jeho autor.&lt;/translate&gt;}}
+{{anchor|config-basic}}{{anchor|mediawiki-groups}}
+&lt;translate&gt;
+== Základní konfigurace ''MediaWiki'' před instalací rozšíření ''AccessControl'' == &lt;!--T:23--&gt;
+
+&lt;!--T:24--&gt;
+&lt;tvar|1&gt;{{elink|https://www.mediawiki.org/wiki/Manual:What_is_MediaWiki%3F|''MediaWiki''}}&lt;/&gt;, software na kterém běží &lt;tvar|2&gt;{{elink|https://en.wikipedia.org/wiki/History_of_Wikipedia|Wikipedia}}&lt;/&gt;, vznikla proto, aby pomohla přivést na svět do nedávné doby utopickou myšlenku, že kvalitní obsah internetových stránek může vznikat vzájemnou spoluprací všech uživatelů, tedy včetně těch anonymních. Díky benevolentnímu přístupu se brzy stala oblíbeným terčem psychopatů a frustrátů, jejichž největší radostí je – škodit. Proto se zavedly uživatelské skupiny, vybavené různými pravomocemi, a byrokratické mechanismy pro jejich udílení.
+
+&lt;!--T:3--&gt;
+Standardní ''MediaWiki'' pracuje hlavně s následujícími skupinami:
+&lt;/translate&gt;
+; &lt;translate&gt;&lt;!--T:4--&gt; anonymní uživatel&lt;/translate&gt; : &lt;translate&gt;&lt;!--T:5--&gt; Je každý nepřihlášený uživatel, který je v rámci ''MediaWiki'' identifikován svou IP adresou.&lt;/translate&gt;
+; &lt;translate&gt;&lt;!--T:6--&gt; přihlášený uživatel&lt;/translate&gt; ('user') : &lt;translate&gt;&lt;!--T:7--&gt; Tuhle skupinu má každý registrovaný a řádně přihlášený uživatel. V rámci ''MediaWiki'' je identifikován svým uživatelským jménem.&lt;/translate&gt;
+; &lt;translate&gt;&lt;!--T:8--&gt; administrátor&lt;/translate&gt; ('sysop') : &lt;translate&gt;&lt;!--T:9--&gt; Uživatel, který je v této skupině může vykonávat činnosti nutné při údržbě wiki (například mazat stránky, vracet změny, atp.). Zařazen může být do této skupiny trvale, ale i dočasně.&lt;/translate&gt;
+; &lt;translate&gt;&lt;!--T:10--&gt; byrokrat&lt;/translate&gt; ('bureaucrat') : &lt;translate&gt;&lt;!--T:11--&gt; Pouze uživatel z této skupiny může udílet práva ostatním uživatelům.&lt;/translate&gt;
+; 'bot' : &lt;translate&gt;&lt;!--T:12--&gt; Je to skupina vyhrazená pro uživatele, kteří často editují obsah wiki, případně vykonávají hromadné operace pomocí nejrůznějších skriptů. Některé operace uživatelů z této skupiny se nezaznamenávají, aby se tím zbytečně nezatěžoval systém ''MediaWiki'' a jejich akce probíhaly co nejrychleji. Kdyby tomu tak nebylo, mohly by na stránce &lt;tvar|1&gt;[[Special:Recentchanges]]&lt;/&gt; uniknout pozornosti jiné, nežádoucí změny.&lt;/translate&gt;
+&lt;translate&gt;
+&lt;!--T:13--&gt;
+Existují i další skupiny, které si pro svou potřebu zavádějí některá rozšíření. Ovšem vždy platí, že v rámci skupiny mají všichni členové stejná práva.&lt;/translate&gt; &lt;translate&gt;&lt;!--T:14--&gt;
+Pokud chcete mít v MediaWiki kromě veřejně dostupného obsahu také obsah určený vyhrazený jen pro vybranou množinu uživatelů, zjistíte, že systém uživatelských práv založený na členství ve skupinách nestačí.
+&lt;/translate&gt;
+
+{{note|&lt;translate&gt;&lt;!--T:25--&gt;
+Pokud nemá ''MediaWiki'' nainstalované rozšíření ''AccessControl'', lze zabránit zobrazení obsahu stránky jedině tak, že se přístup do vybraného jmenného prostoru povolí pouze pro vybranou skupinu uživatelů a všem ostatním se do něj přístup preventivně zakáže. Je to nešťastné řešení:
+&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:26--&gt; Anonymní uživatel žádnou skupinu práv, na kterou by bylo možné aplikovat nějaká pravidla nemá, takže veškerý obsah wiki (nebo vyhrazeného jmenného prostoru) by musel být vyhrazen jen pro přihlášené uživatelé s přiřazenou skupinou. Ale jinak by se na něj nikdo jiný nedostal. Ovšem {{&lt;tvar|1&gt;link|accesscontrol-export&lt;/&gt;|existují metody, jakými se dá u wiki co nepoužívá ''AccessControl'' k neveřejnému obsahu dostat}}.&lt;/translate&gt;
+
+* &lt;translate&gt;&lt;!--T:27--&gt; Z dlouhodobého hlediska je to na nic, protože dříve či později do wiki, nebo jejího vyhrazeného jmenného prostoru, ke kterému bude mít přístup jen omezený okruh uživatelů, nebude nikdo psát.&lt;/translate&gt;
+
+* &lt;translate&gt;&lt;!--T:28--&gt; Většina uživatelů nemá zájem věnovat svůj čas tvorbě obsahu, který nelze veřejně prezentovat. A obsah, na který se nedá dostat má pro ostatní nulovou informační hodnotu – stejně jako kdyby neexistoval.&lt;/translate&gt;
+
+* &lt;translate&gt;&lt;!--T:29--&gt;
+Postupně přestanou takové stránky navštěvovat i ti co volali po jejich uzavření, protože nebudou mít obsah, který by je zajímal a kvůli němuž by se na ně vraceli. A wiki bez obsahu ztrácí smysl.
+&lt;/translate&gt;}}
+
+&lt;translate&gt;
+&lt;!--T:30--&gt;
+'''Wiki je živý organismus''', jemuž dává smysl všeobecné sdílení informací, které obsahuje. '''Každý''' (tedy i anonymní) uživatel '''by měl mít možnost číst její obsah''', pokud tomu nebrání licence, nebo smluvní podmínky provozovatele wiki. A pokud uživatel splní podmínky vyžadované při registraci uživatelského účtu, tak by měl mít možnost – již jako přihlášený uživatel – participovat i na tvorbě obsahu.
+
+&lt;!--T:31--&gt;
+Proto je prvním řádkem v konfiguračním souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; povolena akce &lt;tvar|action&gt;'view'&lt;/&gt; pro všechny uživatele – včetně těch anonymních. A těmi ostatními preventivně zakázány akce, přes které by mohli uživatelé anonymně zapisovat do vaší wiki:
+&lt;/translate&gt;
+&lt;pre&gt;
+$wgGroupPermissions['*']['read']            = true;
+$wgGroupPermissions['*']['createaccount']   = false;
+$wgGroupPermissions['*']['edit']            = false;
+$wgGroupPermissions['*']['writeapi']        = false;
+$wgGroupPermissions['*']['createpage'] = false;
+$wgGroupPermissions['*']['createtalk'] = false;
+$wgGroupPermissions['*']['edit'] = false;
+$wgGroupPermissions['*']['createpage'] = false;
+&lt;/pre&gt;
+{{info|&lt;translate&gt;&lt;!--T:32--&gt; S takovým nastavením bude mít k editaci stránek vaší instance ''MediaWiki'' přístup pouze registrovaný a řádně přihlášený uživatel – to je výchozí předpoklad k tomu, aby rozšíření ''AccessControl'' fungovalo jak má.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:33--&gt;
+Pokud máte pocit, že je to vůči anonymním návštěvníkům příliš restriktivní, uvědomte si, že '''vaše wiki nejspíš nikdy nebude mít dostatek bdělých administrátorů''', co by včas odstranili nežádoucí změny ze strany vandalů! A jenom '''vy jste zodpovědní za důvěryhodnost vaší instance ''MediaWiki'' a za kvalitu jejího obsahu ručíte svým jménem'''. Pro malé wiki tedy vždy platí následující premisa:
+&lt;/translate&gt;
+&lt;blockquote&gt;&lt;big&gt;&lt;translate&gt;&lt;!--T:34--&gt; To, že se uživatel může podílet se na tvorbě obsahu není právo, ale privilegium!&lt;/translate&gt;&lt;/big&gt;&lt;/blockquote&gt;
+{{anchor|config-extra}}
+&lt;translate&gt;
+=== Další doporučené nastavení pro &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; === &lt;!--T:35--&gt;
+
+&lt;!--T:36--&gt;
+Rozšíření ''AccessControl'', je primárně určeno k ochraně obsahu a přístup na speciální stránky ''MediaWiki'' neřeší. Nicméně není důvod k tomu, aby na většinu z nich měl anonymní uživatel přístup.
+
+&lt;!--T:37--&gt;
+Doporučuji tedy omezit přístup na speciální stránky. Existuje na to rozšíření ''MediaWiki'' 
+&lt;tvar|1&gt;{{link|extensions|DisableSpecialPages}}&lt;/&gt;, ale je dlouhodobě neudržované, takže pokud chcete, můžete použít v konfiguraci vašeho souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; stejný kód, jako se používá na wiki &lt;tvar|2&gt;{{elink|https://www.thewoodcraft.org|TheWoodcraft.org}}&lt;/&gt;&lt;/translate&gt;:
+&lt;pre&gt;
+ …
+ function disableSomeSpecialPages(&amp;$list) {
+     global $wgUser;
+     if ( is_array( $wgUser-&gt;mRights ) &amp;&amp; in_array( 'createpage', $wgUser-&gt;mRights ) ) {
+         return true;
+     } else {
+         if ($wgUser-&gt;mId &gt; 0 ) {
+             return true;
+         }
+         unset($list['Mypage']);
+         foreach( array(
+             'Activeusers',
+             'Allmessages',
+             'Allpages',
+             'Ancientpages',
+             'ApiSandbox',
+             'Blankpage',
+             'BlockList',
+             'Boilerplates',
+             'Booksources',
+             'BrokenRedirects',
+             'CategoryTree',
+             'ComparePages',
+             'Contributions',
+             'CreateCategory',
+             'CreateClass',
+             'CreateForm',
+             'CreateTemplate',
+             'Deadendpages',
+             'DoubleRedirects',
+             'ExpandTemplates',
+             'Export',
+             'ExportTranslations',
+             'Fewestrevisions',
+             'FileDuplicateSearch',
+             'Forms',
+             'FormEdit',
+             'FormStart',
+             'LanguageStats',
+             'LinkSearch',
+             'ListDuplicatedFiles',
+             'Listfiles',
+             'Listgrouprights',
+             'Listredirects',
+             'Listusers',
+             'Log',
+             'Lonelypages',
+             'Longpages',
+             'ManageMessageGroups',
+             'MediaStatistics',
+             'MessageGroupStats',
+             'MIMEsearch',
+             'Mostcategories',
+             'Mostimages',
+             'Mostinterwikis',
+             'Mostlinked',
+             'Mostlinkedcategories',
+             'Mostlinkedtemplates',
+             'Mostrevisions',
+             'Movepage',
+             'MultiPageEdit',
+             'Newimages',
+             'Newpages',
+             'PagesWithProp',
+             'PagesWithoutScans',
+             'PageTranslation',
+             'Preferences',
+             'Prefixindex',
+             'Protectedpages',
+             'Protectedtitles',
+             'RandomInCategory',
+             'Randompage',
+             'Randomredirect',
+             'Redirect',
+             'ResetTokens',
+             'RunQuery',
+             'SearchTranslations',
+             'Shortpages',
+             'Statistics',
+             'SupportedLanguages',
+             'TrackingCategories',
+             'Translate',
+             'Translations',
+             'TranslationStats',
+             'TranslationStash',
+             'Uncategorizedcategories',
+             'Uncategorizedimages',
+             'Uncategorizedpages',
+             'Uncategorizedtemplates',
+             'Unusedimages',
+             'Unusedtemplates',
+             'Wantedfiles',
+             'Wantedpages',
+             'Wantedtemplates',
+             'Watchlist',
+             'Withoutinterwiki'
+             ) as $i ) {
+             unset( $list[$i] );
+         }
+     }
+     return true;
+ }
+ $wgHooks['SpecialPage_initList'][]='disableSomeSpecialPages';
+ …
+&lt;/pre&gt;
+{{anchor|config-extension-rights}}
+&lt;translate&gt;
+=== Rozšířená práva specifická pro vybraná rozšíření === &lt;!--T:38--&gt;
+&lt;/translate&gt;
+{{warn|&lt;translate&gt;&lt;!--T:39--&gt; Také práva která do vaší ''MediaWiki'' přidávají některá rozšíření,mohou ve výsledku – díky svému výchozímu nastavení – představovat bezpečnostní "díru", přes kterou by mohl neoprávněný uživatel získat chráněný obsah – například rozšíření &lt;tvar|1&gt;{{link|extensions|Translate}}&lt;/&gt;. Používáte-li takové rozšíření, zkontrolujte zda umožňuje anonymně výtáhnout z vaší wiki nějaký obsah. A pokud ano, omezte preventivně jeho práva pro anonymní uživatele.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:40--&gt;
+U wiki &lt;tvar|1&gt;{{elink|https://www.thewoodcraft.org|TheWoodcraft.org}}&lt;/&gt; bylo nutné nastavit tyto proměnné:&lt;/translate&gt;
+&lt;pre&gt;
+ // Extension:LookupUser
+ $wgGroupPermissions['*']['lookupuser'] = false;
+
+ // Extension:Translate
+ $wgGroupPermissions['*']['pagetranslation'] = false;
+&lt;/pre&gt;
+{{anchor|accesscontrol-install}}
+&lt;translate&gt;
+
+== Instalace == &lt;!--T:41--&gt;
+
+&lt;!--T:42--&gt;
+Instalace rozšíření ''AccessControl'' je velice jednoduchá:
+&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:43--&gt; Naklonujte z git repozitáře, nebo vybalte ze staženého tarballu, zdrojové kódy do adresáře &lt;tvar|path&gt;&lt;code&gt;extensions/AccessControl/&lt;/code&gt;&lt;/&gt; vaší instance ''MediaWiki''.&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:44--&gt; Pak do konfiguračního souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; přidejte následující řádku&lt;/translate&gt;:
+&lt;pre&gt;wfLoadExtension( 'AccessControl' )&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:45--&gt;
+Jakmile soubor &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; uložíte, začne vaše wiki ''AccessControl'' používat.
+
+== Jak pracuje ''AccessControl'' se stránkou ''MediaWiki'' == &lt;!--T:46--&gt;
+
+&lt;!--T:47--&gt;
+Veškerý obsah ''AccessControl'' kontroluje na straně serveru – dřív, než z něj parser ''MediaWiki'' vygeneruje HTML kód, který bude doručen webovému prohlížeči na straně klienta. Pokud během kontroly ''AccessControl'' narazí na kód, který mu sdělí že je obsah stránky chráněný, zkontroluje jestli uživatel, který požadavek odeslal, může přistupovat k obsahu.
+&lt;/translate&gt;
+; editors : &lt;translate&gt;&lt;!--T:48--&gt; mají plná práva na všechny operace&lt;/translate&gt;
+; visitors : &lt;translate&gt;&lt;!--T:49--&gt; mají právo pouze na čtení obsahu&lt;/translate&gt;
+&lt;translate&gt;
+&lt;!--T:50--&gt;
+Pokud nemá právo ani na čtení &lt;tvar|1&gt;('''visitors''')&lt;/&gt;, přeruší ''AccessControl'' další zpracování stránky a {{&lt;tvar|2&gt;link|accesscontrol-info&lt;/&gt;|místo ní vrátí HTML kód stránky s upozorněním}}, že se pokusil dostat na stránku ke které nemá přístup.&lt;/translate&gt;
+{{anchor|how-accesscontrol-detect}}
+&lt;translate&gt;
+
+== Jak se ''AccessControl'' dozví, že jde o chráněnou stránku? == &lt;!--T:51--&gt;
+
+&lt;!--T:52--&gt;
+Existují tři možné způsoby, jimiž lze ''AccessControl'' informovat o tom, že je obsah stránky chráněný:
+&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:53--&gt; {{&lt;tvar|1&gt;link|accesscontrol-template-options&lt;/&gt;|Parametrem šablony}}&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:54--&gt; {{&lt;tvar|1&gt;link|accesscontrol-template-name&lt;/&gt;|Názvem použité šablony}}&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:55--&gt; {{&lt;tvar|1&gt;link|accesscontrol-tag&lt;/&gt;|Použitím tagu accesscontrol}}&lt;/translate&gt;
+{{note|&lt;translate&gt;&lt;!--T:57--&gt; Na jedné stránce můžete použít různé způsoby jak přes rozšíření ''AccessControl'' předat informaci, koho může pustit na stránku, ale '''rozhodne to, které bude mít poslední slovo!'''. Můžete toho s výhodou využít pokud chcete mít v rámci jedné stránky obsah pro různé skupiny uživatelů i veřejný obsah. Je doporučeno, místo tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt; {{&lt;tvar|1&gt;link|template-is-better&lt;/&gt;|používat šablonu}}.&lt;/translate&gt;}}
+{{anchor|accesscontrol-template-options}}
+&lt;translate&gt;
+=== Šablony a jejich parametry === &lt;!--T:56--&gt;
+
+&lt;!--T:58--&gt;
+Klíčovou roli u ''MediaWiki'' hraje transkluze&lt;tvar|ref1&gt;&lt;ref name="transclusion" /&gt;&lt;/&gt;. Jde o mechanismus, který umožňuje vložit do stránky obsah z jiné stránky. Nejčastěji se takto vkládají stránky ze jmenného prostoru Šablona (&lt;tvar|1&gt;''Template''&lt;/&gt;), kterým lze předávat další argumenty, jimiž lze modifikovat wiki kód vygenerovaný na základě jejich obsahu&lt;tvar|ref2&gt;&lt;ref name="extensions" /&gt;&lt;/&gt;.&lt;/translate&gt;
+&lt;ref follow="extensions"&gt;
+&lt;translate&gt;
+&lt;!--T:59--&gt;
+Pokud bude mít vaše instance wiki nainstalovaná {{&lt;tvar|1&gt;link|extension&lt;/&gt;|doporučená rozšíření}}, bude možné, abyste pomocí šablon realizovali co vás napadne.&lt;/translate&gt;
+&lt;/ref&gt;
+&lt;ref follow="transclusion"&gt;
+&lt;translate&gt;
+&lt;!--T:60--&gt;
+Transkluzi lze v podstatě považovat za elektronickou verzi kompilace, kdy se obsah jednoho dokumentu sestavuje z dokumentů jiných. Pojem jako takový &lt;tvar|1&gt;(''transclusion'')&lt;/&gt; je novotvar, který údajně vymyslel americký sociolog, filozof a průkopník informačních technologií &lt;tvar|2&gt;{{elink|https://cs.wikipedia.org/wiki/Ted_Nelson|Ted Nelson}}&lt;/&gt; viz internetový článek {{&lt;tvar|3&gt;elink|https://www.bitoff.cz/nmi18/&lt;/&gt;|Web, který nebyl}} z r. 2018 (autor: Jan Vlnas)&lt;/translate&gt;
+&lt;/ref&gt;
+&lt;translate&gt;
+&lt;!--T:61--&gt;
+Oddělovačem argumentů předávaných šabloně je svislítko &lt;tvar|1&gt;&lt;code&gt;|&lt;/code&gt;&lt;/&gt;. Prvním argumentem je vždy jméno stránky (šablony), jejíž obsah se má zpracovat a za ním mohou (ale nemusí) následovat další.&lt;/translate&gt;
+&lt;pre&gt;{{template | A | B | C }‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:62--&gt;
+Argumenty se zpracovávají postupně.&lt;/translate&gt;
+&lt;pre&gt;{‌{template | 1 = A | 2 = B | 3 = C }‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:63--&gt;
+A mohou být také očíslované, nebo pojmenované.&lt;/translate&gt;
+&lt;pre&gt;{‌{template | first = A | second = B | etc = C }‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:64--&gt;
+Pokud jsou očíslované, nebo pojmenované, mohou být předány v libovolném pořadí.&lt;/translate&gt;
+&lt;pre&gt;{‌{template | 2 = B | 3 = C | 1 = A }‌}&lt;/pre&gt;
+{{note|&lt;translate&gt;&lt;!--T:65--&gt; Pokud šablona s pojmenovaným či očíslovaným argumentem nepracuje, tak předanou hodnotu ignoruje. To znamená, že se ani nezobrazí ve výsledném HTML kódu stránky a právě toho využívá ''AccessControl''.&lt;/translate&gt;}}
+&lt;translate&gt;
+==== Rozdíl mezi parametrem a atributem ==== &lt;!--T:66--&gt;
+
+&lt;!--T:67--&gt;
+Tohle '''není''' atribut identifikovaný parametrem!&lt;/translate&gt;
+&lt;pre&gt;{‌{template | e‌‌ditAllowedUsers TestUser }‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:68--&gt;
+'''Tohle je parametr'''. Za parametrem následuje znak &lt;tvar|1&gt;&lt;code&gt;=&lt;/code&gt;&lt;/&gt; a po něm seznam jmen uživatelů, resp. skupin uživatelů.&lt;/translate&gt;
+&lt;pre&gt;{‌{template | e‌ditAllowedUsers = TestUser }‌}&lt;/pre&gt;
+{{anchor|template-atack}}
+&lt;translate&gt;
+=== Ochrana stránky parametrem šablony === &lt;!--T:70--&gt;
+&lt;/translate&gt;
+{{warn|1=&amp;nbsp;
+* '''&lt;translate&gt;&lt;!--T:71--&gt; Hlídejte si, aby někdo nezneužil některý z parametrů s nimiž pracuje ''AccessControl'' u některé často používané šablony!&lt;/translate&gt;'''
+: &lt;translate&gt;&lt;!--T:72--&gt; Pokud nějaký vtipálek umístí do některé hojně používané šablony parametr, který ''AccessControl'' vyhodnotí jako ochranu stránky a všechny stránky, na kterých bude použitá, se už nikdo mimo něj nedostane! – ani administrátoři, pokud bude mít globální proměnná &lt;tvar|1&gt;{{link|$wgAdminCanReadAll}}&lt;/&gt; hodnotu &lt;tvar|2&gt;'''false'''&lt;/&gt;.&lt;/translate&gt;
+: &lt;translate&gt;&lt;!--T:73--&gt; Proto byste měli preventivně veškeré šablony po dokončení {{&lt;tvar|1&gt;link|page-lock&lt;/&gt;|zamykat}}, aby je pak mohli editovat jen prověření uživatelé.&lt;/translate&gt;
+: &lt;translate&gt;&lt;!--T:74--&gt; Pokud se stane, že některý z uživatelů '''záměrně''', něco takového udělá, měli byste ho nekompromisně zablokovat, aby nemohl dál škodit.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:75--&gt; Dávejte pozor také při psaní jmen – parametrů, stránek i uživatelů.&lt;/translate&gt;
+: &lt;translate&gt;&lt;!--T:76--&gt; Stačí překlep, vynechané písmeno, nebo zaměnit malé písmeno za velké či naopak a ochrana přes AccessControl nebude fungovat!&lt;/translate&gt;
+: &lt;translate&gt;&lt;!--T:77--&gt; Tomu se můžete vy a uživatelé vaší wiki vyhnout, pokud budete využívat rozšíření &lt;tvar|1&gt;{{link|extensions|Page Form}}&lt;/&gt; a uživatelské seznamy spravovat přes formuláře.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:78--&gt;
+''AccessControl'' pracuje s kódem stránky dřív, než dojde na zpracování šablony. Takže, pokud '''u libovolné šablony''' najde v atributech některý z následujících '''parametrů''', ví, že bude obsahovat informace, přes které získá {{&lt;tvar|1&gt;link|accesscontrol-accesslist&lt;/&gt;|seznam uživatelů}}, se kterým bude dál pracovat.&lt;/translate&gt;
+: {{link|isProtectedBy}} – &lt;translate&gt;&lt;!--T:79--&gt; seznam skupin uživatelů&lt;/translate&gt;
+:: {{link|readOnlyAllowedGroups}} – &lt;translate&gt;&lt;!--T:80--&gt; skupiny uživatelů pouze s read-only přístupem&lt;/translate&gt;
+::: {{link|editAllowedGroups}} – &lt;translate&gt;&lt;!--T:81--&gt; skupiny uživatelů s právem k editaci&lt;/translate&gt;
+:::: {{link|readOnlyAllowedUsers}} – &lt;translate&gt;&lt;!--T:82--&gt; seznam uživatelů co mohou obsah stránek pouze číst&lt;/translate&gt;
+::::: {{link|editAllowedUsers}} – &lt;translate&gt;&lt;!--T:83--&gt; seznam uživatelů s právem k editaci&lt;/translate&gt;
+&lt;translate&gt;
+&lt;!--T:84--&gt;
+V rámci jedné šablony lze použít všechny uvedené parametry najednou, proto bylo pomocí odsazení naznačeno, jakou mají z hlediska práv vůči sobě hierarchické postavení. Více se dozvíte v popisu jednotlivých parametrů, kde budou uvedeny i příklady.&lt;/translate&gt;
+
+==== editAllowedUsers ====
+&lt;translate&gt;
+&lt;!--T:85--&gt;
+Použitím tohoto parametru se z obyčejné šablony stane {{&lt;tvar|1&gt;link|accesslist&lt;/&gt;|seznam uživatelů}}. Každý '''uživatel''', jehož jméno bude uvedeno v tomto parametru '''bude mít právo k editaci stránky''' do níž bude šablona s tímto parametrem vložena. A také všech stránek, které ji použijí v parametru &lt;tvar|2&gt;{{link|isProtectedBy}}&lt;/&gt;. Je-li uvedeno uživatelů víc, oddělují se jejich uživatelská jména čárkou.&lt;/translate&gt;
+&lt;pre&gt;…
+| e‌ditAllowedUsers = Kili, Quido
+…&lt;/pre&gt;
+==== isProtectedBy ====
+&lt;translate&gt;
+&lt;!--T:86--&gt;
+Přes tento parametrem získá ''AccessControl'' seznam wiki stránek, ze kterých se pokusí vytáhnout informace o tom, kdo a jaký typ přístupu má na stránku povolen. Pokud se v tomto seznamu objeví uživatelské jméno, prohledá ''AccessControl'' výchozí jmenné prostory a s největší pravděpodobností narazí na uživatelskou stránku ze které se pokusí získat seznam uživatelů. I když je to pochopitelně možné, '''nedoporučuji''' využívat pro seznamy uživatelů uživatelské stránky!
+
+&lt;!--T:87--&gt;
+Takový seznam je totiž u nové verze automaticky chráněn přes ''AccessControl'' a tudíž by se na ni už nikdo jiný nedostal. Pokud chcete, použijte pro seznam uživatelů, kterým budete chránit jiné stránky raději stránku z hlavního jmenného prostoru, nebo podstránku. Takto by vypadalo využití podstránky &lt;tvar|1&gt;&lt;code&gt;accesslist&lt;/code&gt;&lt;/&gt; uživatele &lt;tvar|2&gt;&lt;code&gt;TestUser&lt;/code&gt;&lt;/&gt;, se skupinou uživatelů při ochraně stránky jiné.
+&lt;/translate&gt;
+&lt;pre&gt;…
+| isProtectBy = TestUser/accesslist
+…&lt;/pre&gt;
+{{anchor|template-tag-difference}}
+{{note|&lt;translate&gt;&lt;!--T:88--&gt; U původního řešení ochrany stránek, pomocí tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;, se pracovalo s tím, že obsahem tagu je řetězec, ve které se mohou vyskytovat jako konkrétní uživatelská jména, tak jména stránek, jejichž obsah se lze interpretovat jako seznam uživatelů. Stejným způsobem se přistupuje i k obsahu prvního atributu šablony, která má v názvu řetězec accesscontrol, protože jde pouze o alternativu vůči tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccescontrol&gt;&lt;/code&gt;&lt;/&gt; na bázi šablony.&lt;/translate&gt;}}
+
+==== readOnlyAllowedGroups ====
+&lt;translate&gt;
+&lt;!--T:89--&gt;
+Tento parametr má větší váhu než &lt;tvar|1&gt;{{link|isProtectedBy}}&lt;/&gt;. I on akceptuje pouze seznam skupin uživatelů. Ovšem všichni '''uživatelé z těchto skupin budou mít právo''' stránku, do které je šablona s tímto parametrem vložena, '''pouze číst'''. A to bez ohledu na to, jestli mají v uživatelských seznamech předaných přes parametr &lt;tvar|1&gt;{{link|isProtectedBy}}&lt;/&gt; právo k editaci, nebo jen ke čtení.
+
+&lt;!--T:90--&gt;
+Proto by měl být u šablony s tímto parametrem použitý i parametr &lt;tvar|1&gt;{{link|editAllowedUsers}}&lt;/&gt; přinejmenším se jménem editora stránky. Jinak se k ní nedostane nikdo jiný než administrátor.
+&lt;/translate&gt;
+
+==== editAllowedGroups ====
+&lt;translate&gt;
+&lt;!--T:91--&gt;
+Rovněž tento parametr akceptuje pouze seznamy skupin uživatelů. Na rozdíl od uživatelů ze seznamu v parametru &lt;tvar|1&gt;{{link|readOnlyAllowedGroups}}&lt;/&gt; '''uživatelé z těchto skupin mají právo stránku editovat'''. A to bez ohledu na to jaká mají výchozí práva v rámci skupin, předaných parametrem &lt;tvar|2&gt;{{link|isProtectedBy}}&lt;/&gt;, i to že jsou uvedeni ve skupině, která má právo pouze ke čtení obsahu.&lt;/translate&gt;
+&lt;pre&gt;…
+| isProtectBy = test-user
+| r‌eadOnlyAllowedGroups = groupB
+| e‌ditAllowedGroups = groupA
+…&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:92--&gt;
+Pokud by v případě, který demonstruje výše uvedený kód byl uživatel jak ve skupině &lt;tvar|1&gt;&lt;code&gt;groupB&lt;/code&gt;&lt;/&gt;, která má právo jen na čtení, i ve skupině &lt;tvar|2&gt;&lt;code&gt;groupA&lt;/code&gt;&lt;/&gt;, bude mít jeho právo na editaci přednost!&lt;/translate&gt;
+
+==== readOnlyAllowedUsers ====
+&lt;translate&gt;
+&lt;!--T:93--&gt;
+Na druhou stranu se hodí, když máme možnost ''zabanovat'' uživatele, ze skupiny, která má právo na editaci stránky. A právě k tomu je určen tento parametr. Pokud v něm ''AccessControl'' najde jméno aktuálního uživatele, nastaví mu pouze read-only přístup. Bez ohledu na to, jestli má v rámci některé skupiny předané parametrem &lt;tvar|1&gt;{{link|isProtectedBy}}&lt;/&gt; nebo &lt;tvar|2&gt;{{link|editAllowedGroups}}&lt;/&gt; nastavené právo k editaci.
+
+==== Další zpracování šablony ==== &lt;!--T:94--&gt;
+
+&lt;!--T:95--&gt;
+Pokud ''AccessControl'' na základě obsahu uvedených parametrů vyhodnotí, že jako uživatel máte na stránku přístup povolen, klidně se mohou tyhle parametry v použité šabloně dál zpracovat.&lt;/translate&gt;
+&lt;pre&gt;{‌{Template a‌ccesscontrol
+| Tahle stránka žádný externí seznam nepoužívá, protože se chrání sama
+| e‌ditAllowedUsers = TestUser
+| Tohle je seznam uživatelů podle verze 3.0
+}‌}&lt;/pre&gt;
+{{note|&lt;translate&gt;&lt;!--T:96--&gt; I když šablona obsahuje v názvu řetězec 'accesscontrol', je místo prvního atributu zpracován obsah parametru &lt;tvar|1&gt;{{link|editAllowedUsers}}&lt;/&gt;, protože parametry šablon mají vyšší prioritu. Ke stránce na níž by se vyskytla šablona v této formě by tedy mohl, přistupovat pouze jediný uživatel &lt;tvar|2&gt;&lt;code&gt;TestUser&lt;/code&gt;&lt;/&gt;. Nikdo jiný by se na ni nedostal.&lt;/translate&gt;}}
+{{anchor|accesscontrol-tag}}
+&lt;translate&gt;
+
+=== Ochrana stránky pomocí tagu === &lt;!--T:97--&gt;
+&lt;/translate&gt;
+{{warn|&lt;translate&gt;&lt;!--T:98--&gt; Podpora tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt; byla do verze 3.0 byla zahrnuta pouze proto, aby bylo možné nahrazovat původní ochranu stránek postupně a nebylo nutné měnit obsah již existujících stránek. '''Nepoužívejte ho u nových stránek!''' A pokud na něj u některé stránky narazíte, {{&lt;tvar|2&gt;link|accesscontrol-template-name&lt;/&gt;|nahraďte ho šablonou}}.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:99--&gt;
+Starší verze rozšíření ''AccessControl'' používaly k ochraně stránky ''pouze'' párový tag &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;.
+
+&lt;!--T:100--&gt;
+Pokud použijete na stránce místo šablony párový tag &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt; s vaším uživatelským jménem – budete mít přístup na takovou stránku jen vy. Vložený kód bude vypadat podobně, jako u následující ukázky. Jen místo &lt;tvar|1&gt;&lt;code&gt;Username&lt;/code&gt;&lt;/&gt; musíte napsat svoje uživatelské jméno.&lt;/translate&gt;
+&lt;pre&gt;&lt;a‌‌ccesscontrol&gt;Username&lt;/a‌ccesscontrol&gt;&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:101--&gt;
+Pokud chcete, aby smělo na tuhle stránku víc uživatelů, máte dvě možnosti. Buď můžete přidat jejich uživatelská jména, jako v následujícím příkladu.&lt;/translate&gt;
+&lt;pre&gt;&lt;a‌ccesscontrol&gt;Vaše uživatelské jméno, TestUser, Další uživatel&lt;/a‌ccesscontrol&gt;&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:102--&gt;
+Nebo si můžete použít {{&lt;tvar|1&gt;link|accesscontrol-accesslist&lt;/&gt;|seznam uživatelů}}. Pokud si vytvoříte takový seznam na stránce &lt;tvar|test&gt;[[test-page]]&lt;/&gt;, bude to vypadat takto:&lt;/translate&gt;
+&lt;pre&gt;&lt;a‌ccesscontrol&gt;test-page&lt;/a‌ccesscontrol&gt;&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:103--&gt;
+Použití seznamu je výhodné, pokud stejná skupina uživatelů pracuje s větším množstvím chráněných stránek.&lt;/translate&gt;
+{{anchor|template-is-better}}{{anchor|accesscontrol-template-name}}
+&lt;translate&gt;
+=== Ochrana obsahem prvního parametru šablony === &lt;!--T:104--&gt;
+&lt;/translate&gt;
+{{warn|&lt;translate&gt;&lt;!--T:105--&gt; Stránku chráněnou šablonou s řetězcem accesscontrol v názvu nelze použít jako {{&lt;tvar|1&gt;link|not-accesslist&lt;/&gt;|seznam uživatelů}} k ochraně jiných stránek!&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:106--&gt;
+Ochrana stránek pomocí tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt; má jednu velkou nevýhodu – chráněné stránky je obtížné vyhledat. Naopak stránku, která používá šablonu lze dohledat velice snadno, pokud použijete následující postup:&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:107--&gt; Vyhledejte si na stránce &lt;tvar|1&gt;[[Special:Templates]]&lt;/&gt; (pokud šablona existuje) nebo &lt;tvar|2&gt;[[Special:Wantedtemplates]]&lt;/&gt; (pokud šablona ještě neexistuje) jméno šablony a klikněte na něj.&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:108--&gt; Pokud jste přihlášený uživatel, dostanete se i na editační stránku neexistující šablony (anonymní uživatel je v takovém případě automaticky přesměrován pryč).&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:109--&gt; Povšimněte si, odkazu ''Odkazuje sem'' (''Whats link here'') v menu nalevo. Ten vede na speciální stránku &lt;tvar|1&gt;[[Special:Whatlinkshere]]&lt;/&gt;.&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:110--&gt; Kliknete-li na něj, tak vám okamžitě vygeneruje seznam stránek, které tuto šablonu používají. Pokud k nim máte přístup, bez problémů se na ně přes tyto odkazy dostanete. Pokud ne, {{&lt;tvar|1&gt;link|accesscontrol-info&lt;/&gt;|přesměruje vás to pryč}}.&lt;/translate&gt;
+&lt;translate&gt;
+&lt;!--T:111--&gt;
+Proto byla do nové verze rozšíření AccessControl 3.0, zahrnuta alternativa, která umožňuje postupně nahrazovat tag &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;, který byl nutný u předchozích verzí, šablonou.
+
+&lt;!--T:112--&gt;
+Tuto šablonu si můžete pojmenovat jak chcete, důležité je pouze to aby měla v názvu řetězec &lt;tvar|1&gt;&lt;code&gt;a‌ccesscontrol&lt;/code&gt;&lt;/&gt;. Pokud jí předáte jako první parametr původní obsah tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt; (seznam uživatelů, resp. uživatelských skupin, oddělených čárkou), bude fungovat stejně, ale můžete přidat i další parametry, které ta šablona může zpracovat, pokud bude mít uživatel na stránku přístup.
+
+&lt;!--T:113--&gt;
+Pro ''AccessControl'' není vůbec důležité, jestli tahle šablona bude existovat, nebo ne. Pokud na testovací stránce &lt;tvar|test&gt;[[test-page]]&lt;/&gt; tedy použijete místo tagu, nebo parametrizované šablony následující wiki kód, u kterého nahradíte řetězec &lt;tvar|1&gt;&lt;code&gt;Username&lt;/code&gt;&lt;/&gt; svým uživatelským jménem, bude ochrana stránky fungovat úplně stejně, jako kdybyste použili tag &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;.&lt;/translate&gt;
+&lt;pre&gt;{‌{Template accesscontrol|Username}‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:114--&gt;
+Pokud neexistuje šablona &lt;tvar|1&gt;&lt;code&gt;Template a‌ccesscontrol&lt;/code&gt;&lt;/&gt;, tak se místo ní zobrazuje pouze červeně zbarvený odkaz na neexistující stránku. Nic vám ale nebrání si tuto šablonu založit a využít její obsah. Když kliknete na tento odkaz, můžete napsat do obsahu šablony následující kód. {{&lt;tvar|2&gt;link|only-example-code&lt;/&gt;|V žádném případě ho nekopírujte!}}, protože obsahuje skryté znaky, takže by nefungoval:&lt;/translate&gt;
+&lt;pre&gt;Page {‌{PAGENAME}‌} is protected by AccessControl.
+Access is allowed for: {‌{‌{1|}‌}‌}
+‌{‌{2|}‌}‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:115--&gt;
+Když se pak vrátíte k testovací stránce &lt;tvar|test&gt;[[test-page]]&lt;/&gt;, chráněné přes takto pojmenovanou šablonu a uděláte refresh, zobrazí se vám místo odkazu na neexistující šablonu text, za kterým bude následovat seznam uživatelů a skupin, co budou mít ke stránku přístup.
+
+&lt;!--T:116--&gt;
+Pak se odhlašte a {{&lt;tvar|1&gt;link|accesscontrol-test&lt;/&gt;|vyzkoušejte}}, jestli ''AccessControl'' stránku zobrazí i pokud se na ni pokusíte přistoupit anonymně. Pokud se na stránku dostanete jako anonymní uživatel, pak to znamená, že jste někde něco nastavili špatně.
+
+&lt;!--T:117--&gt;
+Pokud se na ni ovšem nedostanete ani jako přihlášený uživatel, tak je možné, že jste zadali neplatné uživatelské jméno, nebo neplatné jméno uživatelské skupiny – v takovém případě vám nezbyde, než požádat o pomoc uživatele, který je členem skupiny 'sysop', aby vaši chybu opravil.
+
+&lt;!--T:118--&gt;
+Také si můžete vyzkoušet, jak to bude vypadat, když šabloně použité na stránce &lt;tvar|test&gt;[[test-page]]&lt;/&gt; předáte další parametry:&lt;/translate&gt;
+&lt;pre&gt;{‌{Template accesscontrol
+| Username, test-page, TestUser, Čtenáři (ro)
+| Next content in the second attribute 
+| Other atributes…
+}‌}&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:119--&gt;
+Jak můžete sami vidět, použití šablony otevírá další možnosti.&lt;/translate&gt;
+{{warn|&lt;translate&gt;&lt;!--T:120--&gt; Pokud ale použijete v některém z atributů {{&lt;tvar|1&gt;link|accesscontrol-template-options&lt;/&gt;|pojmenovaný parametr, se kterým pracuje ''AccessControl''}}, bude mít jeho zpracování přednost!&lt;/translate&gt;}}
+{{anchor|how-accesscontrol-work}}
+&lt;translate&gt;
+=== Jak probíhá kontrola? === &lt;!--T:126--&gt;
+&lt;/translate&gt;
+{{info|&lt;translate&gt;&lt;!--T:127--&gt; Tento manuál je připraven tak, abyste si jej mohli naimportovat do svojí wiki a postupně vyzkoušet (a otestovat) přes tuto stránku všechny možné kombinace a způsoby ochrany stránky. Výchozím předpokladem je, že si pro tento účel založíte testovací stránku &lt;tvar|test&gt;[[test-page]]&lt;/&gt; s níž budete pracovat.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:128--&gt;
+Pokud necháte konfigurační proměnnou &lt;tvar|1&gt;{{link|$wgAccessControlNamespaces}}&lt;/&gt; na pokoji, bude ''AccessControl'' při kontrole chráněné stránky, narazí-i na položku, kterou lze interpretovat jako prvek určený k ochraně stránky&lt;tvar|ref&gt;&lt;ref name="protection" /&gt;&lt;/&gt;, která obsahuje řetězec &lt;tvar|2&gt;&lt;code&gt;test-page&lt;/code&gt;&lt;/&gt; postupovat takto:
+&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:129--&gt; Zkontroluje, zdali &lt;tvar|1&gt;&lt;code&gt;test-page&lt;/code&gt;&lt;/&gt; není náhodou uživatelské jméno.&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:130--&gt; Pak zkontroluje, jestli se tak náhodou nejmenuje nějaká stránka v hlavním jmenném prostoru. Pokud ano, tak se z ní pokusí vydolovat seznam uživatelů.&lt;/translate&gt;
+# &lt;translate&gt;&lt;!--T:131--&gt; Pak se podívá, jestli se taková stránka náhodou nevyskytuje také ve jmenném prostoru vyhrazeném pro uživatelské stránky &lt;tvar|1&gt;&lt;code&gt;User:&lt;/code&gt;&lt;/&gt;. Jistě vám v tuto chvíli došlo, že by v takovém případě musel existovat uživatel se jménem &lt;tvar|1&gt;&lt;code&gt;test-page&lt;/code&gt;&lt;/&gt;. Pokud by takový uživatel existoval a měl na svojí uživatelské stránce kód, který by bylo možné interpretovat jako seznam uživatelů, tak ho ''AccessControl'' použije.&lt;/translate&gt;
+&lt;ref follow="protection"&gt;
+&lt;translate&gt;
+&lt;!--T:132--&gt;
+Tohle je důležitý bod. Ani zkušeným programátorům MediaWiki na první dobrou nedocvakne, že AccessControl přináší jen minimální zvýšení nároků na výkon webového serveru. '''Pokud stránka ochranu nemá, nedělá AccessControl nic'''. A pokud ochranu má, pokračuje ve zpracování stránky jen pokud nalezne aktuálního uživatele v některé z položek parametrizované šablony, nebo v seznamu oprávněných uživatelů. To proběhne zpravidla dřív, než MediaWiki vrátí nějaký HTML kód. A pokud uživatel nemá právo přistupovat k obsahu chráněné stránky je ihned přesměrován na výchozí stránku s upozorněním, že se pokouší přistupovat na stránku která je chráněná přes AccessControl. To znamená, že pokud není zrovna vypnuto přesměrování (&lt;tvar|1&gt;{{link|$wgAccessControlRedirect}}&lt;/&gt; má hodnotu &lt;tvar|2&gt;'''false'''&lt;/&gt;) je další zpracování obsahu původní stránky přerušeno.&lt;/translate&gt;
+&lt;/ref&gt;
+&lt;translate&gt;
+&lt;!--T:133--&gt;
+Výsledkem bude ''pole'' (''array''), ve kterém budou dva klíče: &lt;tvar|1&gt;"editors"&lt;/&gt; a &lt;tvar|2&gt;"visitors"&lt;/&gt;. ''AccessControl'' tohle pole zkontroluje a pokud v něm najde vaše uživatelské jméno, bude pokračovat ve zpracování stránky.
+
+&lt;!--T:134--&gt;
+U nové syntaxe, která je založená na parametrech šablony lze může ten, kdo nastavuje přístupová práva ke stránce, zajistit aby se ''AccessControl'' nezdržoval prohledáváním všechny jmenných prostorů nastavených v proměnné &lt;tvar|1&gt;{{link|$wgAccessControlNamespaces}}&lt;/&gt;.
+
+&lt;!--T:135--&gt;
+Stačí uvést jméno do parametru &lt;tvar|1&gt;{{link|isProtectedBy}}&lt;/&gt;, nebo &lt;tvar|2&gt;{{link|readOnlyAllowedGroups}}&lt;/&gt; či &lt;tvar|3&gt;{{link|editAllowedGroups}}&lt;/&gt; uvést jméno stránky s uživatelským seznamem, včetně jmenného prostoru. Takže uživatel &lt;tvar|4&gt;&lt;code&gt;TestUser&lt;/code&gt;&lt;/&gt; by místo svého uživatelského jména napsal do příslušného parametru &lt;tvar|5&gt;&lt;code&gt;User:TestUser&lt;/code&gt;&lt;/&gt;. Pochopitelně se tím zkrátí proces zpracování chráněné stránky.
+&lt;/translate&gt;
+{{note|&lt;translate&gt;&lt;!--T:136--&gt; Pro anonymní uživatele používá ''MediaWiki'' jako jméno zpravidla IP adresu, ze které na její stránku lezou. Teoreticky by tedy bylo možné povolit přístup anonymnímu uživateli pro jeho IP adresu. V praxi jsem to ale zatím nezkusil.&lt;/translate&gt;}}
+&lt;translate&gt;
+=== Globální konfigurační proměnné === &lt;!--T:137--&gt; 
+
+&lt;!--T:138--&gt;
+V konfiguračním souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; lze použít u rozšíření ''AccessControl'' verze 3.x  následující globální proměnné:
+&lt;/translate&gt;
+==== $wgAccessControlRedirect ====
+&lt;translate&gt;
+&lt;!--T:139--&gt;
+Ve výchozím stavu je hodnota této proměnné &lt;tvar|1&gt;'''true'''&lt;/&gt;. Uživatele, který nemá právo přistupovat k obsahu stránky ''AccessControl'' automaticky přesměruje na stránku &lt;tvar|info&gt;[[MediaWiki:Deny_user]]&lt;/&gt;, kde se mu zobrazí (lokalizované) oznámení, že se pokusil dostat na chráněnou stránku, ke které nemá přístup povolen. Tohle automatické přesměrování lze vypnout, nastavením proměnné &lt;tvar|2&gt;{{link|$wgAccessControlRedirect}}&lt;/&gt; na hodnotu &lt;tvar|3&gt;'''false'''&lt;/&gt;:&lt;/translate&gt;
+&lt;pre&gt;$wgAccessControlRedirect = false;&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:140--&gt;
+I když se dá přesměrování vypnout, '''vypínejte ho jen když je to nutné'''. Automatické přesměrování se nepoužívá proto, aby chránilo stránku.
+&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:141--&gt; Ani při vypnutém přesměrování se nepovolaný uživatel k chráněnému obsahu nedostane.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:142--&gt; Přesměrování šetří čas a výkon webového serveru.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:143--&gt; Je zbytečné aby server pokračoval ve zpracování obsahu stránky, je-li zřejmé, že uživatel na stránku nebude mít přístup. '''Anonymní uživatel "by default" má právo pouze na čtení obsahu veřejně přístupných stránek'''. Na stránkách chráněných přes ''AccessControl'' nemá co pohledávat.&lt;/translate&gt;
+* &lt;translate&gt;&lt;!--T:144--&gt; Taky je zbytečné pokračovat v dalším zpracování obsahu stránky, pokud je zřejmé, že uživatel, přes to že je řádně přihlášený nemá k jejímu obsahu přístup (tedy ani právo ke čtení).&lt;/translate&gt;
+&lt;span id="accesscontrol-info"&gt;&lt;/span&gt;
+{{warn|&lt;translate&gt;&lt;!--T:145--&gt; Pokud ''AccessControl'' zjistí, že uživatel nemá na stránku přístup, přeruší další zpracování původní stránky a okamžitě přesměruje na stránku &lt;tvar|1&gt;[[MediaWiki:Deny_user]]&lt;/&gt;, která by měla obsahovat pouze stručné sdělení, že se uživatel pokusil otevřít chráněnou stránku. To je z hlediska wiki nejrychlejší operace, protože se obsah téhle stránky nemění. Je to konečná stanice pro nejrůznější roboty, škodivce a dotěry. Proto '''vypínejte přesměrování, jen když je to nezbytně nutné'''.&lt;/translate&gt;}}
+
+{{note|&lt;translate&gt;&lt;!--T:146--&gt; Můžete si přesměrování dočasně vypnout třeba pokud vás zajímá jak rychle se zpracuje obsah stránky, nebo když potřebujete vidět kontrolní zprávy, které se generují jako komentáře do HTML kódu. Pokud byste přesměrování nevypnuli, tak byste viděli pouze to, co se týká zpracování cílové stránky &lt;tvar|1&gt;[[MediaWiki:Deny_user]]&lt;/&gt;.&lt;/translate&gt;}}
+
+==== $wgAdminCanReadAll ====
+&lt;translate&gt;
+&lt;!--T:147--&gt;
+''AccessControl'' je naprogramován tak, aby uživatelé s administrátorskými právy (skupina 'sysop') mohli v případě nouze pomáhat uživatelům, co se díky chybě v nastavení uživatelského seznamu odstřihli od vlastní stránky. Proto je výchozí hodnota této proměnné &lt;tvar|1&gt;'''true'''&lt;/&gt;.
+
+&lt;!--T:148--&gt;
+Nicméně někomu takto benevolentní přístup nemusí vyhovovat. Obzvláště pokud má ve své wiki obsah, který má být přístupný jenom vybraným uživatelům. Proto zde '''existuje možnost''' tohle '''privilegované postavení administrátorů vypnout''' nastavením.
+&lt;/translate&gt;
+&lt;pre&gt;$wgAdminCanReadAll = false;&lt;/pre&gt;
+
+==== $wgAccessToHistory ====
+&lt;translate&gt;
+&lt;!--T:149--&gt;
+Je na vás, jestli povolíte zobrazení historie stránky anonymním uživatelům, nebo ne. Osobně jsem toho názoru, že prohlížení historie stránky a změn wikikódu má být výsadou přihlášeného uživatele. Proto je výchozí nastavení &lt;tvar|1&gt;'''false'''&lt;/&gt;.
+
+&lt;!--T:150--&gt;
+Přes historii se může uživatel dostat ke zobrazení rozdílových souborů. To je užitečné, pokud chceme umožnit aby si mohl uživatel udělat představu o změnách ke kterým došlo na stránce v průběhu času. Za určitých okolností by však mohlo při zobrazení rozdílových souborů dojít ke kompromitaci obsahu chráněné stránky.
+
+&lt;!--T:151--&gt;
+Pokud tedy chcete zobrazování historie anonymním uživatelům povolit, udělejte na svojí ''MediaWiki'' {{&lt;tvar|1&gt;link|accesscontrol-test&lt;/&gt;|důkladné testy}}, abyste měli jistotu, že nedojde touto cestou ke kompromitaci chráněného obsahu. Zobrazování historie a rozdílovách souborů povolíte nastavením:
+&lt;/translate&gt;
+&lt;pre&gt;$wgAccessToHistory = false;&lt;/pre&gt;
+
+{{note|&lt;translate&gt;&lt;!--T:152--&gt; Jestli má tahle wiki povoleno zobrazování historie nebo ne zjistíte klikem [[&lt;tvar|1&gt;AccessControl&amp;action=history&lt;/&gt;|na tento odkaz]]. Pokud je zobrazování historie pro anonymní uživatele vypnuté, neuvidíte jako anonymní uživatel nic, pokud nebudete rovnou přesměrováni na stránku &lt;tvar|2&gt;[[MediaWiki:Deny user]]&lt;/&gt;.&lt;/translate&gt;}}
+
+==== $wgAccessControlNamespaces ====
+&lt;translate&gt;
+&lt;!--T:153--&gt;
+Původně ''AccessControl'' hledal uživatelské seznamy pouze na stránkách v hlavním jmenném prostoru. '''Nová verze 3.x počítá s tím, že se stránky, které obsahují seznamy uživatelů mohou vyskytovat i jinde'''. 
+
+&lt;!--T:154--&gt;
+Tahle proměnná existuje především proto, aby nebylo nutné pokaždé psát jméno stránky s uživatelským seznamem včetně jmenného prostoru, ve kterém se nachází, v globální proměnné &lt;tvar|1&gt;{{link|$wgAccessControlNamespaces}}&lt;/&gt;, je ''pole'' (''array''), s číselnými identifikátory jmenných prostorů, ve kterých se ''AccessControl'' postupně pokusí vyhledat uživatelský seznam identifikovaný jménem stránky, pokud není uveden včetně jména uživatelského prostoru.
+
+&lt;!--T:155--&gt;
+Při psaní jména uživatelského prostoru může snadno dojít k chybě. Obzvláště proto, že ''MediaWiki'' má tendenci nahrazovat kanonické názvy lokalizovanou verzí. ''AccessControl'' akceptuje oboje,  ale doporučuji místo lokalizované verze jmenného prostoru preferovat kanonické jméno. Takže místo &lt;tvar|1&gt;&lt;code&gt;Uživatel:&lt;/code&gt;&lt;/&gt; použijte radši &lt;tvar|2&gt;&lt;code&gt;User:&lt;/code&gt;&lt;/&gt;.
+
+&lt;!--T:156--&gt;
+Ve výchozím stavu se používají níže uvedené jmenné prostory. Ale můžete si přes &lt;tvar|config&gt;&lt;code&gt;LocalSetting.php&lt;/code&gt;&lt;/&gt; nastavit jiné. Postupně se projdou všechny:&lt;/translate&gt;
+::0 - NS_MAIN &lt;translate&gt;&lt;!--T:157--&gt; hlavní jmenný prostor, ze kterého se načítají stránky u kterých není jmenný prostor implicitně uveden&lt;/translate&gt;
+::12 - NS_USER &lt;translate&gt;&lt;!--T:158--&gt; jmenný prostor pro uživatelské stránky; ''AccessControl'' předpokládá, že si každý bude chtít udržovat seznam uživatelů, kterým bude chránit přístup na svoje stránky udržovat v rámci vlastní uživatelské stránky.&lt;/translate&gt;
+{{anchor|accesscontrol-accesslist}}
+&lt;translate&gt;
+
+== Seznamy uživatelů == &lt;!--T:159--&gt;
+
+&lt;!--T:160--&gt;
+U nové verze může jako seznam uživatelů posloužit libovolná stránka, na které je použitý minimálně jeden parametr, na jehož základě lze získat seznam uživatelů.
+&lt;/translate&gt;
+{{warn|&lt;translate&gt;&lt;!--T:161--&gt; Chráněná stránka je automaticky nedostupná anonymním uživatelům. Pokud chcete publikovat část jejího obsahu veřejně, přečtěte si, {{&lt;tvar|1&gt;link|public-and-private&lt;/&gt;|jak mít veřejný i privátní obsah na jedné stránce}}.&lt;/translate&gt;}}
+
+{{note|&lt;translate&gt;&lt;!--T:162--&gt; Pokud se s rozšířením ''AccessControl'' teprve seznamujete, nedělejte první pokusy s nastavením jako uživatel, který má administrátorská práva (skupina 'sysop') a také nevypínejte přesměrování! Ochráníte se tak před vlastní nepozorností a blbostí, jelikož vám ''AccessControl'' nedovolí uložit stránku, na kterou byste se znovu nemuseli dostat. Pokud se vám něco takového stane, přečtěte si {{&lt;tvar|1&gt;link|accesscontrol-deny&lt;/&gt;|co dělat, když se nemůžete dostat na stránku}}.&lt;/translate&gt;}}
+&lt;translate&gt;
+=== Správa uživatelů a skupin přes formulář === &lt;!--T:163--&gt;
+
+&lt;!--T:164--&gt;
+Od ''MediaWiki'' verze 1.23+ lze parametrizované šablony editovat díky rozšíření &lt;tvar|1&gt;{{elink|https://www.mediawiki.org/wiki/Extension:Page_Forms|Page Forms}}&lt;/&gt;, přes formuláře.&lt;/translate&gt;
+{{anchor|accesscontrol-old-syntax}}
+&lt;translate&gt;
+=== Původní syntaxe seznamu uživatelů === &lt;!--T:165--&gt;
+&lt;/translate&gt;
+{{note|&lt;translate&gt;&lt;!--T:166--&gt; Nekategorizované {{&lt;tvar|1&gt;link|accesscontrol-accesslist&lt;/&gt;|uživatelské seznamy}} u wiki, která používala starou syntaxi se daly vyhledat pouze přes některé uživatelské jméno ze seznamu. Ovšem pokud se hledaný řetězec vyskytoval i na stránce, ke které neměl uživatel přístup, tak se k výsledkům vyhledávání nedostal. To sice pro ''AccessControl'' verze 3.0 neplatí, ale i tak {{&lt;tvar|2&gt;link|template-is-better&lt;/&gt;|je lepší místo tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt; k ochraně obsahu stránky používat šablonu}}.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:167--&gt;
+''AccessControl'' verze 3.0 je od základu přepracovaný, nicméně kvůli zpětné kompatibility podporuje i původní syntaxi pro seznamy uživatelů, jaká se používala do verze ≤ 2.6.
+
+&lt;!--T:168--&gt;
+Tato syntaxe používá jako seznam uživatelů stránku, na které se jméno každého uživatele, co má být členem skupiny, umístí na řádku, která začíná znakem pro odrážku (znak &lt;tvar|1&gt;'*'&lt;/&gt;). Za ním následuje mezera a teprve pak uživatelské jméno.
+
+&lt;!--T:169--&gt;
+Pro testovacího uživatele se jménem &lt;tvar|1&gt;&lt;code&gt;TestUser&lt;/code&gt;&lt;/&gt; tedy vypadá příslušný řádek takto:&lt;/translate&gt;
+&lt;pre&gt;* TestUser&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:170--&gt;
+Pokud má mít uživatel právo pouze na čtení obsahu, přidejte za jeho jméno řetězec &lt;tvar|1&gt;&lt;code&gt;(ro)&lt;/code&gt;&lt;/&gt;:&lt;/translate&gt;
+&lt;pre&gt;* TestUser (ro)&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:171--&gt;
+Takto vytvořený seznam uživatelů je obyčejná wiki stránka, která sama o sobě žádným způsobem chráněna není.
+
+&lt;!--T:172--&gt;
+''AccessControl'' však umožňuje, aby se stránka ochránila sama. Takže pokud chcete udělat a vyzkoušet takový seznam ze stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt;, měl by vypadat její obsah takto. Pouze s tím rozdílem, že místo jména testovacího uživatele &lt;tvar|1&gt;&lt;code&gt;TestUser&lt;/code&gt;&lt;/&gt; použijete své uživatelské jméno.&lt;/translate&gt;
+&lt;pre&gt;* TestUser
+&lt;a‌ccesscontrol&gt;test-page&lt;/a‌ccesscontrol&gt;
+[‌[Category:AccessLists]‌]&lt;/pre&gt;
+{{note|&lt;translate&gt;&lt;!--T:173--&gt; Kategorizace uživatelských seznamů tohoto typu je nutná proto, že se z hlediska obsahu neliší od běžné wiki stránky a tím pádem je není snadné dodatečně vyhledat.&lt;/translate&gt;}}
+{{anchor|page-lock}}
+&lt;translate&gt;
+=== Uzamčení stránky pomocí standardního mechanismu MediaWiki === &lt;!--T:174--&gt;
+
+&lt;!--T:175--&gt;
+Kupodivu některé uživatele rozšíření ''AccessControl'' nikdy nenapadlo, že by mohla být stránka chráněna sama sebou. Většinou se pokoušeli vyřešit ochranu seznamů uživatelů jinými, někdy zcela nesmyslnými způsoby.
+
+&lt;!--T:176--&gt;
+Jsou však situace, kdy je lepší zvolit jinou ochranu stránky než přes ''AccessControl''.
+
+&lt;!--T:177--&gt;
+Jedním z nástrojů, jakým ''MediaWiki'' čelí vandalismu, je zamykání stránek. Ovšem tuhle výsadu mají pouze administrátoři, {{&lt;tvar|1&gt;link|mediawiki-groups&lt;/&gt;|uživatelé ze skupiny 'sysop'}}, která disponuje právo k zablokování editace stránky (&lt;tvar|2&gt;&lt;code&gt;block&lt;/code&gt;&lt;/&gt;). Pokud uživatel mezi ně nepatří, tak tímto způsobem stránku chránit nemůže.
+
+&lt;!--T:178--&gt;
+Jsou ovšem situace, kdy je lepší preventivně možnost editace stránky omezit. Typicky v případě šablony. Prostřednictvím hojně používané šablony, lze totiž zneužitím rozšíření ''AccessControl'' zakázat přístup všem uživatelům. Proto je vhodné její obsah preventivně uzamknout ('protect'). Její obsah bude dál veřejně přístupný, ovšem měnit její kód bude moci jen ten, kdo bude mít rovněž adminstrátorská práva ('sysop').
+
+&lt;!--T:179--&gt;
+Ostatně, změny obsahu šablony by se měly testovat na jiné, testovací šabloně a teprve po jejich důkladném otestování kopírovat do šablony, která se již používá.&lt;/translate&gt;
+{{anchor|namespace-private}}
+&lt;translate&gt;
+==== Umístěním stránky do vyhrazeného jmenného prostoru ==== &lt;!--T:180--&gt;
+
+&lt;!--T:181--&gt;
+Kromě standardních jmenných prostorů, si můžete nadefinovat v rámci konfiguračního souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; i své vlastní jmenné prostory. Dají se využít mnoha způsoby. A mimo jiné se dá u nich nastavením proměnné &lt;tvar|1&gt;{{link|$wgNamespaceProtection}}&lt;/&gt; upravit přístupová práva tak, aby kupř. na editaci stránek v tomto jmenném prostoru měly právo jen vybrané skupiny uživatelů ''MediaWiki''.
+
+&lt;!--T:182--&gt;
+Následující ukázkový kód demonstruje, jak si můžete vytvořit vlastní jmenný prostor &lt;tvar|1&gt;NS_PRIVATE&lt;/&gt; s ID &lt;tvar|2&gt;1234&lt;/&gt;, ve kterému by mohli dělat změny pouze uživatelé s přiděleným právem &lt;tvar|3&gt;&lt;code&gt;userrights&lt;/code&gt;&lt;/&gt; (což jsou ve výchozím stavu pouze byrokraté):&lt;/translate&gt;
+&lt;pre&gt;define("NS_PRIVATE", 1234);
+$wgExtraNamespaces = 
+    array(NS_PRIVATE =&gt; "private"
+    );
+$wgNamespaceProtection[NS_PRIVATE] = array( 'userrights' );&lt;/pre&gt;
+&lt;translate&gt;
+&lt;!--T:183--&gt;
+Pokud chcete takovým způsobem omezit práva u jiných, již existujících jmenných prostorů, stačí pouze změnit výchozí nastavení jmenného prostoru.
+
+&lt;/translate&gt;
+{{anchor|accesscontrol-test}}
+&lt;translate&gt;
+= Testy = &lt;!--T:184--&gt;
+
+&lt;!--T:185--&gt;
+'''Každý''', kdo chce svoje stránky chránit přes rozšíření ''AccessControl'', '''by měl znát způsoby, jimiž se lze dostat ke chráněnému obsahu MediaWiki, pokud je někde chyba'''.
+
+&lt;!--T:186--&gt;
+Pokud máte tuhle stránku naimportovanou vlastní instance ''MediaWiki'', můžete využít níže uvedené odkazy k testování.
+
+&lt;!--T:187--&gt;
+Založte si stránku &lt;tvar|test&gt;[[test-page]]&lt;/&gt; a na ní si vyzkoušejte jak si nastavit ochranu stránky, {{&lt;tvar|1&gt;link|accesscontrol-accesslist&lt;/&gt;|jak se udělá uživatelský seznam}}, jak se s ním pracuje, a {{&lt;tvar|3&gt;link|how-accesscontrol-detect&lt;/&gt;|jak s jeho pomocí chránit jiné stránky}}. Je důležité abyste pochopili, jak to všechno funguje.
+&lt;/translate&gt;
+{{warn|&lt;translate&gt;&lt;!--T:188--&gt; Dejte si pozor na to, abyste pro sebe na stránce &lt;tvar|test&gt;[[test-page]]&lt;/&gt; nastavili svoje jméno, protože jinak se vám stane, že se odstřihnete i od této stránky. Po skončení testů doporučuji její obsah vymazat, aby ji mohl k testování využít i někdo jiný.&lt;/translate&gt;}}
+&lt;translate&gt;
+&lt;!--T:189--&gt;
+Při testování vašich stránek doporučuji používat dva různé webové prohlížeče. Přes jeden přistupujte na stránku jako přihlášený uživatel, a přes ten druhý testujte paralelně anonymní přístup.
+
+&lt;!--T:190--&gt;
+Pokud budete chtít zjistit co v průběhu zpracování stránky rozšíření ''AccessControl'' dělá, můžete využít debugovací zprávy připravené v kódu. Poznáte je podle toho, že za nimi na řádku následuje komentář s klíčovým slovem DEBUG.
+
+&lt;!--T:191--&gt;
+Tyto zprávy svůj obsah vypisují do stránky přes funkci &lt;tvar|1&gt;&lt;code&gt;printDebug()&lt;/code&gt;&lt;/&gt;. Na stránce nejsou vidět. Dostanete se k nim, jen když se podíváte do HTML kódu stránky.
+
+&lt;!--T:192--&gt;
+Připravte se na to, že některé zprávy mohou vyvolat chybu PHP. Nemusíte si toho všímat. Po zakomentování kontrolního výpisu zase zmizí.
+&lt;/translate&gt;
+{{info|&lt;translate&gt;&lt;!--T:193--&gt; Pokud přijdete na nějaký další postup, který zde není uveden a by mohl vést k potenciální kompromitaci stránky, neváhejte a napište!&lt;/translate&gt;}}
+&lt;translate&gt;
+== Vyhledávání == &lt;!--T:194--&gt;
+
+&lt;!--T:195--&gt;
+Za normálních okolností, '''vyhledání najde hledaný řetězec i na stránkách chráněných přes ''AccessControl'''''. Pokud však uživatel nemá právo přistupovat k obsahu stránky, bude místo kontextu zobrazen náhradní text. A pokud se pokusí přejít na tuto stránku, bude automaticky přesměrován pryč.
+
+== Přístup k wiki kódu a historii stránky == &lt;!--T:196--&gt;
+
+&lt;!--T:197--&gt;
+Pokud nezměníte výchozí hodnotu konfigurační proměnné &lt;tvar|1&gt;{{link|$wgAccessToHistory}}&lt;/&gt; na &lt;tvar|2&gt;'''true'''&lt;/&gt;, tak se anonymní uživatel k historii stránky, byť není chráněna rozšířením ''AccessControl'', nedostane. A nedostane se ani k jejímu wikikódu.
+
+&lt;!--T:198--&gt;
+Jediná historie změn, u které je žádoucí zachovat přístup i pro anonymní uživatele, je na stránce &lt;tvar|1&gt;[[Special:Recentchanges]]&lt;/&gt; (historie posledních změn). Odkazy, přes které lze zobrazit rozdílové změny (''diff'') jsou pak buď neaktivní, nebo jsou při pokusu o zobrazení rozdílových změn, není-li vypnuto přesměrování přes proměnnou &lt;tvar|2&gt;{{link|$wgAccessControlRedirect}}&lt;/&gt;, přesměrováni na stránku &lt;tvar|info&gt;[[MediaWiki:Deny user]]&lt;/&gt;.
+&lt;/translate&gt;
+{{info|1=&lt;translate&gt;
+&lt;!--T:199--&gt;
+Je pouze na vás, jestli výchozí restriktivní přístup zmírníte, nebo ne. Na historii a obsah chráněných stránek se touto cestou nikdo nedostane. Nicméně opakované procházení historie a generování rozdílových stránek může zbytečně zatěžovat váš webový server – to je důvod, proč není zobrazování historie stránek, wiki kódu stránek a rozdílových souborů ve výchozím stavu povoleno.
+
+&lt;!--T:200--&gt;
+'''Pokud používáte ''AccessControl'', můžete bez obav přístup k historii povolit'''. Jakmile dotěrný robot narazí na některou z chráněných stránek, bude okamžitě odklizen na {{&lt;tvar|1&gt;link|accesscontrol-info&lt;/&gt;|informační stránku}}, která ukončí další procházení obsahu.&lt;/translate&gt;}}
+&lt;translate&gt;
+=== Dostane se anonymní uživatel ke zobrazení rozdílových změn? === &lt;!--T:201--&gt;
+
+&lt;!--T:202--&gt;
+To, můžete snadno a rychle zjistit. [[&lt;tvar|1&gt;Special:Diff/{{REVISIONID:Main Page}}/next&lt;/&gt;|Tenhle odkaz vede na rozdílový soubor, který byl vytvořen při poslední úpravě hlavní stránky této wiki]].
+# '''přihlášený uživatel''' by se měl ke zobrazení rozdílů bez problému dostat
+# '''anonymní uživatel''' by měl být přesměrován pryč
+&lt;/translate&gt;
+{{note|&lt;translate&gt;&lt;!--T:203--&gt; Pokud vám vrtá hlavou, jakým způsobem se dostalo do této stránky ID revize vaší hlavní stránky, tak jste právě narazili na tajemství kouzelných slůvek – &lt;tvar|1&gt;{{elink|https://www.mediawiki.org/wiki/Help:Magic_words|Magic Words}}&lt;/&gt;. Kód, který vygeneroval předchozí odkaz vypadá takto:&lt;/translate&gt;
+&lt;pre&gt;[[Special:Diff/{{REVISIONID:Main Page}}/next|&lt;translate&gt;&lt;!--T:204--&gt; tenhle odkaz, který zobrazí rozdílový soubor k poslední úpravě hlavní stránky této wiki&lt;/translate&gt;]]&lt;/pre&gt;}}
+&lt;translate&gt;
+=== Je zde povolen přístup ke speciální stránce, která zobrazuje rozdíly v obsahu stránek? === &lt;!--T:205--&gt;
+
+&lt;!--T:206--&gt;
+Od MediaWiki 1.23+ je k dispozici {{&lt;tvar|1&gt;elink|https://www.mediawiki.org/wiki/Help:Diff&lt;/&gt;|speciální stránka}}, přes kterou si lze zobrazit obarvený výstup, podobný jako vrací utilita &lt;tvar|2&gt;'''diff'''&lt;/&gt;, pro libovolnou revizi obsahu.
+
+&lt;!--T:207--&gt;
+Je-li tahle stránka dostupná zde, zjistíte přes tento link: &lt;tvar|diff&gt;[[Special:Diff]]&lt;/&gt;.
+# '''Pokud není zakázán''' přístup na stránku &lt;tvar|diff&gt;[[Special:Diff]]&lt;/&gt; (viz výše, {{&lt;tvar|1&gt;link|config-extra&lt;/&gt;|doporučené nastavení konfiguračního souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt;}}), zobrazí se formulář, do kterého lze zadat ID libovolné revize.
+# '''Pokud je zakázán''' přístup na stránku &lt;tvar|diff&gt;[[Special:Diff]]&lt;/&gt;, bude anonymní uživatel přesměrován pryč, resp. mu ''MediaWiki'' sdělí, že žádná taková stránka neexistuje.
+
+=== Zobrazení wikikódu stránky === &lt;!--T:208--&gt;
+
+&lt;!--T:209--&gt;
+Zobrazení zdrojového kódu stránky je pro anonymní uživatele povoleno pouze, je-li proměnná &lt;tvar|1&gt;{{link|$wgAccessToHistory}}&lt;/&gt; nastavena na hodnotu &lt;tvar|2&gt;'''true'''&lt;/&gt;. Pak můžete na stránkách použít následující formát odkazu, kterým se anonymnímu uživateli zobrazí editační okno stránky s jejím wikikódem, ovšem '''bez možnosti editace obsahu'''.
+
+&lt;!--T:210--&gt;
+Pokud bude editace obsahu možná, máte nejspíš chybu v konfiguraci souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt;.
+
+&lt;!--T:211--&gt;
+'''Zobrazení wiki kódu nechráněné Hlavní stránky (Main Page)'''
+
+&lt;!--T:212--&gt;
+Chcete-li umožnit anonymním uživatelům aby si mohli kopírovat obsah stránek vaší wiki do vlastní instance ''MediaWiki'', můžete jim pomoci tak, že přidáte na své stránce odkaz na příslušnou stránku v následující formě: &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:Main Page|action=edit}}&lt;/&gt;
+
+&lt;!--T:213--&gt;
+Pokud je povoleno zobrazování historie a kódu nechráněných stránek. tak se jim po kliku na tento odkaz, otevře editační okno s wiki kódem stránky (v read-only módu), ze kterého si jej mohou zkopírovat.
+
+=== Zobrazení konkrétní verze obsahu nechráněné stránky === &lt;!--T:214--&gt;
+
+&lt;!--T:215--&gt;
+I odkazování na konkrétní starší verzi stránky je závislé na nastavení proměnné &lt;tvar|1&gt;{{link|$wgAccessToHistory}}&lt;/&gt;. Pokud chcete odkazovat na konkrétní revize obsahu, musí být její hodnota &lt;tvar|2&gt;'''true'''&lt;/&gt;. Při volání stránky  musíte uvést také číslo konkrétní revize: &lt;tvar|3&gt;
+ {{SERVER}}{{localurl:Main Page|oldid={{REVISIONID:Main Page}}}}&lt;/&gt;
+
+&lt;!--T:216--&gt;
+Při volání konkrétní revize přes parametr &lt;tvar|1&gt;"oldid"&lt;/&gt; vůbec nezáleží na názvu stránky, předávaném v parametru &lt;tvar|2&gt;"title"&lt;/&gt; – '''rozhodující je číslo revize'''.
+
+== Jak otestuji, že moje stránky chrání ''AccessControl''? == &lt;!--T:217--&gt;
+
+&lt;!--T:218--&gt;
+Následující série testů předpokládá, že již máte v této wiki vytvořenou testovací stránku &lt;tvar|test&gt;[[test-page]]&lt;/&gt;, na kterém jste se učili, jakým způsobem nastavit ochranu stránky. Pro následující test by měla být stránka &lt;tvar|test&gt;[[test-page]]&lt;/&gt; nastavená jako '''self-protect'''.
+
+&lt;!--T:219--&gt;
+'''Přímý přístup'''&lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page}}&lt;/&gt;
+: Oprávněnému uživateli se stránka zobrazí. Každý jiný bude přesměrován pryč.
+
+&lt;!--T:220--&gt;
+'''Přístup přes akci "view"''' &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page|action=view}}&lt;/&gt;
+: Oprávněnému uživateli se stránka zobrazí. Každý jiný bude přesměrován pryč.
+
+&lt;!--T:221--&gt;
+'''Přístup přes akci "edit"''' &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page|action=edit}}&lt;/&gt;
+: Oprávněnému uživateli se zobrazí editační okno stránky s jejím wiki kódem. Každý jiný bude přesměrován pryč.
+
+&lt;!--T:222--&gt;
+'''Přístup přes akci "history"''' &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page|action=history}}&lt;/&gt;
+: Oprávněnému uživateli se zobrazí historie chráněné stránky. Každý jiný bude přesměrován pryč.
+
+&lt;!--T:223--&gt;
+'''Přístup na prohlížení revizí přes "action" (view)''' &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page|action=view&amp;oldid={{REVISIONID:test-page}}}}&lt;/&gt;
+: Oprávněný uživatel může procházet historií revizí. Každý jiný bude přesměrován pryč
+
+&lt;!--T:224--&gt;
+'''Přístup k prohlížení revizí stránky přes "direction"''' &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page|direction=prev&amp;oldid={{REVISIONID:test-page}}}}&lt;/&gt;
+: Oprávněný uživatel může procházet historií revizí. Každý jiný bude přesměrován pryč.
+
+&lt;!--T:225--&gt;
+'''Přístup ke zobrazení rozdílové stránky pro poslední revizi stránky přes "diff"''' &lt;tvar|1&gt;
+ {{SERVER}}{{localurl:test-page|diff=prev&amp;oldid={{REVISIONID:test-page}}}}&lt;/&gt;
+: Oprávněný uživatel uvidí aktuální rozdíl v obsahu stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt; při poslední revizí. Každý jiný bude přesměrován pryč.
+
+&lt;!--T:226--&gt;
+Pak tuhle sadu testů zopakujte přihlášeni jako uživatel s právem na editaci stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt;.
+
+&lt;!--T:227--&gt;
+A potom znovu tuhle sadu testů, ovšem přihlášeni jako uživatel, který sice nemá právo zasahovat do obsahu stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt;, ale může si ho číst.
+&lt;/translate&gt;
+
+{{warn|&lt;translate&gt;&lt;!--T:228--&gt;
+Doporučuji vyzkoušet tuhle sérii testů pro situaci, že je self-protect stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt; nastaven:
+* pomocí parametrizované šablony
+* s využitím staré syntaxe a tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;
+* s využitím šablony s řetězcem &lt;tvar|1&gt;&lt;code&gt;accesscontrol&lt;/code&gt;&lt;/&gt; v názvu
+
+&lt;!--T:229--&gt;
+Taky si vyzkoušejte, jaký bude výsledek těchto testů v situaci, kdy je stránka &lt;tvar|test&gt;[[test-page]]&lt;/&gt; chráněna přes stránku jinou. Zkuste:
+* použít seznam umístěný v hlavním jmenném prostoru (identifikovaný pouze názvem stránky)
+* použít seznam, který bude umístěn v jiném jmenném prostoru, nastaveném v proměnné &lt;tvar|1&gt;{{link|$wgAccessControlNamespaces}}&lt;/&gt;
+* použít seznam, který bude v parametru šablony uveden včetně názvu jmenného prostoru&lt;/translate&gt;
+}}
+
+&lt;translate&gt;
+== Test přístupu ke chráněnému obsahu přes REDIRECT == &lt;!--T:230--&gt;
+
+&lt;!--T:231--&gt;
+Přesměrování je základní funkcionalita ''MediaWiki'', která umožňuje přistupovat na stránku přes jiné, alternativní názvy. V podstatě jde o mechanismus podobný transkluzi&lt;tvar|ref&gt;&lt;ref name="transclusion" /&gt;&lt;/&gt;, rozdíl je pouze v tom, že z obsahu na který cílová stránka přes odkazuje rovnou generuje obsah. U starších verzí rošíření ''AccessControl'' bylo možné tímto způsobem obejít ochranu stránky.
+
+&lt;!--T:232--&gt;
+Vytvořte si tedy stránku s následujícím obsahem a pak vykoušejte, zda-li se přes ni dostanete jako neoprávěný uživatel na stránku &lt;tvar|test&gt;[[test-page]]&lt;/&gt;, nebo ne. &lt;tvar|1&gt;&lt;pre&gt;#REDIRECT [[test-page]]&lt;/pre&gt;&lt;/&gt;
+&lt;/translate&gt;
+{{anchor|test-transclusion}}
+&lt;translate&gt;
+== Test přístupu ke chráněnému obsahu přes transkluzi == &lt;!--T:233--&gt;
+
+=== Vložení chráněné stránky === &lt;!--T:234--&gt;
+
+&lt;!--T:235--&gt;
+Pokud vložíte do jiné stránky stránku, která má obsah chráněný přes ''AccessControl'', měly by pro ni automaticky platit stejná práva jako u vložené stránky. Pokud to takhle nefunguje, je to chyba!
+
+&lt;!--T:236--&gt;
+Vložení stránky '''z hlavního jmenného prostoru''' vypadá takto: &lt;tvar|1&gt;&lt;pre&gt;{‌{:test-page}‌}&lt;/pre&gt;&lt;/&gt;
+
+&lt;!--T:237--&gt;
+Pokud vkládáte stránku z jiného jmenného prostoru, musíte uvést jeho jméno. I když je možné používat i lokalizované názvy jmenných prostorů, používejte pokud možno kanonické jméno jmenného prostoru, odvozené z angličtiny. &lt;tvar|1&gt;&lt;pre&gt;{‌{:User:TestUser}‌}&lt;/pre&gt;&lt;/&gt;
+
+=== Vložení chráněné šablony === &lt;!--T:238--&gt;
+
+&lt;!--T:239--&gt;
+Transkluze chráněné šablony probíhá (a vypadá) podobně, jako transkluze stránky z hlavního jmenného prostoru. Rozdíl je '''pouze''' v tom, že pokud nepoužijete před názvem stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt; dvojtečku, bude systém ''MediaWiki'' automaticky předpokládat, že jde o stránku ze jmenného prostoru ''Šablona'' (''Template''): &lt;tvar|1&gt;&lt;pre&gt;{‌{test-page}‌}&lt;/pre&gt;&lt;/&gt;
+
+&lt;!--T:240--&gt;
+Pokud by šlo o šablonu, která by byla nějakým způsobem chráněná přes ''AccessControl'', tak se může stránka, do níž je šablona vložena, chovat různě.
+
+=== Vícenásobná transkluze === &lt;!--T:241--&gt;
+
+&lt;!--T:242--&gt;
+Vícenásobná transkluze může za určitých okolností vést k tomu, že se pak na stránku nedostane nikdo – ani administrátor ('sysop')! Bohužel nelze k tomu říct nic konkrétního, protože se mi to stalo pouze jednou, při testování během vývoje, takže je dost dobře možné, že příčina byla dávno odstraněna. 
+
+&lt;!--T:243--&gt;
+Nicméně vícenásobná transkluze funguje i u chráněných stránek, ale moc ji nedoporučuji. Při zřetězení většího počtu chráněných stránek, stačí k odstřižení uživatele (případně celé skupiny) drobná změna práv u některé mezilehlé stránky.
+&lt;/translate&gt;
+ Protected - Include - Include
+
+ Protected - Changed x Not access
+{{anchor|accesscontrol-lsth}}
+&lt;translate&gt;
+
+== Pozor na rozšíření ''Labeled Section Transclusion'' == &lt;!--T:244--&gt;
+
+&lt;!--T:245--&gt;
+&lt;tvar|1&gt;{{link|extensions|Labeled Section Transclusion}}&lt;/&gt; je v kombinaci s rozšířením &lt;tvar|2&gt;{{link|extensions|DynamicPageList (third party)}}&lt;/&gt; či &lt;tvar|3&gt;{{link|extensions|SubPageList}}&lt;/&gt; skvělý nástroj na tvorbu šablon generujících dynamický obsah stránek. Ale pozor na jeho zneužití!
+
+&lt;!--T:246--&gt;
+Zneužití nehrozí ze strany anonymních uživatelů, protože nemají právo na editaci stránky. Riziko hrozí pouze se strany přihlášeného uživatele.
+
+&lt;!--T:247--&gt;
+Ovšem zas tak jednoduché to není. V podstatě jde o zneužití stejného {{&lt;tvar|1&gt;link|public-and-private&lt;/&gt;|mechanismu, jakým lze spravovat na jedné stránce soukromý i veřejný obsah}}.
+
+&lt;!--T:248--&gt;
+Pro získání chráněného obsahu stránky by musel útočník znát nejenom jméno chráněné stránky, ale také jméno nechráněné sekce. Pravděpodobnost zneužití je tedy velmi malá, nicméně existuje.
+&lt;/translate&gt;
+{{info|&lt;translate&gt;&lt;!--T:249--&gt; Posuzujte pečlivě každého, kdo má zájem o úživatelský účet na vaší wiki. Ten kdo má skutečný zájem o spolupráci by měl mít pro vás pochopení. Ostatně, je mnohem lepší být ostražitý než dodatečně řešit rozsáhlé škody.&lt;/translate&gt;}}
+{{anchor|accesscontrol-export}}
+&lt;translate&gt;
+== Test, zdali se dá obsah chráněné stránky získat exportem == &lt;!--T:250--&gt;
+
+&lt;!--T:251--&gt;
+Pro usnadnění sdílení obsahu má ''MediaWiki'' k dispozici speciální stránku &lt;tvar|1&gt;[[Special:Export]]&lt;/&gt; přes kterou lze vyexportovat obsah wiki stránky, včetně historie a vložených šablon do XML souboru. Obsah tohoto souboru pak lze naimportovat do jiné instance ''MediaWiki'' přes speciální stránku &lt;tvar|2&gt;[[Special:Import]]&lt;/&gt;.
+
+&lt;!--T:252--&gt;
+Je to užitečný mechanismus, který umožňuje přenášet hotové šablony i manuálové stránky. Bohužel pro wiki s chráněným obsahem představuje určité riziko, pokud má právo k exportu každý přihlášený uživatel.
+
+&lt;!--T:253--&gt;
+I ochranu u starší verze rozšíření ''AccessControl'' bylo možné tímto způsobem obejít. U verze 3.0 je tomu ale jinak.
+
+&lt;!--T:254--&gt;
+* Stránka se přeskočí '''pokud uživatel na stránku přístup nemá'''.
+* Pokud má read-only přístup, tak se vyexportuje pouze aktuální verze stránky.
+* Kompletní export, včetně historie změn je přístupný pouze uživatelům s právem k editaci.
+&lt;/translate&gt;
+{{note|&lt;translate&gt;&lt;!--T:255--&gt; Import stránky není nutné řešit, přesto, že je možné importem upraveného souboru možné změnit obsah stránky. Jenže to by musela být stránka před importem odstraněna. A pro uživatele který by tohle mohl udělat není problém data změnit jinou, méně komplikovanou cestou.&lt;/translate&gt;}}
+{{anchor|option-template}}
+&lt;translate&gt;
+
+= Tipy = &lt;!--T:256--&gt;
+
+== Nepoužívejte v parametrech které zpracovává rozšíření ''AccessControl'' šablony! == &lt;!--T:257--&gt;
+
+&lt;!--T:258--&gt;
+Pokud vás napadlo, že byste místo jména uživatele, nebo uživatelské skupiny použili šablonu, tak si  uvědomte, že '''AccessControl pracuje s neinterpretovaným wiki kódem stránky''', takže se pokusí vyhodnotit jako jméno řetězec znaků a ne až výsledek transkluze, jak byste očekávali. Viz příklad: &lt;tvar|1&gt;&lt;pre&gt;&lt;a‌ccesscontrol&gt;{‌{‌{nobody}‌}‌}&lt;/a‌ccesscontrol&gt;&lt;/pre&gt;&lt;/&gt;
+
+&lt;!--T:259--&gt;
+V tomto konkrétním případě by se ''AccessControl'' pokusil vyhledat uživatele, jehož jméno by odpovídalo řetězci &lt;tvar|1&gt;‌&lt;code&gt;{{‌{nobody}}}&lt;/code&gt;&lt;/&gt;, což je nonsens. Takový uživatel určitě existovat nebude. A u parametrizované šablony by mohl být výsledek zcela nepředvídatelný, takže si ani netroufám domýšlet co by se vlastně ''AccessControl'' pokusil vyhledat. Jisté je pouze to, že to nejspíš existovat nebude, protože ''MediaWiki'' takové řetězce v názvu stránky neakceptuje.
+
+== Když je uvedena jako seznam uživatelů neexistující stránka ( skupina ) nebo neplatné uživatelské jméno == &lt;!--T:260--&gt;
+
+&lt;!--T:261--&gt;
+Pokud máte svoji instanci wiki nastavenou jako case-sensitive, tak se může velice snadno stát, že omylem napíšete uživatelské jméno, či jméno stránky se skupinou uživatelů špatně. Stačí zaměnit, přidat, nebo vynechat jedno písmeno a jste v háji. 
+
+&lt;!--T:262--&gt;
+Pokud se vám něco takového stalo, přečtěte si co dělat {{&lt;tvar|1&gt;link|accesscontrol-deny&lt;/&gt;|když se nemůžete dostat na stránku}}.&lt;/translate&gt;
+{{anchor|only-example-code}}
+&lt;translate&gt;
+== Nekopírujte slepě kód z těchto stránek! == &lt;!--T:263--&gt;
+
+&lt;!--T:264--&gt;
+* Ukázkový wikikód z příkladů na této stránce samozřejmě můžete použít i na vlastní wiki – a v některých případech je to i výslovně doporučeno. ale '''v žádném případě nekopírujte kód z této stránky metodou &lt;tvar|1&gt;''copy &amp; paste''&lt;/&gt;'''!. Čekalo by vás totiž nemilé překvapení.
+
+&lt;!--T:265--&gt;
+* Aby tahle stránka mohla být veřejně přístupná i na wiki co již používá ''AccessControl'', byla do řetězců, které by za normálních okolností ''AccessControl'' vyhodnotil jako ochraný prvek stránky, doplněna '''neviditelná mezera s nulovou šířkou'''.(&lt;tvar|1&gt;U+200C&lt;/&gt; znak &lt;tvar|2&gt;&lt;code&gt;ZERO WIDTH NON-JOINER &amp;‌#8204;&lt;/code&gt;&lt;/&gt;). Jde o netisknutelný znak, který nevidíte ale '''z hlediska PHP jde o regulérní znak, který zabraňuje nežádoucí interpretaci řetězců ať již na straně serveru (parametry pro ''AccessControl''), nebo na straně prohlížeče (HTML entity).
+&lt;/translate&gt;
+
+{{warn|&lt;translate&gt;&lt;!--T:266--&gt; Pokud byste zkopírovali řetězec s neviditelnou mezerou, tak byste pak marně pátrali, proč vám rozšíření ''AccessControl'' nefunguje tak jak má!&lt;/translate&gt;}}
+{{anchor|not-accesslist}}
+&lt;translate&gt;
+== Stránka chráněná šablonou s řetězcem accesscontrol v názvu není uživatelský seznam! == &lt;!--T:267--&gt;
+
+&lt;!--T:268--&gt;
+Je to použitelné řešení, pokud jednu stránku mezi sebou sdílí pár uživatelů, nebo pokud bychom chtěli mít k dispozici šablonu, pro dočasné omezení přístupu k obsahu stránky.  Stačí do prvního parametru šablony nasázet uživatelská jména a hotovo. A pokud chcete, můžete mezi nimi použít i jméno seznamu uživatelů. Kupříkladu uživatelé ze seznamu na stránce Čtenáři by v tomto případě sice nemohli obsah stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt; měnit, nicméně by ho mohli stránku číst a sledovat její změny.
+&lt;/translate&gt;
+
+{{warn|&lt;translate&gt;&lt;!--T:269--&gt; Pokud se ale pokusíte takovou stránku &lt;tvar|test&gt;[[test-page]]&lt;/&gt; použít jako uživatelský seznam, tak se odříznete! ''AccessControl'' se z ní sice pokusí vydolovat seznam oprávněných uživatelů – ovšem to se mu podaří jen za předpokladu, že alespoň část obsahu stránky bude odpovídat {{&lt;tvar|1&gt;link|accesscontrol-old-syntax&lt;/&gt;|původní syntaxi uživatelských seznamů}}. Pokud se vrátí jen prázdný seznam, tak vám ''AccessControl'' přístup odepře a {{&lt;tvar|1&gt;link|accesscontrol-info&lt;/&gt;|přesměruje pryč}}.&lt;/translate&gt;}}
+{{anchor|accesscontrol-deny}}
+&lt;translate&gt;
+== Když se nemůžete dostat na stránku == &lt;!--T:270--&gt;
+
+&lt;!--T:271--&gt;
+'''Nepanikařte!'''
+
+&lt;!--T:272--&gt;
+Pokud jste omylem vyřadili ze sezamu uživatelů oprávěných k editaci stránky svoje jméno a znáte jiného uživatele, který má k editaci stránky povolen přístup, můžete ho zkusit požádat aby vaši chybu napravil a opět vás do seznamu přidal.
+
+&lt;!--T:273--&gt;
+Pokud nikoho takového neznáte a žádný jiný uživatel na stránku přístup nemá, musíte požádat o pomoc některého uživatele, co má administrátorská práva ('sysop').
+
+&lt;!--T:274--&gt;
+Ten vám ale nepomůže, pokud je privilegované postavení této skupiny uživatelů je přes &lt;tvar|1&gt;{{link|$wgAdminCanReadAll}}&lt;/&gt; zakázáno, nebo pokud se vám stane, že podařilo zablokovat přístup ke stránce takovým způsobem, že se na ni nedostane ani administrátor (uživatel ve skupině 'sysop'). Taková situace může nastat např. v případě vícenásobné transkluze.
+
+&lt;!--T:275--&gt;
+Pak máte pouze jedinou možnost.
+
+&lt;!--T:276--&gt;
+Pokud nemáte přístup ke konfiguračnímu souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt;, musíte požádat toho kdo takový přístup má, aby '''dočasně''' rozšíření AccessControl deaktivoval, abyste mohli opravit vadný záznam, nebo aby ho opravil za vás – nejjednodušší a nejrychlejší je, obsah stránky kompletně smazat. Vy si ho pak můžete vydolovat z předchozí revize a jemu to zkrátí na minimum čas potřebný k vyřešení vašeho problému.
+&lt;/translate&gt;
+
+{{warn|&lt;translate&gt;&lt;!--T:277--&gt; Uvědomte si, že '''po dobu kdy není rozšíření AccessControl aktivní''' může každý uživatel číst obsah stránek, které jím mají být chráněny! Proto je žádoucí problém vyřešit co nejrychleji a ihned poté rozšíření AccessControl opět zapnout.&lt;/translate&gt;}}
+{{anchor|mediawiki-preview}}
+&lt;translate&gt;
+== Dělejte přes uložením stránky náhledy == &lt;!--T:278--&gt;
+
+&lt;!--T:279--&gt;
+Pokud uděláte před uložením obsahu stránky co se má chránit přes ''AccessControl'' náhled. Tak v případě, že jste nevypnuli přesměrování (&lt;tvar|1&gt;{{link|$wgAccessControlRedirect}}&lt;/&gt;) a {{&lt;tvar|2&gt;link|mediawiki-groups&lt;/&gt;|nepatříte do skupiny 'sysop'}}, dojde okamžitě {{&lt;tvar|3&gt;link|accesscontrol-info&lt;/&gt;|k přesměrování}}, které vám zabrání v uložení změn.
+
+&lt;!--T:280--&gt;
+To vás ochrání před tím, abyste se "odřízli" od stránky v případě, že byste zapoměli povolit přístup k editaci obsahu stránky sobě.&lt;/translate&gt;
+{{anchor|mediawiki-private-channel}}
+&lt;translate&gt;
+== Využití ''MediaWiki'' k soukromé komunikaci == &lt;!--T:281--&gt;
+
+&lt;!--T:282--&gt;
+MediaWiki může nahradit e-mailovou konferenci.
+
+&lt;!--T:283--&gt;
+Pokud chce skupina uživatelů mezi sebou diskutovat bez účasti veřejnosti, stačí aby si "uzamkla" pro sebe diskuzní stránku k nějaké stránce. Stránka může obsahovat veřejný obsah k tématu diskuze a na chráněné diskuzní stránce mohou paralelně debatovat.
+
+&lt;!--T:284--&gt;
+Stačí, aby měl uživatel nastavené sledování této diskuzní stránky. Pokud se změní její obsah, uvidí v záhlaví upozornění.
+
+&lt;!--T:285--&gt;
+Jen na něm záleží bude-li chtít dostávat také notifikace o změnách přes e-mail.&lt;/translate&gt;
+{{anchor|public-and-private}}
+&lt;translate&gt;
+== Veřejný i neveřejný obsah na jedné stránce == &lt;!--T:286--&gt;
+
+&lt;!--T:287--&gt;
+''AccessControl'' vždy chrání celou stránku a to napříč stránkami do kterých je chráněná stránka vložená prostřednictvím transkluze&lt;tvar|ref&gt;&lt;ref name="transclusion" /&gt;&lt;/&gt;, ale pokud máte nainstalované rozšíření &lt;tvar|1&gt;{{link|extensions|Labeled Section Transclusion}}&lt;/&gt; existuje způsob jak vystavit obsah chráněné stránky tak, aby byl veřejně dostupný.
+
+&lt;!--T:288--&gt;
+Pokud máte tenhle manuál naimportovaný do své instance ''MediaWiki'', která má k dispozici rozšíření &lt;tvar|1&gt;{{link|extensions|Labeled Section Transclusion}}&lt;/&gt;, můžete si to vyzkoušet u testovací stránky &lt;tvar|test&gt;[[test-page]]&lt;/&gt;.
+
+&lt;!--T:289--&gt;
+# Nastavte si stránku &lt;tvar|test&gt;[[test-page]]&lt;/&gt; tak, aby byla chráněná přes ''AccessControl''.
+# A pod šablonu, či tag, kterým bude chráněna přidejte novou sekci, pojmenovanou &lt;tvar|1&gt;&lt;code&gt;PUBLIC&lt;/code&gt;&lt;/&gt;.
+# Do ní umístěte obsah, který budete chtít publikovat bez ochrany.
+
+&lt;!--T:290--&gt;
+Veškerý obsah této sekce (včetně podsekcí) pak nabídnete přes jinou, nechráněnou stránku, do které vložíte následující kód: &lt;tvar|1&gt;&lt;pre&gt;{‌{#lsth:test-page|PUBLIC}‌}&lt;/pre&gt;&lt;/&gt;
+
+&lt;!--T:291--&gt;
+Podobným způsobem můžete dokonce v rámci jedné stránky spravovat obsah sdílený mezi různé skupiny uživatelů. Pro ''AccessControl'' je totiž rozhodující oprávnění, které se vyskytne na stránce jako poslední. Každou sekci lze tedy chránit samostatně a pokud bude na samém konci stránky oprávnění, které vás nechá stránku editovat, můžete je spravovat všechny najednou.
+
+&lt;!--T:292--&gt;
+Jejich obsah pak můžete publikovat podobným způsobem jako stránku pro anonymní uživatele.&lt;/translate&gt;
+{{anchor|accesscontrol-dpl}}
+&lt;translate&gt;
+== Ochrání ''AccessControl'' stránky při použití DPL? == &lt;!--T:293--&gt;
+
+&lt;!--T:294--&gt;
+Rozšíření &lt;tvar|1&gt;{{link|extension|DynamicPageList (third party)}}&lt;/&gt; se využívá u šablon, které generují automaticky obsah stránky&lt;tvar|ref&gt;&lt;ref name="content" /&gt;&lt;/&gt;. {{&lt;tvar|1&gt;link|accesscontrol-lsth&lt;/&gt;|Kompromitace obsahu hrozí}} podobně jako u rozšíření &lt;tvar|2&gt;{{link|extension|Labeled Section Transclusion}}&lt;/&gt;, ale jen v případě, že je citlivý obsah umístěn v sekci, kterou lze vytáhnout přes její název. Při natažení obsahu, který bude obsahovat kód, co si ''AccessControl'' vyloží jako ochranný prvek, bude automaticky chráněn veškerý vygenerovaný obsah.
+
+&lt;!--T:295--&gt;
+To pochopitelně může být kontraproduktivní, pokud někdo umístí chráněnou stránku do kategorie, ze které se obsah generuje. Používejte proto důsledně při psaní perexů a anotací tagy &lt;tvar|1&gt;&lt;code&gt;&lt;section&gt;&lt;/code&gt;&lt;/&gt;, které umožní ze stránky publikovat pouze to co chcete.
+&lt;/translate&gt;
+&lt;ref follow="content"&gt;
+&lt;translate&gt;
+&lt;!--T:296--&gt;
+Veškerý obsah hlavní stránky webu &lt;tvar|1&gt;{{elink|https://www.thewoodcraft.org|TheWoodcraft.Org}}&lt;/&gt; se generuje přes parametrizovanou šablonu &lt;tvar|2&gt;[https://www.thewoodcraft.org/wiki/index.php?title=Template:content&amp;action=edit Template:content]&lt;/&gt;. Pokud chcete, můžete ji použít i vy.&lt;/translate&gt;
+&lt;/ref&gt;
+{{anchor|accesscontrol-history}}
+&lt;translate&gt;
+= Historie verzí rozšíření ''AccessControl'' = &lt;!--T:297--&gt;
+
+=== Verze 1.0 === &lt;!--T:298--&gt;
+
+&lt;!--T:299--&gt;
+První verze rozšíření ''AccessControl'' (1.x) vznikla jako vylepšená alternativa k rozšíření &lt;tvar|1&gt;[https://www.mediawiki.org/w/index.php?oldid=514587 Group Based Access Control]&lt;/&gt; pro ''MediaWiki'' verze 1.12.x
+
+=== Verze 1.1 až 1.3 === &lt;!--T:300--&gt;
+
+&lt;!--T:301--&gt;
+Tyto verze fungovaly u MediaWiki ≤ 1.17. Od května 2012 se stal kód rozšíření součástí oficiálního git repozitáře ''MediaWiki''.
+
+&lt;!--T:302--&gt;
+* Od pozdějších verzí se lišily tím, že akceptovaly také skupiny ''MediaWiki'', ovšem pouze v kanonické formě. Tj. muselo se použít 'sysop', místo 'Správce'.
+* A tag &lt;tvar|tag&gt;&lt;code&gt;&lt;accesscontrol&gt;&lt;/code&gt;&lt;/&gt; se mohl na stránce objevit i vícekrát.
+* Také již bylo možné použít proměnnou &lt;tvar|1&gt;{{link|$wgAdminCanReadAll}}&lt;/&gt;
+
+=== Verze 2.0 a 2.2 === &lt;!--T:303--&gt;
+
+&lt;!--T:304--&gt;
+''MediaWiki'' verze 1.18, sebou přinesla změny, kvůli nimž bylo nutné rozšíření přepsat. Byl odstraněn nevyužívaný kód a protože u tahle verze již neakceptovala standardní skupiny MediaWiki, bylo navýšeno hlavní číslo verze na 2.0.
+
+&lt;!--T:305--&gt;
+Pro tuto verzi, byly uvolněny dvě subverze a byla použitelná až do ''MediaWiki'' verze 1.20
+
+&lt;!--T:306--&gt;
+* Tahle verze již pracovala pouze s {{&lt;tvar|1&gt;link|accesscontrol-old-syntax&lt;/&gt;|uživatelskými seznamy určenými ke zpracování přes ''Accesscontrol''}}
+* Na stránkách zpracovávala pouze první výskyt tagu accesscontrol
+* A pokud jméno uživatele bylo na více než jednom seznamu, pak se použil automaticky ten co mu poskytoval vyšší práva (edit)
+
+&lt;!--T:307--&gt;
+S těmito verzemi se ale táhnul i nepříjemný problém. Pokud se při vyhledávání na stránkách ''MediaWiki'' našel hledaný řetězec i na chráněné stránce, tak se na stránce objevila chyba a neoprávněný (anonymní) uživatel se tak nedostal k výsledkům vůbec. Uspokojivě vyřešila tenhle problém až verze 3.0.
+
+=== Verze 2.2 === &lt;!--T:308--&gt;
+
+&lt;!--T:309--&gt;
+Protože se od ''MediaWiki'' verze ≥ 1.21 začal používat nový framework &lt;tvar|1&gt;{{elink|https://www.mediawiki.org/wiki/Manual:ContentHandler|ContentHandler}}&lt;/&gt;, který umožňuje měnit typ wiki stránky podle obsahu, bylo nutné kód rozšíření upravit, aby mohl dál fungovat.
+
+&lt;!--T:310--&gt;
+Výsledkem byl ''AccessControl'' verze 2.2, uvolněný v říjnu 2013 a tahle úprava kódu prodloužila použitelnost verze 2.x až k současným verzím MediaWiki.
+
+=== Verze 2.5 === &lt;!--T:311--&gt;
+
+&lt;!--T:312--&gt;
+V srpnu 2015 byla uvolněna verze 2.5, u které se nově objevila proměnná &lt;tvar|1&gt;{{link|$wgAccessControlRedirect}}&lt;/&gt;. Díky ní bylo možné neoprávněného uživatele přesměrovat na informační stránku, na které se dozvěděl, že se pokusil dostat ke chráněnému stránku.
+
+&lt;!--T:313--&gt;
+Tahle úprava sebou ale přinesla jiný {{&lt;tvar|1&gt;link|how-accesscontrol-work&lt;/&gt;|efekt, již zmíněný výše}} a to, že se tím významně ušetřila práce webovému serveru, protože mohl indexovacím robotům nabídnout náhradní obsah.
+
+&lt;!--T:314--&gt;
+Tato verze byla poslední, kterou se podařilo dostat do oficiálního repozitáře ''MediaWiki'' a fungovala, dokud do ní Siebrand Mazeland neposlal změny, které sice měly umožnit registraci tohoto rozšíření přes funkci &lt;tvar|1&gt;&lt;code&gt;$wfLoadExtensions()&lt;/code&gt;&lt;/&gt;, ale znemožnily jeho fungování pro starší verze ''MediaWiki'' &lt; 1.25
+
+&lt;!--T:315--&gt;
+Jako maintaner rozšíření ''AccessControl'' jsem tomu nemohl zabránit, protože mi v té době již nefungovalo přihlašování do Gerritu. Nemohl jsem tedy změny odmítnout a vynutit si kód, který by umožnil používat oba způsoby registrace, jako to umožňují jiná rozšíření.
+
+=== Verze 2.5.1 === &lt;!--T:316--&gt;
+
+&lt;!--T:317--&gt;
+Tahle verze implementovala novou proměnnou &lt;tvar|1&gt;{{link|$wgAccessToHistory}}&lt;/&gt;, která měla umožnit anonymním uživatelům přístup k historii a wikikódu nechráněných stránek. Byla uvolněna na konci února 2016, ale díky nekompatibilnímu kódu, který prošel do oficiálního repozitáře rozšíření, se do něj nikdy nedostala.
+
+=== Verze 2.6 === &lt;!--T:318--&gt;
+
+&lt;!--T:319--&gt;
+Jádro kódu je u verze 2.6 stejné jako verze 2.5, ale kvůli registraci přes &lt;tvar|1&gt;&lt;code&gt;$wfLoadExtensions()&lt;/code&gt;&lt;/&gt; vyžaduje MediaWiki ≥ 2.5
+
+=== Verze z Hackatonu 2019 === &lt;!--T:320--&gt;
+
+&lt;!--T:321--&gt;
+Ve dnech 17.–20. května 2019 se konal v Praze (Česká republika) Wikimedia Hackaton 2019. Těsně před touto akcí mne kontaktoval  Nicolas Nallet, jestli bychom se při této příležitosti nesetkali, abychom mohli společně rozšíření AccessControl vylepšit. 
+
+&lt;!--T:322--&gt;
+Sešli jsme se a Nicolas přišel s nápadem, jak by se dalo efektivně při práci s uživatelským seznamem využívat rozšíření &lt;tvar|1&gt;{{link|extension|Page Forms}}&lt;/&gt;. Výsledkem byl rozšířený kód, na kterém mohl Nicolas provést první testy již během Hackatonu. Nicméně tou dobou jsem byl již rozhodnut, kód rozšíření radikálně předělat.
+
+=== Verze 3.0 === &lt;!--T:323--&gt;
+
+&lt;!--T:324--&gt;
+Beta verze rozšíření byla hotova asi týden. A přesně měsíc po konci Hackatonu 2019 byla uvolněna a nabídnuta k testování pre-release verze.
+
+&lt;!--T:325--&gt;
+Vydání finální verze bylo spojeno s dokončením této uživatelské dokumentace, protože kód byl kompletně přepsaný a přináší řadu novinek.
+&lt;/translate&gt;
+{{anchor|extensions}}
+&lt;translate&gt;
+= Doporučená a osvědčená rozšíření = &lt;!--T:326--&gt;
+
+&lt;!--T:327--&gt;
+&lt;tvar|1&gt;{{elink|https://www.mediawiki.org/wiki/Extension:AccessControl|AccessControl}}&lt;/&gt; je rozšíření, které nemá žádné závislosti. Nicméně vřele doporučuji, aby ve vaší wiki nechyběla následující sada rozšíření, která vám umožní v prostředí ''MediaWiki'' programovat sofistikované šablony s využitím wiki kódu.
+&lt;/translate&gt;
+&lt;blockquote&gt;&lt;big&gt;&lt;translate&gt;&lt;!--T:328--&gt;
+Není důvod pro jednoduché šablony instalovat Scribunto
+a programovat v Lua!&lt;/translate&gt;&lt;/big&gt;&lt;/blockquote&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:DynamicPageList_(third-party)|DynamicPageList (third party)}} : &lt;translate&gt;&lt;!--T:329--&gt; Sofistikované rozšíření, které umožňuje generovat pomocí šablony dynamický obsah stránek.&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:Labeled_Section_Transclusion|Labeled Section Transclusion}} : &lt;translate&gt;&lt;!--T:330--&gt; Umožňuje vytahovat z obsahu stránek vybrané sekce&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:Loops|Loops}} : &lt;translate&gt;&lt;!--T:331--&gt; Umožňuje používat v šablonách smyčky.&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:MyVariables|MyVariable}} : &lt;translate&gt;&lt;!--T:332--&gt; Přidává několik užitečných kouzelných slůvek, s nimiž lze dále pracovat v šablonách.&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:Page_Forms|Page Forms}} : &lt;translate&gt;&lt;!--T:333--&gt; Umožňuje spravovat seznamy uživatelů s nimiž pracuje ''AccessControl'' prostřednictvím formulářů.&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:ParserFunctions|ParserFunctions}} : &lt;translate&gt;&lt;!--T:334--&gt; Nabízí širokou paletu funkcí, které umožňují sofistikované naprogramování šablony.&lt;/translate&gt;
+; {{elink|https://github.com/JeroenDeDauw/SubPageList/blob/master/README.md|SubPageList}} : &lt;translate&gt;&lt;!--T:335--&gt; Umožňuje vylistovat podstránky jako seznam, který lze dále zpracovávat pomocí funkcí, které nabízí rozšíření ''ParserFunctions'', smyček, aj.&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:Translate|Translate}} : &lt;translate&gt;&lt;!--T:336--&gt; Rozšíření pro překlady obsahu pro multijazyčné wiki&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:Variables|Variables}} : &lt;translate&gt;&lt;!--T:337--&gt; Umožňuje v šablonách definovat a používat proměnné.&lt;/translate&gt;
+&lt;translate&gt;
+=== Zmíněná rozšíření === &lt;!--T:338--&gt;
+&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:DisableSpecialPages|DisableSpecialPages}} : &lt;translate&gt;&lt;!--T:339--&gt; Neudržované rozšíření, které umožňovalo vypnout speciální stránky. Zde je uvedeno {{&lt;tvar|1&gt;link|config-extra&lt;/&gt;|alternativní řešení pomocí vlastní funkce}}.&lt;/translate&gt;
+; {{elink|https://www.mediawiki.org/wiki/Extension:Scribunto|Scribunto}} : &lt;translate&gt;&lt;!--T:340--&gt; Rozšíření, které umožňuje programovat moduly v jazyce {{elink|https://en.wikipedia.org/wiki/Wikipedia:Lua|Lua}}&lt;/translate&gt;
+&lt;translate&gt;
+= Reference = &lt;!--T:341--&gt;
+&lt;/translate&gt;
+&lt;references /&gt;
+&lt;translate&gt;
+= Kotvy použité na stránce = &lt;!--T:342--&gt;
+&lt;/translate&gt;
+{| class="wikitable sortable" |
+! &lt;translate&gt;&lt;!--T:343--&gt; Kotva&lt;/translate&gt;
+! &lt;translate&gt;&lt;!--T:344--&gt; Popis&lt;/translate&gt;
+|-
+| {{link|accesscontrol-accesslist}}
+| &lt;translate&gt;&lt;!--T:345--&gt; Seznamy oprávěných uživatelů a jejich použití&lt;/translate&gt;
+|-
+| {{link|accesscontrol-deny}}
+| &lt;translate&gt;&lt;!--T:346--&gt; Co dělat, když jste si zablokovali přístup na stránku&lt;/translate&gt;
+|-
+| {{link|accesscontrol-dpl}}
+| &lt;translate&gt;&lt;!--T:347--&gt; Bezpečnostní rizika při použití rozšíření &lt;tvar|1&gt;{{link|extension|DynamicPageList (third party)}}&lt;/&gt;&lt;/translate&gt;
+|-
+| {{link|accesscontrol-export}}
+| &lt;translate&gt;&lt;!--T:348--&gt; Pasáž věnovaná omezení při exportu dat z MediaWiki&lt;/translate&gt;
+|-
+| {{link|accesscontrol-history}}
+| &lt;translate&gt;&lt;!--T:349--&gt; Odkaz na historický přehled vývoje rozšíření ''AccessControl''&lt;/translate&gt;
+|-
+| {{link|accesscontrol-info}}
+| &lt;translate&gt;&lt;!--T:350--&gt; Pasáž věnovaná stránce &lt;tvar|info&gt;[[MediaWiki:Deny user]]&lt;/&gt;&lt;/translate&gt;
+|-
+| {{link|accesscontrol-install}}
+| &lt;translate&gt;&lt;!--T:351--&gt; Kotva na kapitolu k instalaci rozšíření&lt;/translate&gt;
+|-
+| {{link|accesscontrol-lsth}}
+| &lt;translate&gt;&lt;!--T:352--&gt; Bezpečnostní rizika při použití rozšíření &lt;tvar|1&gt;{{link|extension|Labeled Section Transclusion}}&lt;/&gt;&lt;/translate&gt;
+|-
+| {{link|accesscontrol-old-syntax}}
+| &lt;translate&gt;&lt;!--T:353--&gt; Kapitola věnovaná původní syntaxi seznamů uživatelů&lt;/translate&gt;
+|-
+| {{link|accesscontrol-tag}}
+| &lt;translate&gt;&lt;!--T:354--&gt; Původní systém ochrany stránek, s využitím tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;&lt;/translate&gt;
+|-
+| {{link|accesscontrol-test}}
+| &lt;translate&gt;&lt;!--T:355--&gt; Testování ochrany na testovací stránce &lt;tvar|test&gt;[[test-page]]&lt;/&gt;&lt;/translate&gt;
+|-
+| {{link|accesscontrol-template-options}}
+| &lt;translate&gt;&lt;!--T:356--&gt; Ochrana stránky parametrizovanou šablonou&lt;/translate&gt;
+|-
+| {{link|accesscontrol-template-name}}
+| &lt;translate&gt;&lt;!--T:357--&gt; Ochrana stránky šablonou s řetězcem accesscontrol v názvu (alternativa za tag &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;)&lt;/translate&gt;
+|-
+| {{link|config-basic}}
+| &lt;translate&gt;&lt;!--T:358--&gt; Výchozí konfigurace wiki před instalací rozšíření ''AccessControl''&lt;/translate&gt;
+|-
+| {{link|config-extension-rights}}
+| &lt;translate&gt;&lt;!--T:359--&gt; Preventivní omezení práv, která sebou tahají rozšíření&lt;/translate&gt;
+|-
+| {{link|config-extra}}
+| &lt;translate&gt;&lt;!--T:360--&gt; Omezení přístupu ke speciálním stránkám&lt;/translate&gt;
+|-
+| {{link|how-accesscontrol-detect}}
+| &lt;translate&gt;&lt;!--T:361--&gt; Odkaz na pasáž, kde se píše jak detekuje chráněný obsah&lt;/translate&gt;
+|-
+| {{link|how-accesscontrol-work}}
+| &lt;translate&gt;&lt;!--T:362--&gt; Odkaz na pasáž, kde se rozebírá jakým způsobem se kontroluje obsah stránky&lt;/translate&gt;
+|-
+| {{link|mediawiki-groups}}
+| &lt;translate&gt;&lt;!--T:363--&gt; Uživatelské skupiny mediawiki&lt;/translate&gt;
+|-
+| {{link|mediawiki-preview}}
+| &lt;translate&gt;&lt;!--T:364--&gt; Doporučený postup při uložení změn po editaci stránky s chráněným obsahem&lt;/translate&gt;
+|-
+| {{link|namespace-private}}
+| &lt;translate&gt;&lt;!--T:365--&gt; Kdy má smysl zakládání vlastních jmenných prostorů a jak k nim nastavit v souboru &lt;tvar|config&gt;&lt;code&gt;LocalSettings.php&lt;/code&gt;&lt;/&gt; přístupová správa jen pro vybrané skupiny uživatelů.&lt;/translate&gt;
+|-
+| {{link|mediawiki-private-channel}}
+| &lt;translate&gt;&lt;!--T:366--&gt; Jak využívat ochrany stránek přes ''AccessControl'' k privátní komunikaci.&lt;/translate&gt;
+|-
+| {{link|not-accesslist}}
+| &lt;translate&gt;&lt;!--T:367--&gt; Upozornění, že chování pojmenované šablony je jiné, než u šablony, co používá options&lt;/translate&gt;
+|-
+| {{link|only-example-code}}
+| &lt;translate&gt;&lt;!--T:368--&gt; Varování před bezduchým kopírováním kódu&lt;/translate&gt;
+|-
+| {{link|option-template}}
+| &lt;translate&gt;&lt;!--T:369--&gt; Varování před použitím šablony místo jména uživatele, či seznamu uživatelů&lt;/translate&gt;
+|-
+| {{link|page-lock}}
+| &lt;translate&gt;&lt;!--T:370--&gt; Zamykání stránek. Kdy a kde ho použít.&lt;/translate&gt;
+|-
+| {{link|public-and-private}}
+| &lt;translate&gt;&lt;!--T:371--&gt; Postup jak míchat na jedné stránce soukromý a veřejný obsah.&lt;/translate&gt;
+|-
+| {{link|template-atack}}
+| &lt;translate&gt;&lt;!--T:372--&gt; Jak lze napadnout wiki zneužitím parametru rozšíření ''AccessControl''.&lt;/translate&gt;
+|-
+| {{link|template-is-better}}
+| &lt;translate&gt;&lt;!--T:373--&gt; Proč je lepší používat šablonu, nežli tag &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;&lt;/translate&gt;
+|-
+| {{link|template-tag-difference}}
+| &lt;translate&gt;&lt;!--T:374--&gt; Rozdíl ve zpracování řetězců předávaných přes parametry šablony a zpracováním obsahu prvního atributu u šablony s řetězcem &lt;tvar|1&gt;a‌ccesscontrol&lt;/&gt; v názvu (totéž platí i ohledně zpracování obsahu tagu &lt;tvar|tag&gt;&lt;code&gt;&lt;a‌ccesscontrol&gt;&lt;/code&gt;&lt;/&gt;&lt;/translate&gt;
+|}</text>
+      <sha1>aq4q9ztjx5p3kecdt5hsra0vqck8zlc</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Šablona:anchor</title>
+    <ns>10</ns>
+    <id>11789</id>
+    <revision>
+      <id>26644</id>
+      <parentid>26638</parentid>
+      <timestamp>2019-07-01T09:23:35Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <minor/>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="105">&lt;span id="{{{1|}}}"&gt;&lt;/span&gt;&lt;noinclude&gt;
+
+Template for anchors, used by page [[AccessControl]]
+&lt;/noinclude&gt;</text>
+      <sha1>laq3bec4nf0shtm3w5v0x70ra6qyzmr</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Šablona:elink</title>
+    <ns>10</ns>
+    <id>11791</id>
+    <revision>
+      <id>26651</id>
+      <timestamp>2019-07-01T09:35:15Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <comment>Založena nová stránka s textem „[{{{1}}} {{{2|}}}]&lt;noinclude&gt;  Template for external links to network targets, used by page [[AccessControl]] &lt;/noinclude&gt;“</comment>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="122">[{{{1}}} {{{2|}}}]&lt;noinclude&gt;
+
+Template for external links to network targets, used by page [[AccessControl]]
+&lt;/noinclude&gt;</text>
+      <sha1>73jqsf4fsi8avjb9cokd98ay8ebf1tr</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Šablona:info</title>
+    <ns>10</ns>
+    <id>11514</id>
+    <revision>
+      <id>26646</id>
+      <parentid>25626</parentid>
+      <timestamp>2019-07-01T09:25:20Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <minor/>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="199">&lt;div style="background-color: #dfffff; border-left: 1em solid #ddddff; padding: 0.5em 1em 1em 0.5em;"&gt;{{{1}}}&lt;/div&gt;&lt;noinclude&gt;
+
+Template for info messages, used by page [[AccessControl]]
+&lt;/noinclude&gt;</text>
+      <sha1>8ug3flhx7kd5nhwj19lsmrn5v0lq6y9</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Šablona:link</title>
+    <ns>10</ns>
+    <id>11790</id>
+    <revision>
+      <id>26643</id>
+      <parentid>26642</parentid>
+      <timestamp>2019-07-01T09:22:46Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <minor/>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="121">[[#{{{1}}}|{{{2|{{{1}}}}}}]]&lt;noinclude&gt;
+
+Template for local links to anchors, used by page [[AccessControl]]
+&lt;/noinclude&gt;</text>
+      <sha1>65dqenj9sf8a6nxvkozokfodrvn77ps</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Šablona:note</title>
+    <ns>10</ns>
+    <id>11513</id>
+    <revision>
+      <id>26647</id>
+      <parentid>25597</parentid>
+      <timestamp>2019-07-01T09:26:11Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <minor/>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="192">&lt;div style="background-color: #fffff0; border-left: 1em solid yellow; padding: 0.5em 1em 1em 0.5em;"&gt;{{{1}}}&lt;/div&gt;&lt;noinclude&gt;
+
+Template for notices, used by page [[AccessControl]]
+&lt;/noinclude&gt;</text>
+      <sha1>t0k80pj7zbhqoudul45dgaxqfwdakhy</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Šablona:warn</title>
+    <ns>10</ns>
+    <id>11515</id>
+    <revision>
+      <id>26645</id>
+      <parentid>25599</parentid>
+      <timestamp>2019-07-01T09:24:45Z</timestamp>
+      <contributor>
+        <username>Keny</username>
+        <id>1</id>
+      </contributor>
+      <minor/>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text xml:space="preserve" bytes="198">&lt;div style="background-color: #fff0f0; border-left: 1em solid red; padding: 0.5em 1em 1em 0.5em;"&gt;{{{1}}}&lt;/div&gt;&lt;noinclude&gt;
+
+Template for warning messages, used by page [[AccessControl]]
+&lt;/noinclude&gt;</text>
+      <sha1>ltudd2xx0twy5h4bwem7rfqlpnhkln3</sha1>
+    </revision>
+  </page>
+</mediawiki>
