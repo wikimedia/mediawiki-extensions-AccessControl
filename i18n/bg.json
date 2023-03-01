@@ -1,13 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-<<<<<<< HEAD
 			"StanProg",
 			"Vodnokon4e"
-=======
-			"Vodnokon4e",
-			"StanProg"
->>>>>>> form-support
 		]
 	},
 	"accesscontrol-desc": "Активира механизъм за ограничаване на достъпа до страници на базата на групата, към която принадлежи потребителя",
