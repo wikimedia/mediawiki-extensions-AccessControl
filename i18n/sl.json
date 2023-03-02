@@ -7,5 +7,6 @@
 	},
 	"accesscontrol-desc": "Omogoči skupinsko omejevanje dostopa do strani na uporabniški ravni",
 	"accesscontrol-info": "Ta stran je zaščitena.",
+	"accesscontrol-readonly": "Oprostite, vsebino te strani lahko samo berete.",
 	"accesscontrol-info-box": "Za to stran so bile določene omejitve dostopa. Če vidite to sporočilo, nimate dostopa do te strani."
 }

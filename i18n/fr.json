@@ -3,10 +3,12 @@
 		"authors": [
 			"DavidL",
 			"Gomoko",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Verdy p"
 		]
 	},
 	"accesscontrol-desc": "Permet la restriction d’accès de groupe sur une page selon l’utilisateur",
 	"accesscontrol-info": "Il s’agit d’une page protégée.",
+	"accesscontrol-readonly": "Désolé, mais vous pouvez seulement lire le contenu de cette page.",
 	"accesscontrol-info-box": "Des restrictions d’accès ont été mises en place pour cette page. Si vous voyez ce message, vous n’avez pas accès à cette page."
 }

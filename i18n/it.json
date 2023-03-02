@@ -6,5 +6,6 @@
 	},
 	"accesscontrol-desc": "Questa è un'estensione che permette l'accesso a pagine con restrizioni in base al gruppo utente",
 	"accesscontrol-info": "Questa è una pagina protetta.",
+	"accesscontrol-readonly": "Spiacenti, ma puoi solo leggere il contenuto di questa pagina.",
 	"accesscontrol-info-box": "Sono state impostate limitazioni all'accesso per questa pagina. Se viene visualizzato questo messaggio, non hai accesso a questa pagina."
 }

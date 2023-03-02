@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"accesscontrol-desc": "Aktivéiert de limitéierten Accès op eng Säit op der Basis vun de Benotzerrechter",
-	"accesscontrol-info": "Dës Säit ass gespaart."
+	"accesscontrol-info": "Dës Säit ass gespaart.",
+	"accesscontrol-readonly": "Entschëllegt, mee Dir kënnt den Inhalt vun dëser Säit just liesen."
 }
