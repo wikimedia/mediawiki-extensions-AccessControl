@@ -48,6 +48,10 @@
 			"value": true,
 			"description": "Do not redirect from page in search results to restricted pages"
 		},
+		"AccessControlMeta": {
+			"value": false,
+			"description": "If set true, do redirect to target into page from main namespace"
+		},
 		"AccessControlNamespaces": {
 			"value": [ 0, 2 ],
 			"description": "Anonymous user can't by default view differences between revisions"

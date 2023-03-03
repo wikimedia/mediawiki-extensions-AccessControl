@@ -765,7 +765,7 @@ class AccessControlHooks {
 	private static function doRedirect(
 		$info
 		) {
-		global $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect;
+		global $wgArticlePath, $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect, $wgAccessControlMeta;
 		if ( !$info ) {
 			$info = "No_access";
 		}
@@ -776,7 +776,11 @@ class AccessControlHooks {
 		$wgOut->clearHTML();
 		$wgOut->prependHTML( wfMessage( 'accesscontrol-info-box' )->text() );
 		if ( $wgAccessControlRedirect == true ) {
-			header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() );
+			if ( $wgAccessControlMeta == true ) {
+				header( "Location: " . str_replace( '$1', $wgMetaNamespace . ":" . wfMessage( $info )->text(), $wgArticlePath) );
+			} else {
+				header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() );
+			}
 			exit();
 		} else {
 //			self::printDebug( microtime(true) . ' STOP! doRedirect to ' . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() ); // DEBUG TIMESTAMP
