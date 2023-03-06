@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Guycn2"
 		]
 	},
 	"accesscontrol-desc": "הגבלת גישה לדפים על בסיס קבוצות משתמש",
 	"accesscontrol-info": "זהו דף מוגן.",
+	"accesscontrol-readonly": "מצטערים, אבל מותך לך רק לקרוא את התוכן של הדף הזה.",
 	"accesscontrol-info-box": "הגבלות גישה הוגדרו עבור הדף הזה. אם {{GENDER:|אתה רואה|את רואה|אתם רואים}} את ההודעה הזאת, סימן שאין {{GENDER:|לך|לך|לכם}} גישה לדף זה."
 }
