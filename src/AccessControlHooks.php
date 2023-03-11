@@ -18,8 +18,8 @@
  */
 
 use MediaWiki\MediaWikiServices;
-class AccessControlHooks {
 
+class AccessControlHooks {
 
 	/**
 	 * Tag <accesscontrol> must be registered to the Parser. It is need,
@@ -29,51 +29,49 @@ class AccessControlHooks {
 	 * @param Parser $parser instance of Parser
 	 * @return bool true
 	 */
-	public static function accessControlExtension(
-		Parser $parser
-		) {
-//		self::printDebug( microtime(true) . ' accessControlExtension remove tag accesscontrol from content of page - if exists' ); // DEBUG TIMESTAMP
+	public static function accessControlExtension( Parser $parser ) {
+		// self::printDebug( microtime(true) . ' accessControlExtension remove tag accesscontrol from content of page - if exists' ); // DEBUG TIMESTAMP
 		$parser->setHook( 'accesscontrol', [ 'AccessControlHooks', 'displayInfo' ] );
 		return true;
 	}
-
 
 	/**
 	 *  Function for safe save.
 	 *   If is in the content of page self include, return false
 	 *   (change don't saved)
 	 *
+	 * @param EditPage $editpage
 	 * @return bool true
 	 */
 	public static function onEditPageAttemptSave( EditPage $editpage ) {
 		global $wgRequest;
 		$articleName = $wgRequest->getText( 'title' );
 		$articleText = $wgRequest->getText( 'wpTextbox1' );
-		$hledat = explode( ':', $articleName, 2);
-		if (count ($hledat) == 1 ) {
-//			Main namespace
+		$hledat = explode( ':', $articleName, 2 );
+		if ( count( $hledat ) == 1 ) {
+		// Main namespace
 			preg_match(
-				'/\{\{(\s|\r|\n)*:'.$hledat[0].'(\s|\r|\n)*(\||\})/',
+				'/\{\{(\s|\r|\n)*:' . $hledat[0] . '(\s|\r|\n)*(\||\})/',
 				$articleText,
 				$include,
 				PREG_UNMATCHED_AS_NULL
 				);
-			if($include) {
+			if ( $include ) {
 			return false;
 			}
 		} else {
-//			Problem is maainly with the templates
+		// Problem is maainly with the templates
 			preg_match(
-				'/\{\{'.$hledat[1].'(\s|\r|\n)*(\||\})/',
+				'/\{\{' . $hledat[1] . '(\s|\r|\n)*(\||\})/',
 				$articleText,
 				$include,
 				PREG_UNMATCHED_AS_NULL
 				);
-			if($include) {
+			if ( $include ) {
 				return false;
 			}
 		}
-		return true ;
+		return true;
 	}
 
 	/**
@@ -87,7 +85,6 @@ class AccessControlHooks {
 	public static function displayInfo() {
 		return (string)'';
 	}
-
 
 	/**
 	 * Function is called before is done database query for export content of page.
@@ -103,8 +100,8 @@ class AccessControlHooks {
 	 *
 	 * @param string $cond Name and namespace of target page which is tested for
 	 *  access rights of user to export
-	 * @param array $opts Limit for summary count of the hits (is modify)
-	 * @param array $join Parameters of join (is modify)
+	 * @param array &$opts Limit for summary count of the hits (is modify)
+	 * @param array &$join Parameters of join (is modify)
 	 */
 	public static function onModifyExportQuery(
 		$db,
@@ -114,28 +111,28 @@ class AccessControlHooks {
 		&$join
 		) {
 		global $wgQueryPages;
-		/* If is page protected, do skip and if user has only read
-		    access, return only last revisioni - without history */
-//		$start = microtime(true); // START DEBUG TIMESTAMP
+		// If is page protected, do skip and if user has only read
+		// access, return only last revisioni - without history */
+		// $start = microtime(true); // START DEBUG TIMESTAMP
 		$result = self::controlExportPage( $cond );
-//		self::printDebug( $cond ); // END DEBUG TIMESTAMP
-//		self::printDebug( $result ); // END DEBUG TIMESTAMP
+		// self::printDebug( $cond ); // END DEBUG TIMESTAMP
+		// self::printDebug( $result ); // END DEBUG TIMESTAMP
 		switch ( $result ) {
-			case 1 :
-//				self::printDebug( microtime(true) . ' onModifyExportQuery export ok '); // END DEBUG TIMESTAMP
+			case 1:
+				// self::printDebug( microtime(true) . ' onModifyExportQuery export ok '); // END DEBUG TIMESTAMP
 				break;
-			case 2 : $opts['LIMIT'] = 1;
-//				self::printDebug( microtime(true) . ' onModifyExportQuery set version limit '); // END DEBUG TIMESTAMP
+			case 2:
+				$opts['LIMIT'] = 1;
+				// self::printDebug( microtime(true) . ' onModifyExportQuery set version limit '); // END DEBUG TIMESTAMP
 				$join['revision'][1] = 'page_id=rev_page AND page_latest=rev_id';
 				break;
-			default :
-//				self::printDebug( microtime(true) . ' onModifyExportQuery set limit zero' . $result ); // END DEBUG TIMESTAMP
+			default:
+				// self::printDebug( microtime(true) . ' onModifyExportQuery set limit zero' . $result ); // END DEBUG TIMESTAMP
 				$opts['LIMIT'] = 0;
 				break;
 		}
-//		self::printDebug( $start . ' onModifyExportQuery ' . $cond . ' + ' . ( microtime(true) - $start ) ); // END DEBUG TIMESTAMP
+		// self::printDebug( $start . ' onModifyExportQuery ' . $cond . ' + ' . ( microtime(true) - $start ) ); // END DEBUG TIMESTAMP
 	}
-
 
 	/**
 	 * Function is called before applied the parser to raw wiki code of page.
@@ -151,7 +148,7 @@ class AccessControlHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserBeforeStrip
 	 * @since 1.5
 	 *
-	 * @param Parser $parser Object of current input page
+	 * @param Parser &$parser Object of current input page
 	 * @text string $text Chunk of wikicode for tranclusion into page
 	 */
 	public static function onParserBeforeStrip(
@@ -161,41 +158,40 @@ class AccessControlHooks {
 		) {
 		global $wgVerifyPage;
 
-
-//		$start = microtime(true) ; // START DEBUG TIMESTAMP
+		// $start = microtime(true) ; // START DEBUG TIMESTAMP
 		$articleName	= $parser->mTitle->mTextform;
 		$articleNS	= $parser->mTitle->mNamespace;
 		$articleLastRev	= $parser->mTitle->getLatestRevId();
-//		self::printDebug( "$start onParserBeforeStrip start verify access to lastrevision=\"$articleLastRev\" of title=\"$articleName\" ns=\"$articleNS\"" ); // INFO DEBUG TIMESTAMP
+		// self::printDebug( "$start onParserBeforeStrip start verify access to lastrevision=\"$articleLastRev\" of title=\"$articleName\" ns=\"$articleNS\"" ); // INFO DEBUG TIMESTAMP
 		if ( is_array( $wgVerifyPage ) ) {
-			if ( array_key_exists(  $articleLastRev, $wgVerifyPage ) ) {
-				if ( ! $wgVerifyPage[ $articleLastRev ] ) {
+			if ( array_key_exists( $articleLastRev, $wgVerifyPage ) ) {
+				if ( !$wgVerifyPage[ $articleLastRev ] ) {
 					/* In array $wgVerify is revision ID with value false, it is chunk of content what is deny for the current user! */
-//					self::printDebug( "$start onParserBeforeStrip GET OUT! $articleLastRev" ); // INFO DEBUG TIMESTAMP
+					// self::printDebug( "$start onParserBeforeStrip GET OUT! $articleLastRev" ); // INFO DEBUG TIMESTAMP
 					return false;
 				}
 			}
 		}
 		self::anonymousDeny();
 		$rights = self::allRightTags( $text );
-		if ( ! ( empty( $rights[VIEW] ) && empty( $rights[EDIT] ) ) ) {
+		if ( !( empty( $rights[VIEW] ) && empty( $rights[EDIT] ) ) ) {
 			switch ( self::testRightsArray( $rights ) ) {
-				case 1 :
+				case 1:
 					// chunk is without protection
 					$wgVerifyPage[ $articleLastRev ] = true;
 					break;
-				case 2 :
+				case 2:
 					// chunk is to read
 					self::readOnlyUser();
 					self::denyRead();
-					$text='{{int:accesscontrol-readonly}}' . $text;
+					$text = '{{int:accesscontrol-readonly}}' . $text;
 					$wgVerifyPage[ $articleLastRev ] = false;
 					break;
-				default :
+				default:
 					// chunk is deny
 					self::readOnlyUser();
 					self::denyRead();
-					$text='{{int:accesscontrol-info}}';
+					$text = '{{int:accesscontrol-info}}';
 					self::doRedirect( 'accesscontrol-redirect-users' );
 					$wgVerifyPage[ $articleLastRev ] = false;
 					break;
@@ -203,10 +199,9 @@ class AccessControlHooks {
 		}
 		// Je-li vypnuté přesměrování, pokračuje ve skriptu...
 		// Use only for tests of performace
-//		self::printDebug($wgVerifyPage); // DEBUG
-//		self::printDebug( "$start onParserBeforeStrip FREE lastrevision=\"$articleLastRev\" of title=\"$articleName\" ns=\"$articleNS\" + " . ( microtime(true) - $start ) ); // END DEBUG TIMESTAMP
+		// self::printDebug($wgVerifyPage); // DEBUG
+		// self::printDebug( "$start onParserBeforeStrip FREE lastrevision=\"$articleLastRev\" of title=\"$articleName\" ns=\"$articleNS\" + " . ( microtime(true) - $start ) ); // END DEBUG TIMESTAMP
 	}
-
 
 	/**
 	 * Function allow modify result of find by control content pages from hits and user rights.
@@ -235,32 +230,31 @@ class AccessControlHooks {
 		&$related,
 		&$html
 		) {
-//		$start = microtime(true); // START DEBUG TIMESTAMP
+		// $start = microtime(true); // START DEBUG TIMESTAMP
 		if ( $result ) {
 			$page = $result->getTitle();
 			$content = self::getContentPage( $page->getNamespace(), $page->getText() );
 			$rights = self::allRightTags( $content );
 			if ( !( empty( $rights[VIEW] ) && empty( $rights[EDIT] ) ) ) {
 				switch ( self::testRightsArray( $rights ) ) {
-					case 1 :
-					case 2 :
+					case 1:
+					case 2:
 						break;
-					default :
+					default:
 						// is false
 						$extract = wfMessage( 'accesscontrol-actions-deny' )->text();
 						break;
 				}
 			}
 		}
-//		self::printDebug( $start . ' onShowSearchHit' . ' title="' . $page->mTextform . '" ns="' . $page->mNamespace . '" + ' . ( microtime(true) - $start ) ); // END DEBUG TIMESTAMP
+		// self::printDebug( $start . ' onShowSearchHit' . ' title="' . $page->mTextform . '" ns="' . $page->mNamespace . '" + ' . ( microtime(true) - $start ) ); // END DEBUG TIMESTAMP
 	}
-
 
 	/**
 	 * Main function, which control access rights for all users.
 	 * @see  https://www.mediawiki.org/wiki/Manual:Hooks/userCan
 	 *
-	 * @param Title $title
+	 * @param Title &$title
 	 */
 	public static function onuserCan(
 		&$title,
@@ -272,16 +266,16 @@ class AccessControlHooks {
 		$articleName	= $title->getTitleValue();
 		$articleNS	= $title->getNamespace();
 		$userName	= $user->getName();
-//		$start = microtime( true ); // START DEBUG TIMESTAMP
+		// $start = microtime( true ); // START DEBUG TIMESTAMP
 		if ( is_array( $wgVerifyPage ) ) {
 			if ( array_key_exists( $title->getLatestRevID(), $wgVerifyPage ) ) {
-//				self::printDebug( "$start onUserCan skip title=\"$articleName\" ns=\"$articleNS\" for current username \"$userName\" because is verified for now" ); // INFO DEBUG TIMESTAMP
+		// self::printDebug( "$start onUserCan skip title=\"$articleName\" ns=\"$articleNS\" for current username \"$userName\" because is verified for now" ); // INFO DEBUG TIMESTAMP
 				return true;
 			}
 		} else {
 			$wgVerifyPage = [];
 		}
-//		self::printDebug( "$start onUserCan start verify access to title=\"$articleName\" ns=\"$articleNS\" for current username \"$userName\"" ); // INFO DEBUG TIMESTAMP
+		// self::printDebug( "$start onUserCan start verify access to title=\"$articleName\" ns=\"$articleNS\" for current username \"$userName\"" ); // INFO DEBUG TIMESTAMP
 
 		if ( $articleName == wfMessage( 'accesscontrol-action-deny' )->text()
 			&& $articleNS == $wgSitename ) {
@@ -289,8 +283,8 @@ class AccessControlHooks {
 		}
 
 		self::anonymousDeny();
-// Proč se volá controlExportPage bez parametrů?
-//		self::controlExportPage();
+		// Proč se volá controlExportPage bez parametrů?
+		// self::controlExportPage();
 		// return array of users & rights
 		$rights = self::allRightTags(
 			self::getContentPage(
@@ -298,11 +292,10 @@ class AccessControlHooks {
 				$title->getDBkey()
 			)
 		);
-//		$wgVerifyPage[ $title->getLatestRevID() ] = true;
+		// $wgVerifyPage[ $title->getLatestRevID() ] = true;
 		self::userVerify( $rights );
-//		self::printDebug( "$start onUserCan title=\"$articleName\" ns=\"$articleNS\" + " . ( microtime( true ) - $start ) ); // END DEBUG TIMESTAMP
+		// self::printDebug( "$start onUserCan title=\"$articleName\" ns=\"$articleNS\" + " . ( microtime( true ) - $start ) ); // END DEBUG TIMESTAMP
 	}
-
 
 	/**
 	 * Main function for get array of rights from content of page (accesslist)
@@ -315,11 +308,11 @@ class AccessControlHooks {
 		$string
 		) {
 		global $wgAccessControlNamespaces;
-		if ( ! defined('PREG_UNMATCHED_AS_NULL') ) {
+		if ( !defined( 'PREG_UNMATCHED_AS_NULL' ) ) {
 			// Constant is predefined from PHP versio 7.2.0
 			define( 'PREG_UNMATCHED_AS_NULL', 512 );
 		}
-		if ( ! defined('PROTECTEDBY') ) {
+		if ( !defined( 'PROTECTEDBY' ) ) {
 			define( 'PROTECTEDBY', 'isProtectedBy' );
 			define( 'READGROUPS', 'readOnlyAllowedGroups' );
 			define( 'EDITGROUPS', 'editAllowedGroups' );
@@ -329,7 +322,7 @@ class AccessControlHooks {
 			define( 'EDIT', 'editors' );
 		}
 
-//		self::printDebug( $string ); // INFO DEBUG input string is raw content of page
+		// self::printDebug( $string ); // INFO DEBUG input string is raw content of page
 		/* Redirect */
 		preg_match(
 			'/\#REDIRECT +\[\[(.*?)[\]\]|\|]/i',
@@ -337,13 +330,13 @@ class AccessControlHooks {
 			$match,
 			PREG_UNMATCHED_AS_NULL
 			);
-		if ($match) {
+		if ( $match ) {
 			$array = self::getAccessListCanonicalTarget( $match[1] );
-			if ($array) {
+			if ( $array ) {
 				$rights = self::allRightTags( self::getContentPage( $array['ns'], $array['title'] ) );
 				self::anonymousDeny();
-				self::userVerify($rights);
-//				self::printDebug($rights); // INFO DEBUG
+				self::userVerify( $rights );
+		// self::printDebug($rights); // INFO DEBUG
 			}
 		}
 		$allow = [ EDIT => [], VIEW => [] ];
@@ -353,7 +346,7 @@ class AccessControlHooks {
 			$matches,
 			PREG_PATTERN_ORDER
 			);
-		foreach( $matches[0] as $pattern ) {
+		foreach ( $matches[0] as $pattern ) {
 			/* Transclusions of page, which is not from template namespace */
 			if ( substr( $pattern, 0, 3 ) === '{{:' ) {
 				// transclusion any page
@@ -363,13 +356,13 @@ class AccessControlHooks {
 					$include,
 					PREG_UNMATCHED_AS_NULL
 					);
-				if ($include) {
+				if ( $include ) {
 					$array = self::getAccessListCanonicalTarget( $include[1] );
-					if ($array) {
+					if ( $array ) {
 						$rights = self::allRightTags( self::getContentPage( $array['ns'], $array['title'] ) );
 						self::anonymousDeny();
-						self::userVerify($rights);
-//						self::printDebug( $rights ); // INFO DEBUG
+						self::userVerify( $rights );
+					// self::printDebug( $rights ); // INFO DEBUG
 					}
 				}
 			}
@@ -380,19 +373,19 @@ class AccessControlHooks {
 					$include,
 					PREG_UNMATCHED_AS_NULL
 					);
-				if ($include) {
+				if ( $include ) {
 					switch ( $include[1] ) {
-						case ( preg_match( "/^[0-9]/", $include[1] ) ? true : false ) :
+						case ( preg_match( "/^[0-9]/", $include[1] ) ? true : false ):
 							// číslovaná proměnná
-//							self::printDebug( $include ); // INFO DEBUG
+							// self::printDebug( $include ); // INFO DEBUG
 							break;
-						case ( preg_match( "/\|/", $include[1] ) ? true : false ) :
+						case ( preg_match( "/\|/", $include[1] ) ? true : false ):
 							// parametrizovaná šablona
-//							self::printDebug( $include ); // INFO DEBUG
+							// self::printDebug( $include ); // INFO DEBUG
 							break;
 						default:
-//							self::printDebug( $include ); // INFO DEBUG
-//							break;
+							// self::printDebug( $include ); // INFO DEBUG
+							// break;
 					}
 				}
 			}
@@ -403,11 +396,11 @@ class AccessControlHooks {
 					$include,
 					PREG_UNMATCHED_AS_NULL
 					);
-				if ($include) {
+				if ( $include ) {
 					switch ( $include[1] ) {
-						case ( preg_match( "/^[a-z]+/i", $include[1] ) ? true : false ) :
+						case ( preg_match( "/^[a-z]+/i", $include[1] ) ? true : false ):
 							// interní funkce
-//							self::printDebug($include); // INFO DEBUG
+							// self::printDebug($include); // INFO DEBUG
 							break;
 					}
 				}
@@ -421,179 +414,179 @@ class AccessControlHooks {
 					$include,
 					PREG_UNMATCHED_AS_NULL
 					);
-				if ($include) {
-					$rights = self::allRightTags( self::getContentPage( 10, trim($include[1]) ) );
+				if ( $include ) {
+					$rights = self::allRightTags( self::getContentPage( 10, trim( $include[1] ) ) );
 					self::anonymousDeny();
-					self::userVerify($rights);
-//					self::printDebug( $rights ); // INFO DEBUG
+					self::userVerify( $rights );
+					// self::printDebug( $rights ); // INFO DEBUG
 				}
 			}
 			switch ( substr( mb_strtolower( $pattern, 'UTF-8' ), 0, 15 ) ) {
-				case '<accesscontrol>' :
+				case '<accesscontrol>':
 					/* Protected by tag */
-					$allow = self::earlySyntaxOfRights( trim(str_replace( '</accesscontrol>', '', str_replace( '<accesscontrol>', '', $pattern ) ) ) );
-/* Array of members is based by content of the element accesscontrol */
-//					self::printDebug( $allow ); // INFO DEBUG
+					$allow = self::earlySyntaxOfRights( trim( str_replace( '</accesscontrol>', '', str_replace( '<accesscontrol>', '', $pattern ) ) ) );
+					/* Array of members is based by content of the element accesscontrol */
+					// self::printDebug( $allow ); // INFO DEBUG
 					break;
-				default :
+				default:
 					if (
-//						strpos( $pattern, 'isProtectedBy') ||
+						// strpos( $pattern, 'isProtectedBy') ||
 						strpos( $pattern, PROTECTEDBY ) ||
-						strpos( $pattern, READERS) ||
-						strpos( $pattern, EDITORS) ||
-						strpos( $pattern, READGROUPS) ||
-						strpos( $pattern, EDITGROUPS)
-					   ) {
+						strpos( $pattern, READERS ) ||
+						strpos( $pattern, EDITORS ) ||
+						strpos( $pattern, READGROUPS ) ||
+						strpos( $pattern, EDITGROUPS )
+					) {
 						/* Protected by options */
-						$options = array_map( 'trim', explode( '|' , $pattern ) );
+						$options = array_map( 'trim', explode( '|', $pattern ) );
 						foreach ( $options as $string ) {
-//							self::printDebug($string); // INFO DEBUG
-							if ( is_integer( strpos( $string, 'isProtectedBy' ) ) ) {
+							// self::printDebug($string); // INFO DEBUG
+							if ( is_int( strpos( $string, 'isProtectedBy' ) ) ) {
 								/* page is protected by list of users */
-								$groups = self::membersOfGroup($string);
-								if ( array_key_exists( PROTECTEDBY, $groups) ) {
+								$groups = self::membersOfGroup( $string );
+								if ( array_key_exists( PROTECTEDBY, $groups ) ) {
 									foreach ( $groups[PROTECTEDBY] as $group ) {
 										$accesslist = self::getAccessListCanonicalTarget( $group );
-//										self::printDebug( $accesslist ); // INFO DEBUG
+										// self::printDebug( $accesslist ); // INFO DEBUG
 										if ( $accesslist['ns'] == 0 ) {
-											foreach ($wgAccessControlNamespaces as $ns) {
-												$array = self::getContentPageNew( $group, $ns);
-												if ( array_key_exists( EDIT, $array) ) {
-													foreach( array_keys($array[EDIT]) as $user) {
+											foreach ( $wgAccessControlNamespaces as $ns ) {
+												$array = self::getContentPageNew( $group, $ns );
+												if ( array_key_exists( EDIT, $array ) ) {
+													foreach ( array_keys( $array[EDIT] ) as $user ) {
 														$allow[EDIT][$user] = true;
 													}
 												}
-												if ( array_key_exists( VIEW, $array) ) {
-													foreach( array_keys($array[VIEW]) as $user) {
+												if ( array_key_exists( VIEW, $array ) ) {
+													foreach ( array_keys( $array[VIEW] ) as $user ) {
 														$allow[VIEW][$user] = true;
 													}
 												}
 											}
 										} else {
 											$array = self::getContentPageNew( $accesslist['title'], $accesslist['ns'] );
-											if ( array_key_exists( EDIT, $array) ) {
-												foreach( array_keys($array[EDIT]) as $user) {
+											if ( array_key_exists( EDIT, $array ) ) {
+												foreach ( array_keys( $array[EDIT] ) as $user ) {
 													$allow[EDIT][$user] = true;
 												}
 											}
-											if ( array_key_exists( VIEW, $array) ) {
-												foreach( array_keys($array[VIEW]) as $user) {
+											if ( array_key_exists( VIEW, $array ) ) {
+												foreach ( array_keys( $array[VIEW] ) as $user ) {
 													$allow[VIEW][$user] = true;
 												}
 											}
 										}
 									}
 								}
-/* isProtectedBy */
-//								self::printDebug( $allow ); // INFO DEBUG
+								/* isProtectedBy */
+								// self::printDebug( $allow ); // INFO DEBUG
 							}
-							if ( is_integer( strpos ( $string, READGROUPS ) ) || is_integer( strpos ( $string, READERS ) ) ) {
+							if ( is_int( strpos( $string, READGROUPS ) ) || is_int( strpos( $string, READERS ) ) ) {
 								/* readonly access - stronger then rights from isProtectedby */
-								$readers = self::membersOfGroup($string);
+								$readers = self::membersOfGroup( $string );
 								if ( array_key_exists( READGROUPS, $readers ) ) {
-									foreach( $readers[READGROUPS] as $group ) {
+									foreach ( $readers[READGROUPS] as $group ) {
 										$accesslist = self::getAccessListCanonicalTarget( $group );
-//										self::printDebug( $accesslist ); // INFO DEBUG
+										// self::printDebug( $accesslist ); // INFO DEBUG
 										if ( $accesslist['ns'] == 0 ) {
-											foreach ($wgAccessControlNamespaces as $ns) {
-												$array = self::getContentPageNew( $group, $ns);
-												if ( array_key_exists( EDIT, $array) ) {
-													foreach( array_keys($array[EDIT]) as $user) {
+											foreach ( $wgAccessControlNamespaces as $ns ) {
+												$array = self::getContentPageNew( $group, $ns );
+												if ( array_key_exists( EDIT, $array ) ) {
+													foreach ( array_keys( $array[EDIT] ) as $user ) {
 														$allow[EDIT][$user] = false;
 														$allow[VIEW][$user] = true;
 													}
 												}
-												if ( array_key_exists( VIEW, $array) ) {
-													foreach( array_keys($array[VIEW]) as $user) {
+												if ( array_key_exists( VIEW, $array ) ) {
+													foreach ( array_keys( $array[VIEW] ) as $user ) {
 														$allow[VIEW][$user] = true;
 													}
 												}
 											}
 										} else {
-											$array = self::getContentPageNew( $accesslist['title'], $accesslist['ns']);
-											if ( array_key_exists( EDIT, $array) ) {
-												foreach( array_keys($array[EDIT]) as $user) {
+											$array = self::getContentPageNew( $accesslist['title'], $accesslist['ns'] );
+											if ( array_key_exists( EDIT, $array ) ) {
+												foreach ( array_keys( $array[EDIT] ) as $user ) {
 													$allow[EDIT][$user] = false;
 													$allow[VIEW][$user] = true;
 												}
 											}
-											if ( array_key_exists( VIEW, $array) ) {
-												foreach( array_keys($array[VIEW]) as $user) {
+											if ( array_key_exists( VIEW, $array ) ) {
+												foreach ( array_keys( $array[VIEW] ) as $user ) {
 													$allow[VIEW][$user] = true;
 												}
 											}
 										}
 									}
 								}
-/*  readOnlyAllowedGroups */
-//								self::printDebug( $allow ); // INFO DEBUG
+								/*  readOnlyAllowedGroups */
+								// self::printDebug( $allow ); // INFO DEBUG
 								/* readonly access - stronger then rights from isProtectedby */
 								if ( array_key_exists( READERS, $readers ) ) {
-									foreach( $readers[READERS] as $user ) {
+									foreach ( $readers[READERS] as $user ) {
 										if ( array_key_exists( EDIT, $allow ) ) {
 											if ( array_key_exists( $user, $allow[EDIT] ) ) {
 												/* vypínám právo k editaci */
 												$allow[EDIT][$user] = false;
 											}
 										}
-										if ( array_key_exists(VIEW, $allow) ) {
+										if ( array_key_exists( VIEW, $allow ) ) {
 											$allow[VIEW][$user] = true;
 										}
 									}
 								}
-/* readOnlyAllowedUsers */
-//								self::printDebug( $allow ); // INFO DEBUG
+								/* readOnlyAllowedUsers */
+								// self::printDebug( $allow ); // INFO DEBUG
 							}
-							if ( is_integer( strpos( $string, EDITORS ) ) || is_integer( strpos( $string, EDITGROUPS ) ) ) {
+							if ( is_int( strpos( $string, EDITORS ) ) || is_int( strpos( $string, EDITGROUPS ) ) ) {
 								/* edit access - stronger then rights from isProtectedby, and rights from readonly options */
-								$editors = self::membersOfGroup($string);
+								$editors = self::membersOfGroup( $string );
 								if ( array_key_exists( EDITGROUPS, $editors ) ) {
-									foreach( $editors[EDITGROUPS] as $group ) {
+									foreach ( $editors[EDITGROUPS] as $group ) {
 										$accesslist = self::getAccessListCanonicalTarget( $group );
-//										self::printDebug( $accesslist ); // INFO DEBUG
+										// self::printDebug( $accesslist ); // INFO DEBUG
 										if ( $accesslist['ns'] == 0 ) {
-											foreach ($wgAccessControlNamespaces as $ns) {
-												$array = self::getContentPageNew( $group, $ns);
-												if ( array_key_exists( VIEW, $array) ) {
-													foreach( array_keys($array[VIEW]) as $user) {
+											foreach ( $wgAccessControlNamespaces as $ns ) {
+												$array = self::getContentPageNew( $group, $ns );
+												if ( array_key_exists( VIEW, $array ) ) {
+													foreach ( array_keys( $array[VIEW] ) as $user ) {
 														$allow[EDIT][$user] = true;
 													}
 												}
 											}
 										} else {
-											$array = self::getContentPageNew( $accesslist['title'], $accesslist['ns']);
-											if ( array_key_exists( VIEW, $array) ) {
-												foreach( array_keys($array[VIEW]) as $user) {
+											$array = self::getContentPageNew( $accesslist['title'], $accesslist['ns'] );
+											if ( array_key_exists( VIEW, $array ) ) {
+												foreach ( array_keys( $array[VIEW] ) as $user ) {
 													$allow[EDIT][$user] = true;
 												}
 											}
 										}
 									}
-/* editAllowedGroups */
-//								self::printDebug( $allow ); // INFO DEBUG
+								/* editAllowedGroups */
+								// self::printDebug( $allow ); // INFO DEBUG
 								}
 								if ( array_key_exists( EDITORS, $editors ) ) {
 									/* přidat do seznam editorů */
-									foreach( $editors[EDITORS] as $user ) {
+									foreach ( $editors[EDITORS] as $user ) {
 										$allow[EDIT][$user] = true;
 									}
 								}
-/* editAllowedUsers */
-//								self::printDebug( $allow ); // INFO DEBUG
+								/* editAllowedUsers */
+								// self::printDebug( $allow ); // INFO DEBUG
 							}
 							/* ignore other options or params */
 						}
-/* Array of rights is set by template options */
-//						self::printDebug( $allow ); // INFO DEBUG
-					} elseif ( strpos( $pattern, 'accesscontrol') > 0 ) {
+						/* Array of rights is set by template options */
+						// self::printDebug( $allow ); // INFO DEBUG
+					} elseif ( strpos( $pattern, 'accesscontrol' ) > 0 ) {
 						/* If is string accesscontrol in $pattern before bar,
 						 *  it's a part of template name and the content of
 						 *  the first parameter of this template is accepted
 						 *  as alternative syntax for tag accesscontrol.
 						 */
-//						self::printDebug($pattern); // INFO DEBUG
+						// self::printDebug($pattern); // INFO DEBUG
 						$pos = ( strpos( $pattern, '|' ) );
-						if ( $pos > strpos( $pattern, 'accesscontrol') ) {
+						if ( $pos > strpos( $pattern, 'accesscontrol' ) ) {
 							$retezec = trim( substr( $pattern, $pos + 1 ) );
 							if ( strpos( $retezec, '|' ) ) {
 								$members = trim( substr( $retezec, 0, strpos( $retezec, '|' ) ) );
@@ -602,24 +595,23 @@ class AccessControlHooks {
 									$members = trim( substr( $retezec, 0, strpos( $retezec, '}' ) ) );
 								}
 							}
-							if ( !strpos( $members, '=') ) {
+							if ( !strpos( $members, '=' ) ) {
 								/* {{Template name with accesscontrol string | accesslist_X, userA, userB | option = … }} */
 								$allow = self::earlySyntaxOfRights( $members );
 							}
-/* Array of members is generated by first parameter of template with accesscontrol string in name */
-//						self::printDebug( $allow ); // INFO DEBUG
+						/* Array of members is generated by first parameter of template with accesscontrol string in name */
+						// self::printDebug( $allow ); // INFO DEBUG
 						}
 					}
 			}
 		}
 	/* Array has 2 keys with arays of:
-	    editors - member can do all (if have value true)
-	    visitors - member can do only read
+		editors - member can do all (if have value true)
+		visitors - member can do only read
 	*/
-//		self::printDebug( $allow ); // INFO DEBUG
+		// self::printDebug( $allow ); // INFO DEBUG
 		return $allow;
 	}
-
 
 	/**
 	 * Preventive deny rights for anonymous users.
@@ -627,7 +619,7 @@ class AccessControlHooks {
 	private static function anonymousDeny() {
 		global $wgActions, $wgAnonymousUser, $wgRequest, $wgAccessToHistory;
 		$user = RequestContext::getMain()->getUser();
-		if ( ! $wgAnonymousUser ) {
+		if ( !$wgAnonymousUser ) {
 			if ( $user->mId === 0 ) {
 				$wgActions['submit'] = false;
 				$wgActions['info'] = false;
@@ -638,48 +630,47 @@ class AccessControlHooks {
 				$wgActions['rollback'] = false;
 				$wgActions['markpatrolled'] = false;
 				$wgActions['formedit'] = false;
-//				$wgActions['edit'] = false;
+				// $wgActions['edit'] = false;
 
 				if ( $wgAccessToHistory == true ) {
-					if (  $wgRequest->getText( 'action' ) == 'history' ) {
-//						self::printDebug( 'anonymous user can view history of page' ); // DEBUG INFO
+					if ( $wgRequest->getText( 'action' ) == 'history' ) {
+						// self::printDebug( 'anonymous user can view history of page' ); // DEBUG INFO
 					} elseif ( $wgRequest->getText( 'diff' ) >= 0 ) {
-//						self::printDebug( 'anonymous user can view diferences of page' ); // DEBUG INFO
+						// self::printDebug( 'anonymous user can view diferences of page' ); // DEBUG INFO
 					} elseif ( $wgRequest->getText( 'action' ) == 'edit'
 						&& $wgRequest->getText( 'oldid' ) >= 0 ) {
-//						self::printDebug( 'anonymous user can view source of page' ); // DEBUG INFO
+						// self::printDebug( 'anonymous user can view source of page' ); // DEBUG INFO
 					} elseif ( ( $wgRequest->getText( 'direction' ) == 'prev'
 							|| $wgRequest->getText( 'direction' ) == 'next' )
 								&& $wgRequest->getText( 'oldid' ) >= 0 ) {
-//						self::printDebug( 'anonymous user can view differences of page' ); // DEBUG INFO
+								// self::printDebug( 'anonymous user can view differences of page' ); // DEBUG INFO
 					} else {
 						$wgActions['edit'] = false;
 					}
 				} else {
-					if ( ! empty( $wgRequest->getText('action') ) ) {
-//self::printDebug( $wgRequest );
-						if (  $wgRequest->getText('action') != 'search' ) {
+					if ( !empty( $wgRequest->getText( 'action' ) ) ) {
+						// self::printDebug( $wgRequest );
+						if ( $wgRequest->getText( 'action' ) != 'search' ) {
 							$wgActions['edit'] = false;
 							$wgActions['view'] = false;
 							$wgActions['history'] = false;
 							return self::doRedirect( 'accesscontrol-redirect-anonymous' );
 						}
-					} elseif ( $wgRequest->getText('direction') == 'prev' || $wgRequest->getText('direction') == 'next' )  {
+					} elseif ( $wgRequest->getText( 'direction' ) == 'prev' || $wgRequest->getText( 'direction' ) == 'next' ) {
 						return self::doRedirect( 'accesscontrol-redirect-anonymous' );
-					} elseif ( ! empty( $wgRequest->getText('diff') ) )  {
+					} elseif ( !empty( $wgRequest->getText( 'diff' ) ) ) {
 						return self::doRedirect( 'accesscontrol-redirect-anonymous' );
 					}
 				}
-//				self::printDebug( microtime(true) . ' anonymousDeny variable $wgAnonymousUser is set true' ); // DEBUG TIMESTAMP
+				// self::printDebug( microtime(true) . ' anonymousDeny variable $wgAnonymousUser is set true' ); // DEBUG TIMESTAMP
 				$wgAnonymousUser = true;
 			} else {
-//				self::printDebug( microtime(true) . ' anonymousDeny variable $wgAnonymousUser is set false' ); // DEBUG TIMESTAMP
-//				$wgAnonymousUser = false;
+				// self::printDebug( microtime(true) . ' anonymousDeny variable $wgAnonymousUser is set false' ); // DEBUG TIMESTAMP
+				// $wgAnonymousUser = false;
 			}
 		}
 		return;
 	}
-
 
 	/**
 	 * Function is called only if current user want do export page, which may be
@@ -689,13 +680,13 @@ class AccessControlHooks {
 	 *
 	 * @return int|bool
 	 */
-	private static function controlExportPage( $string = "page_namespace=0 AND page_title='test-protectbyoption'") {
+	private static function controlExportPage( $string = "page_namespace=0 AND page_title='test-protectbyoption'" ) {
 		/* "page_namespace=8 AND page_title='fuckoff'" */
 		global $wgAdminCanReadAll;
 		$user = RequestContext::getMain()->getUser();
 		if ( $user->mId === 0 ) {
 			/* Deny export for all anonymous */
-//			self::printDebug( microtime(true) . ' controlExportPage deny'); // INFO DEBUG TIMESTAMP
+			// self::printDebug( microtime(true) . ' controlExportPage deny'); // INFO DEBUG TIMESTAMP
 			return false;
 		}
 		preg_match(
@@ -711,60 +702,56 @@ class AccessControlHooks {
 			) );
 			if ( empty( $rights[VIEW] ) && empty( $rights[EDIT] ) ) {
 				/* page is free */
-//				self::printDebug( microtime(true) . ' controlExportPage view'); // INFO DEBUG TIMESTAMP
+				// self::printDebug( microtime(true) . ' controlExportPage view'); // INFO DEBUG TIMESTAMP
 				return 1;
 			}
 			if ( self::testSysop() ) {
 				if ( isset( $wgAdminCanReadAll ) ) {
 					if ( $wgAdminCanReadAll ) {
 						/* admin can be all */
-//						self::printDebug( microtime(true) . ' controlExportPage admin'); // INFO DEBUG TIMESTAMP
+						// self::printDebug( microtime(true) . ' controlExportPage admin'); // INFO DEBUG TIMESTAMP
 						return 1;
 					}
 				}
 			}
 			if ( empty( $user ) ) {
 				// for anonymous query by api is empty
-//				self::printDebug( microtime(true) . ' controlExportPage anonymous'); // INFO DEBUG TIMESTAMP
+				// self::printDebug( microtime(true) . ' controlExportPage anonymous'); // INFO DEBUG TIMESTAMP
 				return false;
 			}
 			if ( array_key_exists( $user, $rights[EDIT] ) || array_key_exists( $user, $rights[VIEW] ) ) {
 				/* readonly user */
-//				self::printDebug( microtime(true) . ' controlExportPage readonly user'); // INFO DEBUG TIMESTAMP
+				// self::printDebug( microtime(true) . ' controlExportPage readonly user'); // INFO DEBUG TIMESTAMP
 				return 2;
 			} else {
-//				self::printDebug( microtime(true) . ' controlExportPage false?'); // INFO DEBUG TIMESTAMP
+				// self::printDebug( microtime(true) . ' controlExportPage false?'); // INFO DEBUG TIMESTAMP
 				return false;
 			}
 		}
 	}
-
 
 	/**
 	 * Deny rights to action 'view' for current user.
 	 */
 	private static function denyRead() {
 		global $wgActions;
-//		self::printDebug( microtime(true) . ' denyRead' ); // DEBUG TIMESTAMP
+		// self::printDebug( microtime(true) . ' denyRead' ); // DEBUG TIMESTAMP
 		$wgActions['view'] = false;
 		return;
 	}
-
 
 	/**
 	 * Function stops further processing the page and redirect
 	 *  unathorized user to the page with info about protection
 	 *
-	 *  If you want view target of redirect, uncomment line with
-//	 *  string DEBUG TIMESTAMP, and see on top HTML source protect
-	 *  page for info.
+	 * If you want view target of redirect, uncomment line with
+	 * string DEBUG TIMESTAMP, and see on top HTML source protect
+	 * page for info.
 	 *
 	 * @param string $info String with reason of redirection,
 	 *  which is printed in localize form into information page
 	 */
-	private static function doRedirect(
-		$info
-		) {
+	private static function doRedirect( $info ) {
 		global $wgArticlePath, $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect, $wgAccessControlMeta;
 		if ( !$info ) {
 			$info = "No_access";
@@ -777,21 +764,19 @@ class AccessControlHooks {
 		$wgOut->prependHTML( wfMessage( 'accesscontrol-info-box' )->text() );
 		if ( $wgAccessControlRedirect == true ) {
 			if ( $wgAccessControlMeta == true ) {
-				header( "Location: " . str_replace( '$1', $wgMetaNamespace . ":" . wfMessage( $info )->text(), $wgArticlePath) );
+				header( "Location: " . str_replace( '$1', $wgMetaNamespace . ":" . wfMessage( $info )->text(), $wgArticlePath ) );
 			} else {
 				header( "Location: " . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() );
 			}
 			exit();
 		} else {
-//			self::printDebug( microtime(true) . ' STOP! doRedirect to ' . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() ); // DEBUG TIMESTAMP
+			// self::printDebug( microtime(true) . ' STOP! doRedirect to ' . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() ); // DEBUG TIMESTAMP
 			return;
 		}
 		return;
 	}
 
-
 	/**
-	 *
 	 * @param string $string
 	 *
 	 * @return array $allow
@@ -808,24 +793,24 @@ class AccessControlHooks {
 		$user = RequestContext::getMain()->getUser();
 		$allow = [ EDIT => [], VIEW => [] ];
 		$MWgroups = User::getAllGroups();
-		foreach( explode( ',', $string ) as $title ) {
-			//zkontrolovat, jestli není readonly
+		foreach ( explode( ',', $string ) as $title ) {
+			// zkontrolovat, jestli není readonly
 			$item = self::oldSyntaxTest( $title );
 			if ( is_array( $item ) ) {
 				/* Může to být seznmam uživatelů starého typu */
-//				$skupina = self::testRightsOfMember($item[0]);
-//				self::printDebug( $item ); // INFO DEBUG
+				// $skupina = self::testRightsOfMember($item[0]);
+				// self::printDebug( $item ); // INFO DEBUG
 				/* Může to být seznmam uživatelů nového typu */
 				foreach ( $wgAccessControlNamespaces as $ns ) {
 					$array = self::getContentPageNew( $item[0], $ns );
-//					self::printDebug( $array ); // INFO DEBUG
+					// self::printDebug( $array ); // INFO DEBUG
 					if ( empty( $array ) ) {
 						foreach ( $MWgroups as $mwgroup ) {
 							if ( $item[0] === $mwgroup ) {
 								foreach ( $user->getUserEffectiveGroups() as $group ) {
 									if ( $group === $item[0] ) {
-									    /* Nemá smysl zjišťovat všechny skupiny. Stačí zjistit, jestli do ní patří aktuální uživatel a přidat ho
-									    */
+										/* Nemá smysl zjišťovat všechny skupiny. Stačí zjistit, jestli do ní patří aktuální uživatel a přidat ho
+										*/
 										if ( $item[1] ) {
 											$allow[EDIT][ $user ] = true;
 										} else {
@@ -852,31 +837,30 @@ class AccessControlHooks {
 					} else {
 						if ( array_key_exists( EDIT, $array ) ) {
 							if ( $item[1] ) {
-								foreach( array_keys( $array[EDIT] ) as $user ) {
+								foreach ( array_keys( $array[EDIT] ) as $user ) {
 									$allow[EDIT][ $user ] = true;
 								}
 							} else {
 								/* (ro) */
-								foreach( array_keys( $array[EDIT] ) as $user ) {
+								foreach ( array_keys( $array[EDIT] ) as $user ) {
 									$allow[EDIT][ $user ] = false;
 									$allow[VIEW][ $user ] = true;
 								}
 							}
 						}
 						if ( array_key_exists( VIEW, $array ) ) {
-							foreach( array_keys( $array[VIEW] ) as $user ) {
+							foreach ( array_keys( $array[VIEW] ) as $user ) {
 								$allow[VIEW][ $user ] = true;
 							}
 						}
 					}
 				}
-//				self::printDebug( $allow ); // INFO DEBUG
+			// self::printDebug( $allow ); // INFO DEBUG
 			}
 		}
-//		self::printDebug( $allow ); // INFO DEBUG
+		// self::printDebug( $allow ); // INFO DEBUG
 		return $allow;
 	}
-
 
 	/**
 	 * Function parse input string, if is only title, without namespace, or
@@ -899,7 +883,7 @@ class AccessControlHooks {
 			$match,
 			PREG_UNMATCHED_AS_NULL
 			);
-		if ( !is_array($match) ) {
+		if ( !is_array( $match ) ) {
 			$index = NamespaceInfo::getCanonicalIndex( strtolower( $match[1] ) );
 			if ( $index === null ) {
 				// If is name of namespace invalid, or in localize form, is value of $index null
@@ -911,7 +895,7 @@ class AccessControlHooks {
 				} else {
 					// Name of namespace in localize form by current settings of MediaWiki, i.e. 'Uživatel'
 					$stringfortest = str_replace( " ", "_", substr( $string, 0, $pos ) );
-					foreach( NamespaceInfo::getValidNamespaces() as $index ) {
+					foreach ( NamespaceInfo::getValidNamespaces() as $index ) {
 						if ( $wgContLang->getNsText( $index ) === $stringfortest ) {
 							$target['title'] = trim( str_replace( "$stringfortest:", '', $string ) );
 							$target['ns'] = $index;
@@ -937,7 +921,6 @@ class AccessControlHooks {
 		return $target;
 	}
 
-
 	/**
 	 * Function get raw content of page, which is identified by name and namespace.
 	 *
@@ -951,18 +934,18 @@ class AccessControlHooks {
 		$title
 		) {
 		global $wgVerifyPage;
-		if ( is_integer( strpos( $title, '{' ) ) ) {
+		if ( is_int( strpos( $title, '{' ) ) ) {
 			// remove templates
 			return '';
 		}
-		if ( is_integer( strpos( $title, '#' ) ) ) {
+		if ( is_int( strpos( $title, '#' ) ) ) {
 			// remove functions
 			return '';
 		}
 		// remove magic keys
-		//TODO
-//		$start = microtime(true); // START DEBUG TIMESTAMP
-		$gt = Title::makeTitleSafe( $ns, $title, $fragment= '', $interwiki= '');
+		// TODO
+		// $start = microtime(true); // START DEBUG TIMESTAMP
+		$gt = Title::makeTitleSafe( $ns, $title, $fragment = '', $interwiki = '' );
 		if ( $gt === null || $gt->isSpecialPage() ) {
 			// Can't create WikiPage for special page
 			return '';
@@ -970,15 +953,14 @@ class AccessControlHooks {
 		$page = WikiPage::factory( $gt );
 		$latestid = $page->getLatest();
 		$content = ContentHandler::getContentText( $page->getContent() );
-		if ( is_array($wgVerifyPage) ) {
-			if ( ! array_key_exists( $latestid, $wgVerifyPage ) ) {
+		if ( is_array( $wgVerifyPage ) ) {
+			if ( !array_key_exists( $latestid, $wgVerifyPage ) ) {
 				$wgVerifyPage[ $latestid ] = true;
 			}
 		}
-//		self::printDebug( $start . ' getContentPage' . ' title="' . $title . '" ns="' . $namespace . '" + ' . ( microtime(true) - $start ) ); //END DEBUG TIMESTAMP
+		// self::printDebug( $start . ' getContentPage' . ' title="' . $title . '" ns="' . $namespace . '" + ' . ( microtime(true) - $start ) ); //END DEBUG TIMESTAMP
 		return $content;
 	}
-
 
 	/**
 	 * Function get rights array for page, which is identified by name and namespace.
@@ -1002,7 +984,6 @@ class AccessControlHooks {
 		return $array;
 	}
 
-
 	/**
 	 * Function test if current user is logged or not.
 	 *
@@ -1017,7 +998,6 @@ class AccessControlHooks {
 		}
 	}
 
-
 	/**
 	 * True if current user has set 'sysop' group.
 	 *
@@ -1028,15 +1008,13 @@ class AccessControlHooks {
 		if ( method_exists( MediaWikiServices::class, 'getUserGroupManager' ) ) {
 			// MediaWiki 1.35+
 			$userGroupManager = MediaWikiServices::getInstance()->getUserGroupManager();
-			return in_array( 'sysop', $userGroupManager->getUserGroups( $user ) , true ) ? true : false ;
+			return in_array( 'sysop', $userGroupManager->getUserGroups( $user ), true ) ? true : false;
 		} else {
-			return in_array( 'sysop', $user->getGroups() , true ) ? true : false ;
+			return in_array( 'sysop', $user->getGroups(), true ) ? true : false;
 		}
 	}
 
-
 	/**
-	 *
 	 * @param string $string
 	 *
 	 * @return array $output
@@ -1044,7 +1022,7 @@ class AccessControlHooks {
 	private static function membersOfGroup( $string ) {
 		$output = [];
 		$array = explode( '=', $string );
-//		self::printDebug( $array ); // INFO DEBUG
+		// self::printDebug( $array ); // INFO DEBUG
 		if ( count( $array ) > 1 ) {
 			if ( strpos( $array[1], '}' ) ) {
 				$members = trim( substr( $array[1], 0, strpos( $array[1], '}' ) ) );
@@ -1065,20 +1043,18 @@ class AccessControlHooks {
 		return $output;
 	}
 
-
 	/**
-	 *
 	 * @param string $string
 	 *
 	 * @return array
 	 */
 	private static function oldSyntaxTest( $string ) {
 		/* Blok kvůli staré syntaxi. uživatel, nebo členové
-		    skupiny budou mít automaticky pouze readonly
-		    přístup, pokud je přítomen za jménem, či jménem
-		    skupiny řetězec '(ro)'. A to bez ohledu na
-		    práva v accesslistu. */
-//		self::printDebug( $retezec ); // INFO DEBUG
+			skupiny budou mít automaticky pouze readonly
+			přístup, pokud je přítomen za jménem, či jménem
+			skupiny řetězec '(ro)'. A to bez ohledu na
+			práva v accesslistu. */
+		// self::printDebug( $retezec ); // INFO DEBUG
 		$ro = strpos( $string, '(ro)' );
 		if ( $ro ) {
 			// Blok kvůli staré syntaxi. Skupina, nebo uživatel bude mít automaticky pouze readonly přístup, bez ohledu na volbu accesslistu.
@@ -1087,7 +1063,6 @@ class AccessControlHooks {
 			return [ trim( $string ), true ];
 		}
 	}
-
 
 	/**
 	 * Function parse explode string by pipe char and test to AccessControl params
@@ -1098,23 +1073,23 @@ class AccessControlHooks {
 	 */
 	private static function parseNewList( $string ) {
 		$allow = [];
-		$usersAccess = array_map( 'trim', explode( '|' , $string ) );
-		if ( is_array($usersAccess) ) {
+		$usersAccess = array_map( 'trim', explode( '|', $string ) );
+		if ( is_array( $usersAccess ) ) {
 			foreach ( $usersAccess as $userEntry ) {
-				$item = trim($userEntry);
-				if ( substr( $userEntry, 0, 21) === READGROUPS ) {
+				$item = trim( $userEntry );
+				if ( substr( $userEntry, 0, 21 ) === READGROUPS ) {
 					$visitorsGroup = self::membersOfGroup( $item );
 					self::appendMembers( $allow, $visitorsGroup, READGROUPS, false );
 				}
-				if ( substr( $userEntry, 0, 17) === EDITGROUPS ) {
+				if ( substr( $userEntry, 0, 17 ) === EDITGROUPS ) {
 					$editorsGroup = self::membersOfGroup( $item );
 					self::appendMembers( $allow, $editorsGroup, EDITGROUPS );
 				}
-				if ( substr( $userEntry, 0, 20) === READERS ) {
+				if ( substr( $userEntry, 0, 20 ) === READERS ) {
 					$visitors = self::membersOfGroup( $item );
 					self::appendUsers( $allow, $visitors, READERS, VIEW );
 				}
-				if ( substr( $userEntry, 0, 16) === EDITORS ) {
+				if ( substr( $userEntry, 0, 16 ) === EDITORS ) {
 					$editors = self::membersOfGroup( $item );
 					self::appendUsers( $allow, $editors, EDITORS, EDIT );
 				}
@@ -1123,31 +1098,30 @@ class AccessControlHooks {
 		return $allow;
 	}
 
-
 	/**
 	 * Function add into rights array the members of groups
 	 *
-	 * @param array &$allow 
+	 * @param array &$allow
 	 * @param array $array
 	 * @param string $param
 	 * @param bool $edit
 	 */
 	private static function appendMembers( &$allow, $array, $param, $edit = true ) {
 		global $wgRequest;
-		$title = $wgRequest->getText('title');
-		if ( ! empty ( $array ) ) {
+		$title = $wgRequest->getText( 'title' );
+		if ( !empty( $array ) ) {
 			foreach ( $array[$param] as $group ) {
 				if ( $group != $title ) {
 					$members = self::testRightsOfMember( $group );
 					if ( array_key_exists( EDIT, $members ) ) {
-						foreach( array_keys( $members[EDIT] ) as $item ) {
+						foreach ( array_keys( $members[EDIT] ) as $item ) {
 							if ( strlen( $item ) > 1 ) {
 								$allow[EDIT][$item] = $edit;
 							}
 						}
 					}
 					if ( array_key_exists( VIEW, $members ) ) {
-						foreach( array_keys($members[VIEW]) as $item ) {
+						foreach ( array_keys( $members[VIEW] ) as $item ) {
 							if ( strlen( $item ) > 1 ) {
 								$allow[EDIT][$item] = true;
 							}
@@ -1158,18 +1132,17 @@ class AccessControlHooks {
 		}
 	}
 
-
 	/**
 	 * Function add the users into rights array
 	 *
-	 * @param array &$allow 
+	 * @param array &$allow
 	 * @param array $array
 	 * @param string $param
 	 * @param string $group visitors pr editors
 	 * @param bool $edit
 	 */
 	private static function appendUsers( &$allow, $array, $param, $group, $bool = true ) {
-		if ( ! empty ( $array ) ) {
+		if ( !empty( $array ) ) {
 			foreach ( $array[$param] as $item ) {
 				if ( strlen( $item ) > 1 ) {
 					$allow[$group][$item] = $bool;
@@ -1177,7 +1150,6 @@ class AccessControlHooks {
 			}
 		}
 	}
-
 
 	/**
 	 * Function parse content by old syntax for AccessControl lists
@@ -1194,12 +1166,12 @@ class AccessControlHooks {
 			if ( substr( $userEntry, 0, 1 ) == "*" ) {
 				if ( strpos( $userEntry, "(ro)" ) === false ) {
 					$user = trim( str_replace( "*", "", $userEntry ) );
-					if ( self::isUser($user) ) {
+					if ( self::isUser( $user ) ) {
 						$allow[EDIT][$user] = true;
 					}
 				} else {
 					$user = trim( str_replace( "(ro)", "", str_replace( "*", "", $userEntry ) ) );
-					if ( self::isUser($user) ) {
+					if ( self::isUser( $user ) ) {
 						$allow[VIEW][$user] = true;
 					}
 				}
@@ -1207,7 +1179,6 @@ class AccessControlHooks {
 		}
 		return $allow;
 	}
-
 
 	/**
 	 * Function print info about protection by AccessControl to header of the page
@@ -1221,11 +1192,10 @@ class AccessControlHooks {
 		if ( empty( $wgAccessControlInfo ) ) {
 			return $wgAllowInfo;
 		} else {
-//			self::printDebug( microtime(true) . ' ' . $wgAccessControlInfo . ' printAccessControlInfo' ); // DEBUG TIMESTAMP
-			$wgOut->addHTML($wgAllowInfo);
+			// self::printDebug( microtime(true) . ' ' . $wgAccessControlInfo . ' printAccessControlInfo' ); // DEBUG TIMESTAMP
+			$wgOut->addHTML( $wgAllowInfo );
 		}
 	}
-
 
 	/**
 	 * Function for print debug message into HTML code of the page
@@ -1234,15 +1204,11 @@ class AccessControlHooks {
 	 *
 	 * @param string|array|object $input
 	 */
-	private static function printDebug(
-		$input
-	) {
-		print_r('<!-- ');
-		print_r($input);
-		print_r(' -->
-');
+	private static function printDebug( $input ) {
+		print_r( '<!-- ' );
+		print_r( $input );
+		print_r( ' --> ' );
 	}
-
 
 	/**
 	 * Limits of user rights to the page, which is
@@ -1250,7 +1216,7 @@ class AccessControlHooks {
 	 */
 	private static function readOnlyUser() {
 		global $wgActions, $wgAnonymousUser, $wgReadOnlyUser, $wgOut;
-		if ( ! $wgReadOnlyUser ) {
+		if ( !$wgReadOnlyUser ) {
 			$wgActions['edit'] = false;
 			$wgActions['history'] = false;
 			$wgActions['submit'] = false;
@@ -1262,7 +1228,7 @@ class AccessControlHooks {
 			$wgActions['rollback'] = false;
 			$wgActions['markpatrolled'] = false;
 			$wgActions['formedit'] = false;
-//			self::printDebug( microtime(true) . ' readOnlyUser variable $wgReadOnlyUser is set true' ); // DEBUG TIMESTAMP
+			// self::printDebug( microtime(true) . ' readOnlyUser variable $wgReadOnlyUser is set true' ); // DEBUG TIMESTAMP
 			$wgOut->addInlineScript( "document.getElementById('ca-history') && document.getElementById('ca-history').parentNode.removeChild(document.getElementById('ca-history'));" );
 			$wgOut->addInlineScript( "document.getElementById('ca-edit') && document.getElementById('ca-edit').parentNode.removeChild(document.getElementById('ca-edit'));" );
 			$wgOut->addInlineScript( "document.getElementById('ca-ve-edit') && document.getElementById('ca-ve-edit').parentNode.removeChild(document.getElementById('ca-ve-edit'));" );
@@ -1272,7 +1238,6 @@ class AccessControlHooks {
 		return;
 	}
 
-
 	/**
 	 * Function test if current user name is in array of rights
 	 *
@@ -1280,7 +1245,7 @@ class AccessControlHooks {
 	 *
 	 * @return int|bool
 	 */
-	private static function testRightsArray ( $rights ) {
+	private static function testRightsArray( $rights ) {
 		global $wgAdminCanReadAll;
 		$user = RequestContext::getMain()->getUser();
 		if ( empty( $rights[VIEW] ) && empty( $rights[EDIT] ) ) {
@@ -1307,25 +1272,23 @@ class AccessControlHooks {
 		}
 	}
 
-
 	/**
-	 *
 	 * @param string $string
 	 *
 	 * @return array $allow
 	 */
 	private static function testRightsOfMember( $string ) {
 		/* Na vstupu je řetězec se jménem uživatele, nebo uživatelské skupiny
-		    na výstupu je pole s aktuálním nastavením práv
-		    [ userA = false, userB = 'read', userC = 'edit']
+			na výstupu je pole s aktuálním nastavením práv
+			[ userA = false, userB = 'read', userC = 'edit']
 		*/
-//		$allow = [];
+		// $allow = [];
 		$item = self::oldSyntaxTest( $string );
-//		self::printDebug( $item ); // INFO DEBUG
+		// self::printDebug( $item ); // INFO DEBUG
 		if ( is_array( $item ) ) {
 			$accesslistpage = self::getAccessListCanonicalTarget( $item[0] );
 			if ( $accesslistpage[ 'ns' ] === 2 ) {
-				//netřeba dál chodit, je to user
+				// netřeba dál chodit, je to user
 				if ( $item[1] ) {
 					$allow[EDIT][ $accesslistpage['title'] ] = true;
 				} else {
@@ -1336,10 +1299,9 @@ class AccessControlHooks {
 				$allow = self::getContentPageNew( $accesslistpage['title'], $accesslistpage['ns'] );
 			}
 		}
-//		self::printDebug( $allow ); // INFO DEBUG
+		// self::printDebug( $allow ); // INFO DEBUG
 		return $allow;
 	}
-
 
 	/**
 	 * Function verify array with rights for logged user and call function
@@ -1349,7 +1311,7 @@ class AccessControlHooks {
 	 * @param array $rights
 	 *
 	 * @return bool
-	*/
+	 */
 	private static function userVerify( $rights ) {
 		global $wgActions, $wgAdminCanReadAll, $wgAccessControlInfo, $wgRequest;
 		$user = RequestContext::getMain()->getUser();
@@ -1357,19 +1319,19 @@ class AccessControlHooks {
 			/* page is without limits */
 			return true;
 		} else {
-			if (! $wgAccessControlInfo ) {
+			if ( !$wgAccessControlInfo ) {
 				$wgAccessControlInfo = 'Protected by AccessControl';
 				self::printAccessControlInfo();
 			}
 			if ( $user->getId() === 0 ) {
 				/* Redirection unknown users */
-//				self::printDebug( microtime(true) . ' userVerify - anonymous' ); // DEBUG TIMESTAMP
+				// self::printDebug( microtime(true) . ' userVerify - anonymous' ); // DEBUG TIMESTAMP
 				$wgActions['view'] = false;
 				// Redirection in this point must be restricted. If enable, search results been unavailable, if found this same pattern on protected page.
 				// self::doRedirect( 'accesscontrol-anonymous' );
 			} else {
 				if ( self::testSysop() ) {
-//					self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is sysop' ); // DEBUG TIMESTAMP
+					// self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is sysop' ); // DEBUG TIMESTAMP
 					if ( isset( $wgAdminCanReadAll ) ) {
 						if ( $wgAdminCanReadAll ) {
 							return true;
@@ -1377,13 +1339,12 @@ class AccessControlHooks {
 					}
 				}
 			}
-			/* Here must be used $user->getName(), because $user is object which return IP address as username of anonymous user.
-			    Theoretically IP address may be used for access allow, but in practice it not sense.
-			*/
+			// Here must be used $user->getName(), because $user is object which return IP address as username of anonymous user.
+			// Theoretically IP address may be used for access allow, but in practice it not sense.
 			if ( array_key_exists( EDIT, $rights ) ) {
 				if ( array_key_exists( $user->getName(), $rights[EDIT] ) ) {
 					if ( $rights[EDIT][$user->getName()] ) {
-//						self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is  editor' ); // DEBUG TIMESTAMP
+						// self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is  editor' ); // DEBUG TIMESTAMP
 						return true;
 					}
 				}
@@ -1392,20 +1353,20 @@ class AccessControlHooks {
 				self::readOnlyUser();
 				if ( array_key_exists( $user->getName(), $rights[EDIT] ) || array_key_exists( $user->getName(), $rights[VIEW] ) ) {
 					if ( $rights[VIEW][$user->getName()] ) {
-						if (  $wgRequest->getText( 'veaction' ) ) {
-//							self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is visitor by visual editor' ); // DEBUG TIMESTAMP
+						if ( $wgRequest->getText( 'veaction' ) ) {
+							// self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is visitor by visual editor' ); // DEBUG TIMESTAMP
 							return self::doRedirect( 'accesscontrol-redirect-users' );
 						} else {
-//							self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is visitor' ); // DEBUG TIMESTAMP
+							// self::printDebug( microtime(true) . ' userVerify - ' . $user . ' is visitor' ); // DEBUG TIMESTAMP
 							return true;
 						}
 					} else {
-//						self::printDebug( microtime(true) . ' userVerify - unauthorized user ' . $user ); // DEBUG TIMESTAMP
+						// self::printDebug( microtime(true) . ' userVerify - unauthorized user ' . $user ); // DEBUG TIMESTAMP
 						$wgActions['view'] = false;
 						return self::doRedirect( 'accesscontrol-redirect-users' );
 					}
 				} else {
-//					self::printDebug( microtime(true) . ' userVerify - user ' . $user . ' is not member of accesslist' ); // DEBUG TIMESTAMP
+					// self::printDebug( microtime(true) . ' userVerify - user ' . $user . ' is not member of accesslist' ); // DEBUG TIMESTAMP
 					$wgActions['view'] = false;
 					if ( empty( $wgRequest->getText( 'search' ) ) ) {
 						return self::doRedirect( 'accesscontrol-redirect-users' );
