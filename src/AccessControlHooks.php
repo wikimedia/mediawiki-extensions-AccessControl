@@ -950,7 +950,7 @@ class AccessControlHooks {
 			// Can't create WikiPage for special page
 			return '';
 		}
-		$page = WikiPage::factory( $gt );
+		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $gt );
 		$latestid = $page->getLatest();
 		$content = ContentHandler::getContentText( $page->getContent() );
 		if ( is_array( $wgVerifyPage ) ) {
