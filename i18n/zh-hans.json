@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Lakejason0",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"飞小RAN"
 		]
 	},
 	"accesscontrol-desc": "在页面上启用依用户基础的群组访问限制",
 	"accesscontrol-info": "这是一个受保护的页面。",
+	"accesscontrol-readonly": "很抱歉，您只能阅读本页内容。",
 	"accesscontrol-info-box": "此页面具有访问限制。如果您看见此消息，则说明您没有权限访问此页面。"
 }
