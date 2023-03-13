@@ -31,7 +31,6 @@
 		},
 		"user": {
 			"pagelang" : false,
-			"translate" : false,
 			"import" : false,
 			"importupload" : false,
 			"deletebatch" : false,
