@@ -21,21 +21,16 @@
 	},
 	"GroupPermissions": {
 		"*": {
-			"createaccount" : false,
-			"createpage" : false,
-			"createtalk" : false,
-			"edit" : false,
-			"lookupuser" : false,
-			"pagetranslation" : false,
-			"writeapi" : false
+			"createaccount": false,
+			"createpage": false,
+			"createtalk": false,
+			"edit": false,
+			"writeapi": false
 		},
 		"user": {
-			"pagelang" : false,
-			"import" : false,
-			"importupload" : false,
-			"deletebatch" : false,
-			"addpagetoanywatchlist" : false,
-			"seepagewatchers" : true
+			"pagelang": false,
+			"import": false,
+			"importupload": false
 		}
 	},
 	"config": {
