@@ -9,7 +9,7 @@ For very very quick start:
 
 3, And after you may add into your file LocalSettings.php the following line:
 
- wfLoadExtension( 'AccessControl' )
+    wfLoadExtension( 'AccessControl' )
 
 This is moment is AccessControl activated and may be use to protect of pages.
 
@@ -32,34 +32,34 @@ See
 
 First you set allow action 'view' for all users:
 
- $wgGroupPermissions['*']['read']            = true;
+    $wgGroupPermissions['*']['read']            = true;
 
 An next deny access for unauthorized users for actions:
 
- $wgGroupPermissions['*']['createaccount']   = false;
- $wgGroupPermissions['*']['edit']            = false;
- $wgGroupPermissions['*']['writeapi']        = false;
- $wgGroupPermissions['*']['createpage']      = false;
- $wgGroupPermissions['*']['createtalk']      = false;
+    $wgGroupPermissions['*']['createaccount']   = false;
+    $wgGroupPermissions['*']['edit']            = false;
+    $wgGroupPermissions['*']['writeapi']        = false;
+    $wgGroupPermissions['*']['createpage']      = false;
+    $wgGroupPermissions['*']['createtalk']      = false;
 
 My wiki is multilanguage, for it deny access for anonymous translators
 
- // if MediaWiki use extension Translate
- $wgGroupPermissions['*']['pagetranslation'] = false;
+    // if MediaWiki use extension Translate
+    $wgGroupPermissions['*']['pagetranslation'] = false;
 
 CAUTION: Is strictly recommend set deny access for allmost of Special pages for anonymous users! I use for it function disableSomeSpecialPages() in my LocalSettings.php file. See:
 
- function disableSomeSpecialPages(&$list) {
-     global $wgUser;
+    function disableSomeSpecialPages(&$list) {
+        global $wgUser;
 
-     if ( is_array( $wgUser->mRights ) && in_array( 'createpage', $wgUser->mRights ) ) {
-         return true;
-     } else {
-         if ($wgUser->mId > 0 ) {
-             return true;
-         }
-         unset($list['Mypage']);
-         foreach( array(
+        if ( is_array( $wgUser->mRights ) && in_array( 'createpage', $wgUser->mRights ) ) {
+            return true;
+        } else {
+            if ($wgUser->mId > 0 ) {
+                return true;
+            }
+            unset($list['Mypage']);
+            foreach( array(
              'Activeusers',
              'Allmessages',
              'Allpages',
@@ -146,12 +146,13 @@ CAUTION: Is strictly recommend set deny access for allmost of Special pages for 
              'Watchlist',
              'Withoutinterwiki'
              ) as $i ) {
-             unset( $list[$i] );
-         }
-     }
-     return true;
- }
- $wgHooks['SpecialPage_initList'][]='disableSomeSpecialPages';
+                unset( $list[$i] );
+            }
+        }
+        return true;
+    }
+    $wgHooks['SpecialPage_initList'][]='disableSomeSpecialPages';
+
 
 == How test it ==
 
@@ -159,27 +160,27 @@ From version 6.0 is preffered new syntax, based on the attributtes of template.
 It's very simple.
 For example self-protected page (i.e. 'MyPage') where is in code used 'Template:Warning': 
 
- {{Warning
- | 1 = This page is protected
- | editAllowedUsers = John Doe, Jane Doe
- }}
+    {{Warning
+    | 1 = This page is protected
+    | editAllowedUsers = John Doe, Jane Doe
+    }}
 
 As John Doe, or Jane Doe must be used your username.
 This article can be used to protection another page, if wikitext content use any template
 with the parameter 'isProtectedBy', where is as value name the your self-protected page 'MyPage'.
 See example:
 
- …
- | isProtectedBy = MyPage
- …
+    …
+    | isProtectedBy = MyPage
+    …
 
 AccessControl check the content for the parameters can be used at the same time, so
 the indentation indicates their hierarchical position in terms of rights:
 
- isProtectedBy - list of user groups
-   readOnlyAllowedGroups - user groups with read-only access
-     editAllowedGroups - user groups with edit access
-       readOnlyAllowedUsers - list of users who can only read the content of the site
-         editAllowedUsers - a list of users with editing rights
+    isProtectedBy - list of user groups
+        readOnlyAllowedGroups - user groups with read-only access
+            editAllowedGroups - user groups with edit access
+                readOnlyAllowedUsers - list of users who can only read the content of the site
+                    editAllowedUsers - a list of users with editing rights
 
 For more info see links in part '''Using'''.
