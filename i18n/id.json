@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Agam Riyandana",
 			"Daud I.F. Argana",
 			"Hidayatsrf",
 			"Rachmat.Wahidi",
@@ -9,5 +10,6 @@
 	},
 	"accesscontrol-desc": "Menyalakan pembatasan akses kelompok pada suatu halaman dengan basis pengguna",
 	"accesscontrol-info": "Halaman ini dilindungi.",
+	"accesscontrol-readonly": "Maaf, tetapi Anda hanya dapat membaca konten halaman ini.",
 	"accesscontrol-info-box": "Pembatasan akses diaktifkan pada halaman ini. Jika Anda melihat pesan ini, Anda tidak memiliki akses ke halaman ini."
 }
