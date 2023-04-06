@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"BeginaFelicysym",
-			"Chrumps"
+			"Chrumps",
+			"Rail"
 		]
 	},
 	"accesscontrol-desc": "Włącza ograniczenia dostępu do stron dla grupy stronie wedle użytkowników",
 	"accesscontrol-info": "To jest strona zabezpieczona.",
+	"accesscontrol-readonly": "Przepraszamy, ale możesz jedynie czytać zawartość tej strony.",
 	"accesscontrol-info-box": "Dla tej strony zostały utworzone ograniczenia dostępu. Jeśli widzisz ten komunikat, nie masz dostępu do tej strony."
 }
