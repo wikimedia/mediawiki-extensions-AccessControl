@@ -7,5 +7,6 @@
 	},
 	"accesscontrol-desc": "Permite restrições de acesso com base em combinações de páginas e grupos de utilizadores",
 	"accesscontrol-info": "Esta página encontra-se protegida.",
+	"accesscontrol-readonly": "Desculpe, mas só pode ler o conteúdo desta página.",
 	"accesscontrol-info-box": "Foram estabelecidas restrições de acesso a esta página. Se está a ver esta mensagem, não tem acesso à página."
 }
