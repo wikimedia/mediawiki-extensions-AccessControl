@@ -83,7 +83,7 @@ class AccessControlHooks {
 	 * @return string (empty)
 	 */
 	public static function displayInfo() {
-		return (string)'';
+		return '';
 	}
 
 	/**
@@ -109,8 +109,7 @@ class AccessControlHooks {
 		&$cond,
 		&$opts,
 		&$join
-		) {
-		global $wgQueryPages;
+	) {
 		// If is page protected, do skip and if user has only read
 		// access, return only last revisioni - without history */
 		// $start = microtime(true); // START DEBUG TIMESTAMP
@@ -149,13 +148,13 @@ class AccessControlHooks {
 	 * @since 1.5
 	 *
 	 * @param Parser &$parser Object of current input page
-	 * @text string $text Chunk of wikicode for tranclusion into page
+	 * @param string &$text Chunk of wikicode for tranclusion into page
 	 */
 	public static function onParserBeforeStrip(
 		&$parser,
 		&$text,
 		&$strip_state
-		) {
+	) {
 		global $wgVerifyPage;
 
 		// $start = microtime(true) ; // START DEBUG TIMESTAMP
@@ -212,7 +211,7 @@ class AccessControlHooks {
 	 * @see  https://www.mediawiki.org/wiki/Manual:Hooks/ShowSearchHit
 	 * @since 1.21
 	 *
-	 * @param $result
+	 * @param SearchResult|null $result
 	 * @param string $extract If current user can't access to content of the page
 	 *  from result, is extract from the hit replaced by the info message.
 	 */
@@ -229,7 +228,7 @@ class AccessControlHooks {
 		&$date,
 		&$related,
 		&$html
-		) {
+	) {
 		// $start = microtime(true); // START DEBUG TIMESTAMP
 		if ( $result ) {
 			$page = $result->getTitle();
@@ -261,8 +260,8 @@ class AccessControlHooks {
 		$user,
 		$action,
 		&$result
-		) {
-		global $wgVerifyPage;
+	) {
+		global $wgSitename, $wgVerifyPage;
 		$articleName	= $title->getTitleValue();
 		$articleNS	= $title->getNamespace();
 		$userName	= $user->getName();
@@ -306,7 +305,7 @@ class AccessControlHooks {
 	 */
 	private static function allRightTags(
 		$string
-		) {
+	) {
 		global $wgAccessControlNamespaces;
 		if ( !defined( 'PREG_UNMATCHED_AS_NULL' ) ) {
 			// Constant is predefined from PHP versio 7.2.0
@@ -669,7 +668,6 @@ class AccessControlHooks {
 				// $wgAnonymousUser = false;
 			}
 		}
-		return;
 	}
 
 	/**
@@ -737,7 +735,6 @@ class AccessControlHooks {
 		global $wgActions;
 		// self::printDebug( microtime(true) . ' denyRead' ); // DEBUG TIMESTAMP
 		$wgActions['view'] = false;
-		return;
 	}
 
 	/**
@@ -752,7 +749,7 @@ class AccessControlHooks {
 	 *  which is printed in localize form into information page
 	 */
 	private static function doRedirect( $info ) {
-		global $wgArticlePath, $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect, $wgAccessControlMeta;
+		global $wgArticlePath, $wgMetaNamespace, $wgScript, $wgSitename, $wgOut, $wgAccessControlRedirect, $wgAccessControlMeta;
 		if ( !$info ) {
 			$info = "No_access";
 		}
@@ -771,9 +768,7 @@ class AccessControlHooks {
 			exit();
 		} else {
 			// self::printDebug( microtime(true) . ' STOP! doRedirect to ' . $wgScript . "/" . $wgSitename . ":" . wfMessage( $info )->text() ); // DEBUG TIMESTAMP
-			return;
 		}
-		return;
 	}
 
 	/**
@@ -874,7 +869,7 @@ class AccessControlHooks {
 	private static function getAccessListCanonicalTarget(
 		$string,
 		$namespaceID = 0
-		) {
+	) {
 		global $wgContLang;
 		$target = [];
 		preg_match(
@@ -932,7 +927,7 @@ class AccessControlHooks {
 	private static function getContentPage(
 		$ns,
 		$title
-		) {
+	) {
 		global $wgVerifyPage;
 		if ( is_int( strpos( $title, '{' ) ) ) {
 			// remove templates
@@ -973,7 +968,7 @@ class AccessControlHooks {
 	private static function getContentPageNew(
 		$title,
 		$ns
-		) {
+	) {
 		/* Return array with two keys: visitors and editors */
 		$content = self::getContentPage( $ns, $title );
 		if ( strpos( $content, '* ' ) === 0 ) {
@@ -1188,12 +1183,12 @@ class AccessControlHooks {
 		$style = "<p id=\"accesscontrol\" style=\"text-align:center;color:#BA0000;font-size:8pt\">";
 		$text = wfMessage( 'accesscontrol-info' )->text();
 		$style_end = "</p>";
-		$wgAllowInfo = $style . $text . $style_end;
+		$info = $style . $text . $style_end;
 		if ( empty( $wgAccessControlInfo ) ) {
-			return $wgAllowInfo;
+			return $info;
 		} else {
 			// self::printDebug( microtime(true) . ' ' . $wgAccessControlInfo . ' printAccessControlInfo' ); // DEBUG TIMESTAMP
-			$wgOut->addHTML( $wgAllowInfo );
+			$wgOut->addHTML( $info );
 		}
 	}
 
@@ -1202,7 +1197,7 @@ class AccessControlHooks {
 	 *  Its only for debug and tests! For normal using is recommend
 	 *  comment all lines where is string DEBUG
 	 *
-	 * @param string|array|object $input
+	 * @param mixed $input
 	 */
 	private static function printDebug( $input ) {
 		print_r( '<!-- ' );
@@ -1215,7 +1210,7 @@ class AccessControlHooks {
 	 *  for current user only to read.
 	 */
 	private static function readOnlyUser() {
-		global $wgActions, $wgAnonymousUser, $wgReadOnlyUser, $wgOut;
+		global $wgActions, $wgReadOnlyUser, $wgOut;
 		if ( !$wgReadOnlyUser ) {
 			$wgActions['edit'] = false;
 			$wgActions['history'] = false;
@@ -1235,7 +1230,6 @@ class AccessControlHooks {
 			$wgOut->addInlineScript( "Array.from(document.getElementsByClassName('mw-editsection')).map(element => element.parentNode.removeChild(element));" );
 			$wgReadOnlyUser = true;
 		}
-		return;
 	}
 
 	/**
