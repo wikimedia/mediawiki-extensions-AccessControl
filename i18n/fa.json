@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"FarsiNevis"
+			"FarsiNevis",
+			"Jeeputer"
 		]
 	},
-	"accesscontrol-info": "این یک صفحهٔ محافظت‌شده است."
+	"accesscontrol-info": "این یک صفحهٔ محافظت‌شده است.",
+	"accesscontrol-readonly": "متأسفیم، شما تنها قادر به خواندن محتوای اسن صفحه هستید."
 }
