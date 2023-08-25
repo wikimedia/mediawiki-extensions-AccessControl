@@ -59,7 +59,7 @@
 		"ModifyExportQuery": "AccessControlHooks::onModifyExportQuery",
 		"ParserFirstCallInit": "AccessControlHooks::accessControlExtension",
 		"ParserBeforeStrip": "AccessControlHooks::onParserBeforeStrip",
-		"getUserPermissionsErrors": "AccessControlHooks::onuserCan",
+		"getUserPermissionsErrors": "AccessControlHooks::onUserCan",
 		"ShowSearchHit": "AccessControlHooks::onShowSearchHit",
 		"EditPage::attemptSave": "AccessControlHooks::onEditPageAttemptSave"
 	},

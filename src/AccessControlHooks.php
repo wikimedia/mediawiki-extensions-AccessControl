@@ -18,6 +18,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use Wikimedia\Rdbms\IReadableDatabase;
 
 class AccessControlHooks {
 
@@ -98,7 +99,9 @@ class AccessControlHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ModifyExportQuery
 	 * @since 1.16
 	 *
-	 * @param string $cond Name and namespace of target page which is tested for
+	 * @param IReadableDatabase $db
+	 * @param array &$tables
+	 * @param string &$cond Name and namespace of target page which is tested for
 	 *  access rights of user to export
 	 * @param array &$opts Limit for summary count of the hits (is modify)
 	 * @param array &$join Parameters of join (is modify)
@@ -139,16 +142,18 @@ class AccessControlHooks {
 	 *  the raw code of page. Therefore is used global variable $wgVerifyPage to
 	 *  ensure that one and the same page is not repeatedly controlled.
 	 *  Content of this variable is array, what contains lastid for all pages of
-	 *  current process. Items to this array add functions onuserCan (for the input
+	 *  current process. Items to this array add functions onUserCan (for the input
 	 *  page) and getContentPage (transclusioned a pages)
 	 *
-	 * This hook can replace hook onuserCan()
+	 * This hook can replace hook onUserCan()
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserBeforeStrip
 	 * @since 1.5
 	 *
 	 * @param Parser &$parser Object of current input page
 	 * @param string &$text Chunk of wikicode for tranclusion into page
+	 * @param StripState &$strip_state
+	 * @return false|void
 	 */
 	public static function onParserBeforeStrip(
 		&$parser,
@@ -211,9 +216,19 @@ class AccessControlHooks {
 	 * @see  https://www.mediawiki.org/wiki/Manual:Hooks/ShowSearchHit
 	 * @since 1.21
 	 *
+	 * @param SpecialSearch $searchPage
 	 * @param SearchResult|null $result
-	 * @param string $extract If current user can't access to content of the page
+	 * @param string[] $terms
+	 * @param string &$link
+	 * @param string &$redirect
+	 * @param string &$section
+	 * @param string &$extract If current user can't access to content of the page
 	 *  from result, is extract from the hit replaced by the info message.
+	 * @param string &$score
+	 * @param string &$size
+	 * @param string &$date
+	 * @param string &$related
+	 * @param string &$html
 	 */
 	public static function onShowSearchHit(
 		$searchPage,
@@ -253,10 +268,14 @@ class AccessControlHooks {
 	 * Main function, which control access rights for all users.
 	 * @see  https://www.mediawiki.org/wiki/Manual:Hooks/userCan
 	 *
-	 * @param Title &$title
+	 * @param Title $title
+	 * @param User $user
+	 * @param string $action
+	 * @param string &$result
+	 * @return true|void
 	 */
-	public static function onuserCan(
-		&$title,
+	public static function onUserCan(
+		$title,
 		$user,
 		$action,
 		&$result
@@ -301,7 +320,7 @@ class AccessControlHooks {
 	 *
 	 * @param string $string
 	 *
-	 * @return array $allow
+	 * @return array
 	 */
 	private static function allRightTags(
 		$string
@@ -653,12 +672,15 @@ class AccessControlHooks {
 							$wgActions['edit'] = false;
 							$wgActions['view'] = false;
 							$wgActions['history'] = false;
-							return self::doRedirect( 'accesscontrol-redirect-anonymous' );
+							self::doRedirect( 'accesscontrol-redirect-anonymous' );
+							return;
 						}
 					} elseif ( $wgRequest->getText( 'direction' ) == 'prev' || $wgRequest->getText( 'direction' ) == 'next' ) {
-						return self::doRedirect( 'accesscontrol-redirect-anonymous' );
+						self::doRedirect( 'accesscontrol-redirect-anonymous' );
+						return;
 					} elseif ( !empty( $wgRequest->getText( 'diff' ) ) ) {
-						return self::doRedirect( 'accesscontrol-redirect-anonymous' );
+						self::doRedirect( 'accesscontrol-redirect-anonymous' );
+						return;
 					}
 				}
 				// self::printDebug( microtime(true) . ' anonymousDeny variable $wgAnonymousUser is set true' ); // DEBUG TIMESTAMP
@@ -774,7 +796,7 @@ class AccessControlHooks {
 	/**
 	 * @param string $string
 	 *
-	 * @return array $allow
+	 * @return array
 	 */
 	private static function earlySyntaxOfRights( $string ) {
 		global $wgAccessControlNamespaces;
@@ -861,10 +883,10 @@ class AccessControlHooks {
 	 * Function parse input string, if is only title, without namespace, or
 	 *  full title of page as 'User:Anybody' or 'Private:Grouplist' & etc.
 	 *
-	 * @param string $title
+	 * @param string $string
 	 * @param int|null $namespaceID
 	 *
-	 * @return array $target By default array as [ 'title', 0 ]
+	 * @return array By default array as [ 'title', 0 ]
 	 */
 	private static function getAccessListCanonicalTarget(
 		$string,
@@ -922,7 +944,7 @@ class AccessControlHooks {
 	 * @param int $ns Namespace ID
 	 * @param string $title Name of page
 	 *
-	 * @return string $content
+	 * @return string
 	 */
 	private static function getContentPage(
 		$ns,
@@ -963,7 +985,7 @@ class AccessControlHooks {
 	 * @param string $title
 	 * @param int $ns
 	 *
-	 * @return array $array
+	 * @return array
 	 */
 	private static function getContentPageNew(
 		$title,
@@ -1012,7 +1034,7 @@ class AccessControlHooks {
 	/**
 	 * @param string $string
 	 *
-	 * @return array $output
+	 * @return array
 	 */
 	private static function membersOfGroup( $string ) {
 		$output = [];
@@ -1064,7 +1086,7 @@ class AccessControlHooks {
 	 *
 	 * @param string $string
 	 *
-	 * @return array $allow
+	 * @return array
 	 */
 	private static function parseNewList( $string ) {
 		$allow = [];
@@ -1134,7 +1156,7 @@ class AccessControlHooks {
 	 * @param array $array
 	 * @param string $param
 	 * @param string $group visitors pr editors
-	 * @param bool $edit
+	 * @param bool $bool
 	 */
 	private static function appendUsers( &$allow, $array, $param, $group, $bool = true ) {
 		if ( !empty( $array ) ) {
@@ -1151,7 +1173,7 @@ class AccessControlHooks {
 	 *
 	 * @param string $string
 	 *
-	 * @return array $allow
+	 * @return array
 	 */
 	private static function parseOldList( $string ) {
 		/* Extracts the users from the userspace access list by the old syntax */
@@ -1177,6 +1199,7 @@ class AccessControlHooks {
 
 	/**
 	 * Function print info about protection by AccessControl to header of the page
+	 * @return string|void
 	 */
 	private static function printAccessControlInfo() {
 		global $wgAccessControlInfo, $wgOut;
@@ -1269,7 +1292,7 @@ class AccessControlHooks {
 	/**
 	 * @param string $string
 	 *
-	 * @return array $allow
+	 * @return array
 	 */
 	private static function testRightsOfMember( $string ) {
 		/* Na vstupu je řetězec se jménem uživatele, nebo uživatelské skupiny
