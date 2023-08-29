@@ -809,7 +809,9 @@ class AccessControlHooks {
 		*/
 		$user = RequestContext::getMain()->getUser();
 		$allow = [ EDIT => [], VIEW => [] ];
-		$MWgroups = User::getAllGroups();
+		$MWgroups = MediaWikiServices::getInstance()
+			->getUserGroupManager()
+			->listAllGroups();
 		foreach ( explode( ',', $string ) as $title ) {
 			// zkontrolovat, jestli není readonly
 			$item = self::oldSyntaxTest( $title );
