@@ -809,9 +809,8 @@ class AccessControlHooks {
 		*/
 		$user = RequestContext::getMain()->getUser();
 		$allow = [ EDIT => [], VIEW => [] ];
-		$MWgroups = MediaWikiServices::getInstance()
-			->getUserGroupManager()
-			->listAllGroups();
+		$userGroupManager = MediaWikiServices::getInstance()->getUserGroupManager();
+		$MWgroups = $userGroupManager->listAllGroups();
 		foreach ( explode( ',', $string ) as $title ) {
 			// zkontrolovat, jestli není readonly
 			$item = self::oldSyntaxTest( $title );
@@ -826,7 +825,7 @@ class AccessControlHooks {
 					if ( empty( $array ) ) {
 						foreach ( $MWgroups as $mwgroup ) {
 							if ( $item[0] === $mwgroup ) {
-								foreach ( $user->getUserEffectiveGroups() as $group ) {
+								foreach ( $userGroupManager->getUserEffectiveGroups( $user ) as $group ) {
 									if ( $group === $item[0] ) {
 										/* Nemá smysl zjišťovat všechny skupiny. Stačí zjistit, jestli do ní patří aktuální uživatel a přidat ho
 										*/
