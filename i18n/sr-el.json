@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kizule",
 			"Milicevic01"
 		]
 	},
 	"accesscontrol-desc": "Omogućava ograničenje pristupa grupi na stranici prema korisničkoj osnovi",
 	"accesscontrol-info": "Ovo je zaštićena stranica.",
+	"accesscontrol-readonly": "Izvinjavam se, ali možete samo čitati sadržaj ove stranice.",
 	"accesscontrol-info-box": "Ograničenje pristupa je uspostavljeno za ovu stranicu. Ako vidite ovu poruku, nemate pristup ovoj stranici."
 }
