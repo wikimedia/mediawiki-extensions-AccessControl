@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ssola"
+			"Ssola",
+			"SMP"
 		]
 	},
 	"accesscontrol-desc": "Permet la restricció d'accés de grup a una pàgina segons l'usuari",
 	"accesscontrol-info": "Aquesta és una pàgina protegida.",
+	"accesscontrol-readonly": "Ho sentim, però només podeu llegir el contingut d'aquesta pàgina.",
 	"accesscontrol-info-box": "Aquesta pàgina té restriccions d'accés establertes. Si veieu aquest missatge, no teniu accés a la pàgina."
 }
