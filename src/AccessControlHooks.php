@@ -58,7 +58,7 @@ class AccessControlHooks {
 				PREG_UNMATCHED_AS_NULL
 				);
 			if ( $include ) {
-			return false;
+				return false;
 			}
 		} else {
 		// Problem is maainly with the templates
@@ -1076,7 +1076,7 @@ class AccessControlHooks {
 		$ro = strpos( $string, '(ro)' );
 		if ( $ro ) {
 			// Blok kvůli staré syntaxi. Skupina, nebo uživatel bude mít automaticky pouze readonly přístup, bez ohledu na volbu accesslistu.
-			return [ trim( str_replace( '(ro)', '', $string ) ) ,  false ];
+			return [ trim( str_replace( '(ro)', '', $string ) ), false ];
 		} else {
 			return [ trim( $string ), true ];
 		}
