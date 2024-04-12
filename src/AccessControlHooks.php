@@ -163,9 +163,9 @@ class AccessControlHooks {
 		global $wgVerifyPage;
 
 		// $start = microtime(true) ; // START DEBUG TIMESTAMP
-		$articleName	= $parser->mTitle->mTextform;
-		$articleNS	= $parser->mTitle->mNamespace;
-		$articleLastRev	= $parser->mTitle->getLatestRevId();
+		$articleName	= $parser->getTitle()->mTextform;
+		$articleNS	= $parser->getTitle()->mNamespace;
+		$articleLastRev	= $parser->getTitle()->getLatestRevId();
 		// self::printDebug( "$start onParserBeforeStrip start verify access to lastrevision=\"$articleLastRev\" of title=\"$articleName\" ns=\"$articleNS\"" ); // INFO DEBUG TIMESTAMP
 		if ( is_array( $wgVerifyPage ) ) {
 			if ( array_key_exists( $articleLastRev, $wgVerifyPage ) ) {
