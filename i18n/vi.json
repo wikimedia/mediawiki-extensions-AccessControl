@@ -1,8 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"NguyenHung",
 			"Nguyên Lê"
 		]
 	},
-	"accesscontrol-info": "Trang này đang bị khóa."
+	"accesscontrol-info": "Trang này đang bị khóa.",
+	"accesscontrol-readonly": "Rất tiếc, nhưng bạn chỉ đọc được nội dung trang này.",
+	"accesscontrol-info-box": "Các hạn chế truy cập đã được thiết lập cho trang này. Nếu bạn thấy thông điệp này, bạn không có quyền truy cập vào trang này."
 }
