@@ -7,6 +7,6 @@
 	},
 	"accesscontrol-desc": "Maakt het mogelijk de toegang tot afzonderlijke pagina's te beperken op basis van interne groepen of groepslijsten vanuit de gebruikersruimte.",
 	"accesscontrol-info": "Dit is een beveiligde pagina.",
-	"accesscontrol-readonly": "Sorry, maar u kunt alleen de inhoud van deze pagina lezen.",
-	"accesscontrol-info-box": "Voor deze pagina zijn toegangsbeperkingen ingesteld. Als u dit bericht ziet, hebt u er geen toegang toe."
+	"accesscontrol-readonly": "Sorry, maar {{#FORMAL:u|je}} kunt alleen de inhoud van deze pagina lezen.",
+	"accesscontrol-info-box": "Voor deze pagina zijn toegangsbeperkingen ingesteld. Als {{#FORMAL:u dit bericht ziet, hebt u er geen toegang toe|je dit bericht ziet, mag je er niet bij}}."
 }
