@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BeginaFelicysym",
-			"Chrumps"
+			"Chrumps",
+			"Rail"
 		]
 	},
 	"accesscontrol-desc": "Włącza ograniczenia dostępu do stron dla grupy stronie wedle użytkowników",

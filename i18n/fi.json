@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"01miki10"
+			"01miki10",
+			"Samoasambia"
 		]
 	},
 	"accesscontrol-desc": "Mahdollistaa ryhmäkohtaiset pääsyrajoitukset sivulle käyttäjän perusteella",

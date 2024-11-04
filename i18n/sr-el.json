@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Milicevic01"
+			"Milicevic01",
+			"Kizule"
 		]
 	},
 	"accesscontrol-desc": "Omogućava ograničenje pristupa grupi na stranici prema korisničkoj osnovi",

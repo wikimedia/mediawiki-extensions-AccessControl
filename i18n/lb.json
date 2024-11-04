@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"accesscontrol-desc": "Aktivéiert de limitéierten Accès op eng Säit op der Basis vun de Benotzerrechter",

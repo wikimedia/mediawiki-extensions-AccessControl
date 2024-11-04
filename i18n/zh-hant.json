@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Laundry Machine"
+			"Laundry Machine",
+			"Kly"
 		]
 	},
 	"accesscontrol-desc": "在頁面上啟用依用戶基礎的訪問限制",

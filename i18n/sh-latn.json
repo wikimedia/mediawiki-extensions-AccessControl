@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"Winston Sung",
+			"Vlad5250"
 		]
 	},
 	"accesscontrol-desc": "Omogućuje graničenje pristupa korisnika iz određenih grupa",

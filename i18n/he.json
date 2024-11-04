@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Guycn2"
+			"Guycn2",
+			"Amire80"
 		]
 	},
 	"accesscontrol-desc": "הגבלת גישה לדפים על בסיס קבוצות משתמש",

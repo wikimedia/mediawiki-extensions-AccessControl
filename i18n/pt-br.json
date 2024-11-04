@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"!Silent"
+			"!Silent",
+			"Re demz"
 		]
 	},
 	"accesscontrol-desc": "Permite restrições de acesso a uma página baseado no grupo de usuário",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Sabelöga"
 		]
 	},
 	"accesscontrol-desc": "Aktiverar gruppåtkomstbegränsningar på en sida efter användare",

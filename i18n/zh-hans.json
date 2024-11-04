@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"Lakejason0"
+			"Lakejason0",
+			"飞小RAN"
 		]
 	},
 	"accesscontrol-desc": "在页面上启用依用户基础的群组访问限制",

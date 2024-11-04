@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ssola"
+			"Ssola",
+			"SMP"
 		]
 	},
 	"accesscontrol-desc": "Permet la restricció d'accés de grup a una pàgina segons l'usuari",
