@@ -970,7 +970,8 @@ class AccessControlHooks {
 		}
 		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $gt );
 		$latestid = $page->getLatest();
-		$content = ContentHandler::getContentText( $page->getContent() );
+		$pageContent = $page->getContent();
+		$content = $pageContent instanceof TextContent ? $pageContent->getText() : '';
 		if ( is_array( $wgVerifyPage ) ) {
 			if ( !array_key_exists( $latestid, $wgVerifyPage ) ) {
 				$wgVerifyPage[ $latestid ] = true;
