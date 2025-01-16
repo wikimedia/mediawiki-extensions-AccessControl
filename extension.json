@@ -24,8 +24,7 @@
 			"createaccount": false,
 			"createpage": false,
 			"createtalk": false,
-			"edit": false,
-			"writeapi": false
+			"edit": false
 		},
 		"user": {
 			"pagelang": false,
