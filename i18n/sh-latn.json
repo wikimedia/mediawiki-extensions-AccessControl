@@ -1,12 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Aca",
 			"Vlad5250",
 			"Winston Sung"
 		]
 	},
 	"accesscontrol-desc": "Omogućuje graničenje pristupa korisnika iz određenih grupa",
 	"accesscontrol-info": "Ovo je zaštićena stranica.",
-	"accesscontrol-readonly": "Nažalost, ali možete samo čitati sadržaj ove stranice.",
+	"accesscontrol-readonly": "Možete samo čitati sadržinu ove stranice.",
 	"accesscontrol-info-box": "Pristup ovoj stranici je ograničen. Čitanje ove poruke znači da nemate pristup stranici."
 }
