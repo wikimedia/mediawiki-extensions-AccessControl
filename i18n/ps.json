@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"شاه زمان پټان"
 		]
 	},
-	"accesscontrol-info": "دا يو ژغورلی مخ دی."
+	"accesscontrol-desc": "د کارن پربنسټ په مخ کې د ډله‌ييز لاسرسي محدوديت چارنوي",
+	"accesscontrol-info": "دا يو ژغورلی مخ دی.",
+	"accesscontrol-readonly": "بښنه غواړم؛ خو تاسو يوازې د دې مخ منځپانگه لوستلی شئ.",
+	"accesscontrol-info-box": "دې مخ ته د لاسري محدوديتونه ټاکل شوي دي. که تاسو دا پيغام گورئ؛ نو تاسو دې مخ ته لاسرسی نه لرئ."
 }
