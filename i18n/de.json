@@ -9,5 +9,5 @@
 	"accesscontrol-desc": "Ermöglicht auf Benutzergruppen bezogene Seitenzugriffsbeschränkungen",
 	"accesscontrol-info": "Dies ist eine zugriffsgeschützte Seite.",
 	"accesscontrol-readonly": "Entschuldigung, aber du kannst den Inhalt dieser Seite nur lesen.",
-	"accesscontrol-info-box": "Für diese Seite wurde eine Zugriffsbeschränkung eingerichtet. Falls du diese Nachricht siehst, bist du nicht berechtigt, diese Seite einzusehen."
+	"accesscontrol-info-box": "Für diese Seite wurde eine Zugriffsbeschränkung eingerichtet. Falls {{#FORMAL:du|Sie}} diese Nachricht {{#FORMAL:siehst|sehen}}, {{#FORMAL:bist du|sind Sie}} nicht berechtigt, diese Seite einzusehen."
 }
