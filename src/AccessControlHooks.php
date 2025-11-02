@@ -17,7 +17,9 @@
  * @license GPL-2.0-or-later
  */
 
+use MediaWiki\EditPage\EditPage;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Wikimedia\Rdbms\IReadableDatabase;
 
 class AccessControlHooks {
