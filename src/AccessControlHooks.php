@@ -832,9 +832,9 @@ class AccessControlHooks {
 										/* Nemá smysl zjišťovat všechny skupiny. Stačí zjistit, jestli do ní patří aktuální uživatel a přidat ho
 										*/
 										if ( $item[1] ) {
-											$allow[EDIT][ $user ] = true;
+											$allow[EDIT][ $user->getName() ] = true;
 										} else {
-											$allow[VIEW][ $user ] = true;
+											$allow[VIEW][ $user->getName() ] = true;
 										}
 									}
 								}
@@ -844,9 +844,9 @@ class AccessControlHooks {
 						if ( $item[0] === $user ) {
 							/* Username */
 							if ( $item[1] ) {
-								$allow[EDIT][ $user ] = true;
+								$allow[EDIT][ $user->getName() ] = true;
 							} else {
-								$allow[VIEW][ $user ] = true;
+								$allow[VIEW][ $user->getName() ] = true;
 							}
 						}
 						if ( $item[1] ) {
@@ -858,19 +858,19 @@ class AccessControlHooks {
 						if ( array_key_exists( EDIT, $array ) ) {
 							if ( $item[1] ) {
 								foreach ( array_keys( $array[EDIT] ) as $user ) {
-									$allow[EDIT][ $user ] = true;
+									$allow[EDIT][ $user->getName() ] = true;
 								}
 							} else {
 								/* (ro) */
 								foreach ( array_keys( $array[EDIT] ) as $user ) {
-									$allow[EDIT][ $user ] = false;
-									$allow[VIEW][ $user ] = true;
+									$allow[EDIT][ $user->getName() ] = false;
+									$allow[VIEW][ $user->getName() ] = true;
 								}
 							}
 						}
 						if ( array_key_exists( VIEW, $array ) ) {
 							foreach ( array_keys( $array[VIEW] ) as $user ) {
-								$allow[VIEW][ $user ] = true;
+								$allow[VIEW][ $user->getName() ] = true;
 							}
 						}
 					}
