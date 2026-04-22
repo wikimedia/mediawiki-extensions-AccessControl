@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joao Xavier"
+		]
+	},
+	"accesscontrol-desc": "Posibligas restriktar aceso ad ula pagino segun uzero-grupo",
+	"accesscontrol-info": "To esas pagino protektita.",
+	"accesscontrol-readonly": "Pardonez, ma vu nur povas lektar la kontenajo de ca pagino.",
+	"accesscontrol-info-box": "Restrikti pri aceso establisesis por ca pagino. Se vu vidas ca mesajo, vu ne havas aceso ad ol."
+}
