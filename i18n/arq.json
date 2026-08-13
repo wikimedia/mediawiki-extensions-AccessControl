@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bachounda"
+		]
+	},
+	"accesscontrol-desc": "يمكن من تقييد الدخول للصفحة على حسب كل مستخدم.",
+	"accesscontrol-info": "هذه صفحة مشروع.",
+	"accesscontrol-readonly": "آسف، ولكن نقدر فقط نقراو محتوى هاد الصفحة.",
+	"accesscontrol-info-box": "دارو قيود على الدخول لهاد الصفحه. إذا شفت هاد الرساله، ما عندكش الدخول لهاد الصفحه."
+}
