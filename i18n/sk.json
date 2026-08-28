@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"TomášPolonec"
+			"TomášPolonec",
+			"Wizzard"
 		]
 	},
-	"accesscontrol-info": "Toto je zabezpečená stránka."
+	"accesscontrol-desc": "Umožňuje obmedziť prístup k stránke podľa skupín na základe používateľa",
+	"accesscontrol-info": "Toto je zabezpečená stránka.",
+	"accesscontrol-readonly": "Ľutujeme, ale obsah tejto stránky si môžete len prečítať.",
+	"accesscontrol-info-box": "Pre túto stránku boli nastavené obmedzenia prístupu. Ak vidíte túto správu, nemáte k tejto stránke prístup."
 }
